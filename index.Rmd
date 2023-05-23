@@ -1,0 +1,21 @@
+---
+title: "NONONOexe Something Blog"
+site: distill::distill_website
+image: "nononoexe.jpg"
+links:
+  - label: '<i class="fab fa-twitter"></i> Twitter'
+    url: "https://twitter.com/NONONOexe"
+  - label: '<i class="fab fa-github"></i> GitHub'
+    url: "https://github.com/NONONOexe"
+  - label: '<i class="fab fa-linkedin"></i> LinkedIn'
+    url: "https://www.linkedin.com/in/圭祐-安藤-09bb591a3/"
+  - label: '<i class="fas fa-envelope"></i> Email'
+    url: "mailto:ando@maslab.aitech.ac.jp"
+  - label: '<i class="fas fa-map"></i> researchmap'
+    url: "https://researchmap.jp/nononoexe"
+output:
+  postcards::jolla
+---
+
+安藤圭祐（NONONOexe）の個人ブログです。
+Rに関する情報、自身に関係する宣伝、その他思ったことなどを書いていく予定です。

@@ -1,0 +1,19 @@
+[
+  {
+    "path": "posts/how-to-create-blog/",
+    "title": "Rでブログを作成する",
+    "description": "Rでブログを作成するための技術まとめ",
+    "author": [
+      {
+        "name": "Keisuke ANDO",
+        "url": {}
+      }
+    ],
+    "date": "2023-05-23",
+    "categories": [],
+    "contents": "\n1. はじめに\n自分のブログを作成しようと思って、持っている技術で作る方法がないかと模索していたところ、R Packageのdistillで作れることを知りました。この記事では、このブログを作成するときに学んだ方法やそれに伴って知った情報を紹介します。またこれから新しい技術や方法を知って、ブログを大きく変更することがあると思いますが、そのときには同時にこの記事も更新したいと思います。\n2. ブログを立てる\nテンプレートの作成\n{distill}では非常に簡単にブログが作成できます。distill::create_blog()を実行するだけです。あとは対話的にディレクトリとブログ名を決定して、一連のテンプレートが作成できます。\n本ブログはGitHub Pagesで公開したかったため、以下の引数によりオプションを指定して、作成しました。\n\n\n# ブログの作成\ndistill::create_blog(\n  dir      = \"blog\",                     # ブログを作成するディレクトリ\n  title    = \"NONONOexe Something Blog\", # ブログのタイトル\n  gh_pages = TRUE                        # GitHub Pagesにより公開するかどうか\n)\n\n\n実行すると次のようにテンプレートが生成されます。また、最初の記事として、welcome.Rmdが作成されます。これを編集して、最初の記事を書くことができます。\n生成されるテンプレートファイル記事の作成\n新たに記事を作成するのも非常に簡単です。次のようにdistill::create_post()でベースを作成できます。なお、引数のtitleから日本語のタイトルは付けられないため、注意が必要です。付ける場合はあとから編集で付けます。\n\n\n# 記事の作成\ndistill::create_post(\n  title       = \"how-to-create-blog\", # 記事のタイトル\n  author      = \"Keisuke ANDO\",       # 記事の著者\n  date_prefix = NULL                  # 日付をファイル名に付けない\n)\n\n\n記事はRMarkdownで作成されるので、HTMLで確認する場合はRStudioのKnitボタンから、Knitしましょう。\nKnitボタンKnitして作成したWelcomeページ3. ブログをカスタマイズする\nCSSによるカスタマイズ\n記事{distill}で作成したページは通常のHTMLでのウェブサイト作成のようにCSSによるカスタマイズが可能です。次のdistill::create_theme()を実行することで、CSSのファイルが作成されます。\n\n\n# CSSによりテーマをカスタマイズ\ndistill::create_theme()\n## v Created CSS file at theme.css \n## o TODO: Customize it to suit your needs \n## o TODO: Add 'theme: theme.css' to your site or article YAML\n\n\nメッセージでTODOとして出力されたとおり、CSSのカスタマイズとサイトの構成を管理するYAMLファイルへの追記します。簡単な例としてヘッダのフォントをNoto Sans JP(Google Fonts)に変更する場合はtheme.cssを次のように変更します。\n\n/* Optional: embed custom fonts here with `@import`          */\n/* This must remain at the top of this file.                 */\n@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap');\n\n\n\nhtml {\n  /*-- Main font sizes --*/\n  --title-size:      50px;\n  --body-size:       1.06rem;\n  --code-size:       14px;\n  --aside-size:      12px;\n  --fig-cap-size:    13px;\n  /*-- Main font colors --*/\n  --title-color:     #000000;\n  --header-color:    rgba(0, 0, 0, 0.8);\n  --body-color:      rgba(0, 0, 0, 0.8);\n  --aside-color:     rgba(0, 0, 0, 0.6);\n  --fig-cap-color:   rgba(0, 0, 0, 0.6);\n  /*-- Specify custom fonts ~~~ must be imported above   --*/\n  --heading-font:    'Noto Sans JP', sans-serif; /* edited */\n  --mono-font:       monospace;\n  --body-font:       sans-serif;\n  --navbar-font:     sans-serif;  /* websites + blogs only */\n}\n\nまた、CSSを反映するために_site.ymlにも以下の部分を追記します。\n\nname: \"blog\"\ntitle: \"NONONOexe Something Blog\"\ndescription: |\n  NONONOexe Something Blog\noutput_dir: \"docs\"\ntheme: theme.css  # theme.cssを使用\nnavbar:\n  right:\n    - text: \"Home\"\n      href: index.html\n    - text: \"About\"\n      href: about.html\noutput: distill::distill_article\n\nこの状態で、ページをKnitするとフォントが次のように変更されたHTMLが生成されます。\nCSSを編集した結果4. まとめ\n「Rでブログを作成する」というちょっと変わったアプローチでしたが、想像以上に簡単に作成できることがわかりました。{distill}の基本はRMarkdownのため、他の関連パッケージと組み合わせることでまだまだいろいろなことができそうです。The Distilleryというサイトでは、{distill}を使ったさまざまなサイトを紹介しています。これも参考にこのブログもまた改善を加えていけたらと思います。\n\n\n\n\n\n\n",
+    "preview": {},
+    "last_modified": "2023-05-23T23:01:24+09:00",
+    "input_file": {}
+  }
+]
