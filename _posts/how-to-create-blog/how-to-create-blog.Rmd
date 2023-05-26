@@ -1,13 +1,14 @@
 ---
 title: "Rでブログを作成する"
 description: |
-  Rでブログを作成するための技術まとめ
+  Rでブログを作成するための技術をまとめています。
 author:
   - name: Keisuke ANDO
 date: 2023-05-23
 output:
   distill::distill_article:
     self_contained: false
+preview: images/blog.svg
 ---
 
 ```{r setup, include=FALSE}
@@ -55,9 +56,10 @@ distill::create_post(
 
 記事はRMarkdownで作成されるので、HTMLで確認する場合はRStudioのKnitボタンから、Knitしましょう。
 
-![Knitボタン](images/knit-button.png){width=85%}
+![Knitボタン](images/knit-button.png){width=90%}
 
-![Knitして作成したWelcomeページ](images/welcome-page.png){width=85%}
+![Knitして作成したWelcomeページ](images/welcome-page.png){width=90%}
+
 
 ## 3. ブログをカスタマイズする
 
@@ -123,7 +125,9 @@ output: distill::distill_article
 
 この状態で、ページをKnitするとフォントが次のように変更されたHTMLが生成されます。
 
-![CSSを編集した結果](images/result-edited-css.png)
+![CSSを編集する前](images/before-css-editing.png){width=90%}
+
+![CSSを編集した後](images/after-css-editing.png){width=90%}
 
 
 ## 4. まとめ

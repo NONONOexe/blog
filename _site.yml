@@ -2,7 +2,7 @@ name: "."
 title: "NONONOexe Something Blog"
 description: |
   NONONOexe Something Blog
-output_dir: "_site"
+output_dir: "docs"
 theme: theme.css
 navbar:
   right:
