@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0">
+  <channel>
+    <title>NONONOexe Something Blog</title>
+    <link>https://nononoexe.github.io/blog/</link>
+    <atom:link href="https://nononoexe.github.io/blog/blog.xml" rel="self" type="application/rss+xml"/>
+    <description>NONONOexe Something Blog
+</description>
+    <generator>Distill</generator>
+    <lastBuildDate>2023-06-03</lastBuildDate>
+    <item>
+      <title>空間データの操作の基本</title>
+      <dc:creator>Keisuke ANDO</dc:creator>
+      <link>https://nononoexe.github.io/blog/posts/manipulating-geospatial-data</link>
+      <description>Rによる基本的な空間データの操作について紹介します。</description>
+      <guid>https://nononoexe.github.io/blog/posts/manipulating-geospatial-data</guid>
+      <pubDate>2023-06-03</pubDate>
+    </item>
+    <item>
+      <title>Rでブログを作成する</title>
+      <dc:creator>Keisuke ANDO</dc:creator>
+      <link>https://nononoexe.github.io/blog/posts/how-to-create-blog</link>
+      <description>Rでブログを作成するための技術をまとめています。</description>
+      <guid>https://nononoexe.github.io/blog/posts/how-to-create-blog</guid>
+      <pubDate>2023-05-23</pubDate>
+      <media:content url="https://nononoexe.github.io/blog/posts/how-to-create-blog/images/blog.svg" medium="image" type="image/svg+xml"/>
+    </item>
+  </channel>
+</rss>

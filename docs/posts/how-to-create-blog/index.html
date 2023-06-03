@@ -92,6 +92,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 <meta property="description" itemprop="description" content="Rでブログを作成するための技術をまとめています。"/>
 
+<link rel="canonical" href="https://nononoexe.github.io/blog/posts/how-to-create-blog/"/>
 
 <!--  https://schema.org/Article -->
 <meta property="article:published" itemprop="datePublished" content="2023-05-23"/>
@@ -102,19 +103,29 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <meta property="og:title" content="NONONOexe Something Blog: Rでブログを作成する"/>
 <meta property="og:type" content="article"/>
 <meta property="og:description" content="Rでブログを作成するための技術をまとめています。"/>
+<meta property="og:url" content="https://nononoexe.github.io/blog/posts/how-to-create-blog/"/>
+<meta property="og:image" content="https://nononoexe.github.io/blog/posts/how-to-create-blog/images/blog.svg"/>
 <meta property="og:locale" content="en_US"/>
 <meta property="og:site_name" content="NONONOexe Something Blog"/>
 
 <!--  https://dev.twitter.com/cards/types/summary -->
-<meta property="twitter:card" content="summary"/>
+<meta property="twitter:card" content="summary_large_image"/>
 <meta property="twitter:title" content="NONONOexe Something Blog: Rでブログを作成する"/>
 <meta property="twitter:description" content="Rでブログを作成するための技術をまとめています。"/>
+<meta property="twitter:url" content="https://nononoexe.github.io/blog/posts/how-to-create-blog/"/>
+<meta property="twitter:image" content="https://nononoexe.github.io/blog/posts/how-to-create-blog/images/blog.svg"/>
 
+<!--  https://scholar.google.com/intl/en/scholar/inclusion.html#indexing -->
+<meta name="citation_title" content="NONONOexe Something Blog: Rでブログを作成する"/>
+<meta name="citation_fulltext_html_url" content="https://nononoexe.github.io/blog/posts/how-to-create-blog/"/>
+<meta name="citation_online_date" content="2023/05/23"/>
+<meta name="citation_publication_date" content="2023/05/23"/>
+<meta name="citation_author" content="Keisuke ANDO"/>
 <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
 <script type="text/json" id="radix-rmarkdown-metadata">
-{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","preview"]}},"value":[{"type":"character","attributes":{},"value":["Rでブログを作成する"]},{"type":"character","attributes":{},"value":["Rでブログを作成するための技術をまとめています。"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name"]}},"value":[{"type":"character","attributes":{},"value":["Keisuke ANDO"]}]}]},{"type":"character","attributes":{},"value":["2023-05-23"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]},{"type":"character","attributes":{},"value":["images/blog.svg"]}]}
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","preview","citation_url","canonical_url"]}},"value":[{"type":"character","attributes":{},"value":["Rでブログを作成する"]},{"type":"character","attributes":{},"value":["Rでブログを作成するための技術をまとめています。"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name"]}},"value":[{"type":"character","attributes":{},"value":["Keisuke ANDO"]}]}]},{"type":"character","attributes":{},"value":["2023-05-23"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]},{"type":"character","attributes":{},"value":["images/blog.svg"]},{"type":"character","attributes":{},"value":["https://nononoexe.github.io/blog/posts/how-to-create-blog/"]},{"type":"character","attributes":{},"value":["https://nononoexe.github.io/blog/posts/how-to-create-blog/"]}]}
 </script>
 <!--/radix_placeholder_rmarkdown_metadata-->
   
@@ -2241,6 +2252,16 @@ sourceCode, code {
 
 figure {
   text-align: center;
+}
+
+p:has(.table-caption) {
+  text-align: center;
+  margin-bottom: -0.5rem;
+}
+
+.table-caption {
+  font-size: .85em;
+  color: #77838c;
 }</style>
 <style type="text/css">
 /* base style */
@@ -2579,7 +2600,18 @@ d-appendix d-footnote-list a.footnote-backlink {
 <!--radix_placeholder_site_after_body-->
 <!--/radix_placeholder_site_after_body-->
 <!--radix_placeholder_appendices-->
-<div class="appendix-bottom"></div>
+<div class="appendix-bottom">
+  <h3 id="citation">Citation</h3>
+  <p>For attribution, please cite this work as</p>
+  <pre class="citation-appendix short">ANDO (2023, May 23). NONONOexe Something Blog: Rでブログを作成する. Retrieved from https://nononoexe.github.io/blog/posts/how-to-create-blog/</pre>
+  <p>BibTeX citation</p>
+  <pre class="citation-appendix long">@misc{ando2023rでブログを作成する,
+  author = {ANDO, Keisuke},
+  title = {NONONOexe Something Blog: Rでブログを作成する},
+  url = {https://nononoexe.github.io/blog/posts/how-to-create-blog/},
+  year = {2023}
+}</pre>
+</div>
 <!--/radix_placeholder_appendices-->
 <!--radix_placeholder_navigation_after_body-->
 <!--/radix_placeholder_navigation_after_body-->

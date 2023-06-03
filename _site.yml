@@ -3,6 +3,7 @@ title: "NONONOexe Something Blog"
 description: |
   NONONOexe Something Blog
 output_dir: "docs"
+base_url: https://nononoexe.github.io/blog/
 theme: theme.css
 navbar:
   right:
@@ -13,3 +14,10 @@ navbar:
     - text: "About"
       href: about.html
 output: distill::distill_article
+exclude: [
+  ".gitignore",
+  "compose.yaml",
+  "Dockerfile",
+  "README.md",
+  "start-rstudio.ps1"
+]
