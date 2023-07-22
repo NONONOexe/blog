@@ -1,0 +1,56 @@
+---
+title: "論文"
+---
+
+## 2023
+
+**Keisuke ANDO**, Yusuke KUNIYOSHI, Kazuhiko SHIMIZU, Takeshi UCHITANE, Naoto MUKAI, Kazunori IWATA, Nobuhiro ITO and Yong JIANG, “Spatio-temporal Network Analysis for Detecting Traffic Accident Clusters,” IIAI AAI 2023 14th IIAI International Congress on Advanced Applied Informatics, 2023 July
+
+<a href="https://speakerdeck.com/nononoexe/spatio-temporal-network-analysis-for-detecting-traffic-accident-clusters" class="icon-link"><i class="fa-brands fa-speaker-deck"></i> Speaker Deck</a>
+
+Masaki BAN, Takumi AMANO, **Keisuke ANDO**, Takeshi UCHITANE, Kazunori IWATA and Nobuhiro ITO, “Analysis of the Expected Possession Value in RoboCupSoccer Simulation 2D,” IIAI AAI 2023 14th IIAI International Congress on Advanced Applied Informatics, 2023 July
+
+Tomohiro MURAKAMI, Nozomi NAKAO, Hikaru MIYAKE, Hayate MURATA, Itsuki AMANO, Taisei KOJIMA, **Keisuke ANDO** and Nobuhiro ITO, “Effects of the Attunement of an Attack Target by Whispering in AIWolf,” IIAI AAI 2023 14th IIAI International Congress on Advanced Applied Informatics, 2023 July
+
+Itsuki MATSUNAGA, Haruki UEHARA, Ryoya MAEDA, Joe FUJISAWA, Hiroya SUZUKI, **Keisuke ANDO**, Takeshi UCHITANE, Kazunori IWATA and Nobuhiro ITO, “Design of Task Assignments based on Ordering and Time Window Constraints for RoboCupRescue Agents,” IIAI AAI 2023 14th IIAI International Congress on Advanced Applied Informatics, Jul, 2023
+
+天野 樹、**安藤 圭祐**、内種 岳詞、岩田 員典、伊藤 暢浩「人狼知能における要請と受諾によるゲーム展開の変化」電子情報通信学会技術研究報告、vol. 122、no. 421、pp. 24--29、2023年3月
+
+<a href="https://ken.ieice.org/ken/paper/202303118Ct0/" class="icon-link"><i class="fa-solid fa-link"></i> リンク</a>
+
+天野 巧巳、**安藤 圭祐**、内種 岳詞、岩田 員典、伊藤 暢浩「期待ポゼッション値によるRSS2Dの試合状況分析」研究報告知能システム（ICS）、vol. 2022-ICS-210、no. 8、pp. 1--6、2023年3月
+
+<a href="http://id.nii.ac.jp/1001/00224976/" class="icon-link"><i class="fa-solid fa-link"></i> リンク</a>
+
+清水 和彦、**安藤 圭祐**、内種 岳詞、向 直人、岩田 員典、伊藤 暢浩、蒋 湧「愛知県の交通事故に対するRisk Terrain Modelingの有効性の検証」人工知能学会第二種研究会資料、vol. 2023 no. SAI-046、pp. 1--7、2023年3月．DOI: [10.11517/jsaisigtwo.2023.SAI-046_02](https://doi.org/10.11517/jsaisigtwo.2023.SAI-046_02)
+
+## 2022
+
+清水 和彦、**安藤 圭祐**、内種 岳詞、向 直人、岩田 員典、伊藤 暢浩、蒋 湧「名古屋市中区の交通事故を対象としたRisk Terrain Modelingの適用に関する一考察」第20回情報学ワークショップ(WiNF2022)、2022年12月
+
+<a href="https://sites.google.com/view/winf2022/" class="icon-link"><i class="fa-solid fa-link"></i> リンク</a>
+
+**Keisuke ANDO**, Kazuhiko SHIMIZU, Nobuhiro ITO, Kazunori IWATA, Takeshi UCHITANE, Naoto MUKAI and Yong JIANG, “Design of Geospatial Database for Analysis of Road Traffic Accidents in Aichi Prefecture,” Proc. of Joint 12th International Conference on Soft Computing and Intelligent Systems and 23rd International Symposium on Advanced Intelligent Systems, F-2-D-4, pp.1--7, Dec, 2022. DOI: [10.1109/SCISISIS55246.2022.10002001](https://doi.org/10.1109/SCISISIS55246.2022.10002001)
+
+<a href="https://speakerdeck.com/nononoexe/design-of-geospatial-database-for-analysis-of-road-traffic-accidents-in-aichi-prefecture" class="icon-link"><i class="fa-brands fa-speaker-deck"></i> Speaker Deck</a>
+
+**安藤 圭祐**、國吉 佑輔、清水 和彦、岡本 愛、伊藤 暢浩、岩田 員典、内種 岳詞、向 直人、蒋 湧「地理空間データによる交通事故の要因分析」電子情報通信学会技術研究報告、vol. 121、no. 439、pp. 19--24、2021年12月
+
+<a href="https://ken.ieice.org/ken/paper/20220312FCjT/" class="icon-link"><i class="fa-solid fa-link"></i> リンク</a>
+
+**安藤 圭祐**、國吉 佑輔、清水 和彦、岡本 愛、伊藤 暢浩、岩田 員典、内種 岳詞、向 直人、蒋 湧「愛知県の交通事故発生区域のクラスタ分析」人工知能学会第二種研究会資料、vol. 2021、no. SAI-42、pp. 1--7、2021年12月．DOI: [10.11517/jsaisigtwo.2021.SAI-042_01](https://doi.org/10.11517/jsaisigtwo.2021.SAI-042_01)
+
+天野 巧巳、清水 和彦、川添 敦都、**安藤 圭祐**、伊藤 暢浩「DX-NESを用いたRSS3Dのキック動作設計における評価式の検討」電気・電子・情報関係学会東海支部連合大会講演論文集、p. 1、2021年8月  
+
+<a href="https://jglobal.jst.go.jp/detail?JGLOBAL_ID=202202215633408391" class="icon-link"><i class="fa-solid fa-link"></i> リンク</a>
+
+
+## 2021
+
+加藤 翔馬、**安藤 圭祐**、伊藤 暢浩、岩田 員典、内種 岳詞、向 直人、蒋 湧「愛知県における事故件数と交通量の関係についての分析」人工知能学会第二種研究会資料、vol. 2020、no. SAI-039、pp. 6--13、2020年11月．DOI: [10.11517/jsaisigtwo.2020.SAI-039_06](https://doi.org/10.11517/jsaisigtwo.2020.SAI-039_06)
+
+## 2017
+
+福井 敬徳、**安藤 圭祐**、村上 俊英、伊藤 暢浩、岩田 員典「人狼BBSにおける発話の自動分類」研究報告知能システム、vol. 3、pp. 1--7、2017年7月
+
+<a href="https://www.slideshare.net/TakanoriFukui/bbs-80930597" class="icon-link"><i class="fa-brands fa-slideshare"></i> SlideShare</a>

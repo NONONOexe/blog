@@ -1,0 +1,22 @@
+---
+title: "スライド"
+---
+
+研究室の勉強会などでの説明に使用したスライド資料をまとめています。
+
+
+## 交差検証法
+
+<script async class="docswell-embed" src="https://www.docswell.com/assets/libs/docswell-embed/docswell-embed.min.js" data-src="https://www.docswell.com/slide/ZNR91P/embed" data-aspect="0.5625"></script>
+
+## 統計的仮説検定
+
+<script async class="docswell-embed" src="https://www.docswell.com/assets/libs/docswell-embed/docswell-embed.min.js" data-src="https://www.docswell.com/slide/KYWVDR/embed" data-aspect="0.5625"></script>
+
+## 知って・描いて・はじめるR
+
+<script async class="docswell-embed" src="https://www.docswell.com/assets/libs/docswell-embed/docswell-embed.min.js" data-src="https://www.docswell.com/slide/KENYX7/embed" data-aspect="0.5625"></script>
+
+## 主成分分析
+
+<script async class="docswell-embed" src="https://www.docswell.com/assets/libs/docswell-embed/docswell-embed.min.js" data-src="https://www.docswell.com/slide/5M16X2/embed" data-aspect="0.5625"></script>

@@ -1,7 +1,7 @@
 ---
-title: "NONONOexe Something Blog"
+title: "安藤 圭祐"
 site: distill::distill_website
-image: "nononoexe.jpg"
+image: "keisuke-ando.jpg"
 links:
   - label: '<i class="fab fa-twitter"></i> Twitter'
     url: "https://twitter.com/NONONOexe"
@@ -9,15 +9,20 @@ links:
     url: "https://www.facebook.com/keisuke.ando.1656"
   - label: '<i class="fab fa-github"></i> GitHub'
     url: "https://github.com/NONONOexe"
-  - label: '<i class="fab fa-linkedin"></i> LinkedIn'
-    url: "https://www.linkedin.com/in/圭祐-安藤-09bb591a3/"
   - label: '<i class="fas fa-envelope"></i> Email'
     url: "mailto:ando@maslab.aitech.ac.jp"
   - label: '<i class="fas fa-map"></i> researchmap'
     url: "https://researchmap.jp/nononoexe"
 output:
-  postcards::jolla
+  postcards::trestles
 ---
 
-安藤圭祐（NONONOexe）の個人ブログです。
-Rに関する情報、自身に関係する宣伝、その他思ったことなどを書いていく予定です。
+## 自己紹介
+
+[愛知工業大学](https://www.ait.ac.jp/)、[マルチエージェントシステム研究室](https://maslab.aitech.ac.jp/)の博士後期課程2年の安藤圭祐です。交通事故と地図の関係について研究しています。また、[RoboCup Rescue Simulation](https://rescuesim.robocup.org/)や[人狼知能](http://aiwolf.org/)などのマルチエージェントシステムに関する研究もしています。
+
+2020年から[R](https://www.r-project.org/)のおもしろさに惹かれ、さまざまな情報を日々収集しています。最近はパッケージ開発にも取り組んでいます。趣味はゲームと飲食店の開拓、休日はよく外食しています。
+
+## このサイトについて
+
+このサイトではRに関する情報、自身に関係する宣伝、その他思ったことなどを書いていく予定です。
