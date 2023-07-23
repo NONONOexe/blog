@@ -4,8 +4,13 @@
     <title>NONONOexe Something Blog</title>
     <link>https://nononoexe.github.io/blog/</link>
     <atom:link href="https://nononoexe.github.io/blog/blog.xml" rel="self" type="application/rss+xml"/>
-    <description>NONONOexe Something Blog
+    <description>NONONOexeのウェブサイト
 </description>
+    <image>
+      <title>NONONOexe Something Blog</title>
+      <url>https://nononoexe.github.io/blog/images/favicon.png</url>
+      <link>https://nononoexe.github.io/blog/</link>
+    </image>
     <generator>Distill</generator>
     <lastBuildDate>2023-06-03</lastBuildDate>
     <item>

@@ -92,6 +92,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <title>NONONOexe Something Blog: Blog</title>
 
 
+  <link rel="icon" type="image/png" href="images/favicon.png"/>
 
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
@@ -2165,7 +2166,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   html {
     /*-- Main font sizes --*/
-    --title-size:      50px;
+    --title-size:      2.50rem; /* edited */
     --body-size:       1.06rem;
     --code-size:       14px;
     --aside-size:      12px;
@@ -2210,10 +2211,10 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   .distill-site-header {
     --title-size:       18px;
-    --text-color:       rgba(255, 255, 255, 0.8);
+    --text-color:       rgba(0, 0, 0, 0.65);
     --text-size:        15px;
-    --hover-color:      white;
-    --bkgd-color:       #0F2E3D;
+    --hover-color:      rgba(0, 0, 0, 1.00);
+    --bkgd-color:       white;
   }
 
   .distill-site-footer {
@@ -2243,21 +2244,51 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     color: #77838c;
   }
 
-  /* 自己紹介の写真 */
+  d-article h2 {
+    font-size: 1.5rem;
+  }
+
+  /* self introduction page */
+  a.logo img {
+    vertical-align: unset !important;
+  }
+
   img.rounded {
     border-radius: 50% !important;
   }
 
-  /* 自己紹介の見出し */
-  .section h2 {
-      font-weight: 600;
-      margin: 1rem 0 1rem 0rem;
-      color: #333;
+  .section.level2 {
+    margin-bottom: 2rem;
   }
 
-  /* 埋め込みスライド */
+  .section h2 {
+    font-weight: 600;
+    margin: 1rem 0 1rem 0rem;
+    color: #333;
+  }
+
+  /* embedded slides */
   .docswell-iframe-wrapper {
-      margin-bottom: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  p:has(a.icon-link) {
+    margin-top: -0.6rem;
+  }
+
+  a.icon-link {
+    margin-top: 0.5rem;
+    border: solid 1.5px rgb(0, 123, 255);
+    border-radius: 0.5rem;
+    padding: 0.3rem 0.8rem 0.3rem 0.8rem;
+    color: white;
+    background: rgb(0, 123, 255);
+    font-weight: 400;
+    font-size: 0.8rem;
+  }
+
+  a.icon-link:hover {
+    background: rgb(0, 105, 217);
   }</style>
   <style type="text/css">
   /* base style */
@@ -2442,6 +2473,9 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <header class="header header--fixed" role="banner">
 <nav class="distill-site-nav distill-site-header">
 <div class="nav-left">
+<a class="logo" href="https://nononoexe.github.io/blog/">
+<img src="images/logo.png" alt="Logo"/>
+</a>
 <a href="index.html" class="title">NONONOexe Something Blog</a>
 <input id="distill-search" class="nav-search hidden" type="text" placeholder="Search..."/>
 </div>
@@ -2450,6 +2484,9 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <a href="publifications.html">論文</a>
 <a href="slides.html">スライド</a>
 <a href="blog.html">ブログ</a>
+<a href="https://github.com/NONONOexe/blog" aria-label="Link to source">
+<i class="fab fa-github" aria-hidden="true"></i>
+</a>
 <a href="javascript:void(0);" class="nav-toggle">&#9776;</a>
 </div>
 </nav>
@@ -2655,7 +2692,10 @@ function init_posts_list() {
 <!--radix_placeholder_site_after_body-->
 <!--/radix_placeholder_site_after_body-->
 <!--radix_placeholder_appendices-->
-<div class="appendix-bottom"></div>
+<div class="appendix-bottom">
+<h3 id="updates-and-corrections">Corrections</h3>
+<p>If you see mistakes or want to suggest changes, please <a href="https://github.com/NONONOexe/blog/issues/new">create an issue</a> on the source repository.</p>
+</div>
 <!--/radix_placeholder_appendices-->
 <!--radix_placeholder_navigation_after_body-->
 <!--/radix_placeholder_navigation_after_body-->

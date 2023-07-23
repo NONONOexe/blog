@@ -1,11 +1,17 @@
 name: "."
 title: "NONONOexe Something Blog"
 description: |
-  NONONOexe Something Blog
+  NONONOexeのウェブサイト
 output_dir: "docs"
+favicon: images/favicon.png
 base_url: https://nononoexe.github.io/blog/
+repository_url: https://github.com/NONONOexe/blog
 theme: theme.css
 navbar:
+  logo:
+    image: images/logo.png
+    href: https://nononoexe.github.io/blog/
+  source_url: https://github.com/NONONOexe/blog
   right:
     - text: "ホーム"
       href: index.html

@@ -1,5 +1,6 @@
 ---
 title: "安藤 圭祐"
+favicon: images/favicon.png
 site: distill::distill_website
 image: "keisuke-ando.jpg"
 links:

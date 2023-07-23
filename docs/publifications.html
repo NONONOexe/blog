@@ -91,6 +91,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <title>NONONOexe Something Blog: 論文</title>
 
 
+  <link rel="icon" type="image/png" href="images/favicon.png"/>
 
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
@@ -2209,10 +2210,10 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   .distill-site-header {
     --title-size:       18px;
-    --text-color:       rgba(255, 255, 255, 0.8);
+    --text-color:       rgba(0, 0, 0, 0.65);
     --text-size:        15px;
-    --hover-color:      white;
-    --bkgd-color:       #0F2E3D;
+    --hover-color:      rgba(0, 0, 0, 1.00);
+    --bkgd-color:       white;
   }
 
   .distill-site-footer {
@@ -2247,6 +2248,10 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   }
 
   /* self introduction page */
+  a.logo img {
+    vertical-align: unset !important;
+  }
+
   img.rounded {
     border-radius: 50% !important;
   }
@@ -2467,6 +2472,9 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <header class="header header--fixed" role="banner">
 <nav class="distill-site-nav distill-site-header">
 <div class="nav-left">
+<a class="logo" href="https://nononoexe.github.io/blog/">
+<img src="images/logo.png" alt="Logo"/>
+</a>
 <a href="index.html" class="title">NONONOexe Something Blog</a>
 <input id="distill-search" class="nav-search hidden" type="text" placeholder="Search..."/>
 </div>
@@ -2475,6 +2483,9 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <a href="publifications.html">論文</a>
 <a href="slides.html">スライド</a>
 <a href="blog.html">ブログ</a>
+<a href="https://github.com/NONONOexe/blog" aria-label="Link to source">
+<i class="fab fa-github" aria-hidden="true"></i>
+</a>
 <a href="javascript:void(0);" class="nav-toggle">&#9776;</a>
 </div>
 </nav>
@@ -2530,7 +2541,10 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_site_after_body-->
 <!--/radix_placeholder_site_after_body-->
 <!--radix_placeholder_appendices-->
-<div class="appendix-bottom"></div>
+<div class="appendix-bottom">
+<h3 id="updates-and-corrections">Corrections</h3>
+<p>If you see mistakes or want to suggest changes, please <a href="https://github.com/NONONOexe/blog/issues/new">create an issue</a> on the source repository.</p>
+</div>
 <!--/radix_placeholder_appendices-->
 <!--radix_placeholder_navigation_after_body-->
 <!--/radix_placeholder_navigation_after_body-->

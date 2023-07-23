@@ -59,10 +59,10 @@ d-appendix {
 
 .distill-site-header {
   --title-size:       18px;
-  --text-color:       rgba(255, 255, 255, 0.8);
+  --text-color:       rgba(0, 0, 0, 0.65);
   --text-size:        15px;
-  --hover-color:      white;
-  --bkgd-color:       #0F2E3D;
+  --hover-color:      rgba(0, 0, 0, 1.00);
+  --bkgd-color:       white;
 }
 
 .distill-site-footer {
@@ -97,6 +97,10 @@ d-article h2 {
 }
 
 /* self introduction page */
+a.logo img {
+  vertical-align: unset !important;
+}
+
 img.rounded {
   border-radius: 50% !important;
 }

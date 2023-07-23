@@ -93,6 +93,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <meta property="description" itemprop="description" content="Rでブログを作成するための技術をまとめています。"/>
 
 <link rel="canonical" href="https://nononoexe.github.io/blog/posts/how-to-create-blog/"/>
+<link rel="icon" type="image/png" href="../../images/favicon.png"/>
 
 <!--  https://schema.org/Article -->
 <meta property="article:published" itemprop="datePublished" content="2023-05-23"/>
@@ -2231,10 +2232,10 @@ d-appendix {
 
 .distill-site-header {
   --title-size:       18px;
-  --text-color:       rgba(255, 255, 255, 0.8);
+  --text-color:       rgba(0, 0, 0, 0.65);
   --text-size:        15px;
-  --hover-color:      white;
-  --bkgd-color:       #0F2E3D;
+  --hover-color:      rgba(0, 0, 0, 1.00);
+  --bkgd-color:       white;
 }
 
 .distill-site-footer {
@@ -2269,6 +2270,10 @@ d-article h2 {
 }
 
 /* self introduction page */
+a.logo img {
+  vertical-align: unset !important;
+}
+
 img.rounded {
   border-radius: 50% !important;
 }
@@ -2490,6 +2495,9 @@ d-appendix d-footnote-list a.footnote-backlink {
 <header class="header header--fixed" role="banner">
 <nav class="distill-site-nav distill-site-header">
 <div class="nav-left">
+<a class="logo" href="https://nononoexe.github.io/blog/">
+<img src="../../images/logo.png" alt="Logo"/>
+</a>
 <a href="../../index.html" class="title">NONONOexe Something Blog</a>
 <input id="distill-search" class="nav-search hidden" type="text" placeholder="Search..."/>
 </div>
@@ -2498,6 +2506,9 @@ d-appendix d-footnote-list a.footnote-backlink {
 <a href="../../publifications.html">論文</a>
 <a href="../../slides.html">スライド</a>
 <a href="../../blog.html">ブログ</a>
+<a href="https://github.com/NONONOexe/blog" aria-label="Link to source">
+<i class="fab fa-github" aria-hidden="true"></i>
+</a>
 <a href="javascript:void(0);" class="nav-toggle">&#9776;</a>
 </div>
 </nav>
@@ -2645,6 +2656,8 @@ d-appendix d-footnote-list a.footnote-backlink {
 <!--/radix_placeholder_site_after_body-->
 <!--radix_placeholder_appendices-->
 <div class="appendix-bottom">
+  <h3 id="updates-and-corrections">Corrections</h3>
+  <p>If you see mistakes or want to suggest changes, please <a href="https://github.com/NONONOexe/blog/issues/new">create an issue</a> on the source repository.</p>
   <h3 id="citation">Citation</h3>
   <p>For attribution, please cite this work as</p>
   <pre class="citation-appendix short">ANDO (2023, May 23). NONONOexe Something Blog: Rでブログを作成する. Retrieved from https://nononoexe.github.io/blog/posts/how-to-create-blog/</pre>
