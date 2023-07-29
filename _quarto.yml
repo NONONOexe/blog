@@ -33,7 +33,7 @@ format:
     author: "Keisuke ANDO"
     twitter-card:
       creator: "@nononoexe"
-      image: "https://nononoexe.github.io/blog/nononoexe-something-blog.png"
+      image: images/nononoexe-something-blog.png
       card-style: summary_large_image
     comments:
       utterances: 
