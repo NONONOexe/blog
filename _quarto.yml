@@ -1,0 +1,52 @@
+project:
+  type: website
+
+website:
+  title: "NONONOexe Something Blog"
+  favicon: images/favicon.png
+  image: nononoexe-something-blog.png
+  repo-url: https://github.com/nononoexe/blog
+  open-graph: true
+  twitter-card:
+    image: images/nononoexe-something-blog.png
+    creator: "@nononoexe"
+    card-style: summary_large_image
+  site-url: https://nononoexe.github.io/blog
+  navbar:
+    search: true
+    right:
+      - text: "ブログ"
+        file: index.qmd
+      - text: "論文"
+        file: publifications.qmd
+      - text: "スライド"
+        file: slides.qmd
+      - text: "安藤 圭祐"
+        file: about.qmd
+      - icon: github
+        href: https://github.com/
+      - icon: twitter
+        href: https://twitter.com
+format:
+  html:
+    author: "Keisuke ANDO"
+    twitter-card:
+      creator: "@nononoexe"
+      image: "https://nononoexe.github.io/blog/nononoexe-something-blog.png"
+      card-style: summary_large_image
+    comments:
+      utterances: 
+        repo: NONONOexe/blog
+    toc: true
+    toc-location: left
+    code-link: false
+    anchor-sections: true
+    fig-cap-location: bottom
+    reference-location: margin
+    mainfont: "Noto Sans JP"
+    monofont: "Fira Mono"
+    footnotes-hover: true
+    fontsize: 1em
+    smooth-scroll: true
+    theme: my-litera.scss
+    css: styles.css

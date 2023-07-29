@@ -1,3 +1,6 @@
+.Rproj.user
 *icon.pdf
 *.afdesign
 local
+**/_internal
+/.quarto/

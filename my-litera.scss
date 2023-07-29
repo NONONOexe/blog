@@ -1,0 +1,37 @@
+/*-- scss:defaults --*/
+
+// use litera as the base
+$theme: "litera" !default;
+
+// import google fonts
+@import url('https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap');
+
+// use Lato font if available
+$font-family-sans-serif: "Noto Sans JP" !default;
+
+/*-- scss:rules --*/
+
+// litera is serif by default: revert to san-serif
+p {
+  font-family: $font-family-sans-serif;
+}
+
+// Navs
+
+.navbar-brand {
+  font-family: "Fira Mono", "Noto Sans JP", mono;
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: black;
+}
+
+// Navbar
+
+.navbar {
+  font-family: "Fira Mono", "Noto Sans JP", mono;
+  font-size: 1rem;
+}
+
+$navbar-dark-hover-color:   "#ff6700" !default;
+$navbar-light-hover-color:  "#ff6700" !default;
