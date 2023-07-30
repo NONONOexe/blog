@@ -35,3 +35,16 @@ p {
 
 $navbar-dark-hover-color:   "#ff6700" !default;
 $navbar-light-hover-color:  "#ff6700" !default;
+
+// Blog page
+
+div.quarto-post .thumbnail img {
+  height: 200px;
+  border-radius: 10px;
+}
+
+// Post
+
+#title-block-header.quarto-title-block.default .description {
+  margin-top: 0.2em;
+}

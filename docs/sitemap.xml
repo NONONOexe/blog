@@ -2,26 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://nononoexe.github.io/blog/about.html</loc>
-    <lastmod>2023-07-29T16:08:49.529Z</lastmod>
+    <lastmod>2023-07-30T05:17:33.266Z</lastmod>
   </url>
   <url>
     <loc>https://nononoexe.github.io/blog/index.html</loc>
-    <lastmod>2023-07-29T16:08:51.328Z</lastmod>
+    <lastmod>2023-07-30T05:17:34.828Z</lastmod>
   </url>
   <url>
     <loc>https://nononoexe.github.io/blog/posts/2023-05-23-how-to-create-blog/index.html</loc>
-    <lastmod>2023-07-29T16:08:53.888Z</lastmod>
+    <lastmod>2023-07-30T05:17:36.977Z</lastmod>
   </url>
   <url>
     <loc>https://nononoexe.github.io/blog/posts/2023-06-03-manipulating-geospatial-data/index.html</loc>
-    <lastmod>2023-07-29T16:08:57.267Z</lastmod>
+    <lastmod>2023-07-30T05:17:39.842Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nononoexe.github.io/blog/posts/2023-07-30-migrating-blog-to-quarto/index.html</loc>
+    <lastmod>2023-07-30T05:17:40.597Z</lastmod>
   </url>
   <url>
     <loc>https://nononoexe.github.io/blog/publifications.html</loc>
-    <lastmod>2023-07-29T16:08:59.667Z</lastmod>
+    <lastmod>2023-07-30T05:17:42.470Z</lastmod>
   </url>
   <url>
     <loc>https://nononoexe.github.io/blog/slides.html</loc>
-    <lastmod>2023-07-29T16:09:00.412Z</lastmod>
+    <lastmod>2023-07-30T05:17:43.074Z</lastmod>
   </url>
 </urlset>

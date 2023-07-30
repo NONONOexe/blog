@@ -1,6 +1,16 @@
+# User local data for RStudio project
 .Rproj.user
-*icon.pdf
+.Rhistory
+.RData
+
+# User local data for Quarto
+.quarto
+
+# Source data for creating icons
 *.afdesign
-local
+
+# Internal data such as chached data and temporary file
 **/_internal
+**/local
+
 /.quarto/

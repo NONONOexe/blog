@@ -18,14 +18,14 @@
     "href": "index.html",
     "title": "ブログ",
     "section": "",
-    "text": "空間データの操作の基本\n\n\n\n\n\n\n\ngeo\n\n\n\n\nRによる基本的な空間データの操作について紹介します。\n\n\n\n\n\n\nJun 3, 2023\n\n\nKeisuke ANDO\n\n\n\n\n\n\n  \n\n\n\n\nRでブログを作成する\n\n\n\n\n\n\n\nrpackage\n\n\nblog\n\n\n\n\ndistillパッケージによるブログ作成についてまとめました。\n\n\n\n\n\n\nMay 23, 2023\n\n\nKeisuke ANDO\n\n\n\n\n\n\nNo matching items"
+    "text": "Quartoへの移行\n\n\n\n\n\n\n\nblog\n\n\nquarto\n\n\n\n\nブログをQuartoへ移行しました。\n\n\n\n\n\n\nJul 30, 2023\n\n\nKeisuke ANDO\n\n\n\n\n\n\n  \n\n\n\n\n空間データの操作の基本\n\n\n\n\n\n\n\ngeo\n\n\n\n\nRによる基本的な空間データの操作について紹介します。\n\n\n\n\n\n\nJun 3, 2023\n\n\nKeisuke ANDO\n\n\n\n\n\n\n  \n\n\n\n\nRでブログを作成する\n\n\n\n\n\n\n\nrpackage\n\n\nblog\n\n\n\n\ndistillパッケージによるブログ作成についてまとめました。\n\n\n\n\n\n\nMay 23, 2023\n\n\nKeisuke ANDO\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/2023-05-23-how-to-create-blog/index.html",
     "href": "posts/2023-05-23-how-to-create-blog/index.html",
     "title": "Rでブログを作成する",
     "section": "",
-    "text": "自分のブログを作成しようと思って、持っている技術で作る方法がないかと模索していたところ、R Packageの{distill}で作れることを知りました。この記事では、このブログを作成するときに学んだ方法やそれに伴って知った情報を紹介します。またこれから新しい技術や方法を知って、ブログを大きく変更することがあると思いますが、そのときには同時にこの記事も更新したいと思います。"
+    "text": "Note\n\n\n\nこのブログの作成ツールは{distill}から、Quartoへ移行しました。この記事は古いものになります。\n\n\n自分のブログを作成しようと思って、持っている技術で作る方法がないかと模索していたところ、R Packageの{distill}で作れることを知りました。この記事では、このブログを作成するときに学んだ方法やそれに伴って知った情報を紹介します。またこれから新しい技術や方法を知って、ブログを大きく変更することがあると思いますが、そのときには同時にこの記事も更新したいと思います。"
   },
   {
     "objectID": "posts/2023-05-23-how-to-create-blog/index.html#ブログを立てる",
@@ -82,6 +82,27 @@
     "title": "空間データの操作の基本",
     "section": "5. まとめ",
     "text": "5. まとめ\nここでは、RPackageで提供されている空間データを使って、データの可視化と抽出をおこないました。ここで紹介したもの以外にもRでは多くの空間データや操作が提供されています。なにができるかについては{sf}のドキュメントが詳しいです。また、以前{tmap}を使ったプロットについて書いた以下の記事や、公開された空間分析についての書籍もあります。こちらからはさまざまな事例をみられるので、参考になると思います。\n\nNONONOexe(Keisuke ANDO), Rによる空間分析のススメ―交通事故ヒートマップを作成してみよう―, 2022\nRobin Lovelace, Jakub Nowosad and Jannes Muenchow. Geocomputation with R, 2019 (日本語版)"
+  },
+  {
+    "objectID": "posts/2023-07-30-migrating-blog-to-quarto/index.html",
+    "href": "posts/2023-07-30-migrating-blog-to-quarto/index.html",
+    "title": "Quartoへの移行",
+    "section": "",
+    "text": "Quartoにブログを移行しました。Quartoはこれまで使っていた{distill}(R Markdown)のように説明のための文章とコードをあわせて書ける環境です。 さらに、Python、R、Observableにも対応しています。"
+  },
+  {
+    "objectID": "posts/2023-07-30-migrating-blog-to-quarto/index.html#移行した理由",
+    "href": "posts/2023-07-30-migrating-blog-to-quarto/index.html#移行した理由",
+    "title": "Quartoへの移行",
+    "section": "2. 移行した理由",
+    "text": "2. 移行した理由\nQuartoに移行した主な理由ははじめから使える機能が多いというところです。{distill}では、自己紹介ページで使っている{postcards}との組み合わせたときに、表示が不自然になることがありました。Quartoでは、公式のドキュメント(ブログの作成)にもあるように、{postcards}をはじめからサポートしています。また、記事にコメント機能を加えるための utterancesも_quarto.ymlという設定ファイルを書き加えるだけで利用できます。これも以前から使おうと考えていたため、非常に都合がよかったです。\n\n\n\nGitHubのissueを使ってコメント機能を付けられるutterances"
+  },
+  {
+    "objectID": "posts/2023-07-30-migrating-blog-to-quarto/index.html#まとめ",
+    "href": "posts/2023-07-30-migrating-blog-to-quarto/index.html#まとめ",
+    "title": "Quartoへの移行",
+    "section": "3. まとめ",
+    "text": "3. まとめ\nブログを{distill}からQuartoへ移行した、お知らせでした。Quartoは公式のドキュメントが充実しているため、書き方についてはとりわけ書くことがないのですが、プラグイン1や深い使い方もこれから分かってくると思いますので、慣れてきたらまた覚えたことを記事にまとめたいと思います。1 このブログでも、すでにFont Awesomeが使えるようになるプラグインを導入しています。"
   },
   {
     "objectID": "publifications.html",

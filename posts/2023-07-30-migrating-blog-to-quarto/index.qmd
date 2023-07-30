@@ -1,0 +1,25 @@
+---
+title: "Quartoへの移行"
+description: |
+  ブログをQuartoへ移行しました。
+author: "Keisuke ANDO"
+date: 2023-07-30
+categories: [blog, quarto]
+image: images/migration.jpg
+---
+
+## 1. はじめに
+
+[Quarto](https://quarto.org/)にブログを移行しました。Quartoはこれまで使っていた`{distill}`([R Markdown](https://rmarkdown.rstudio.com/))のように説明のための文章とコードをあわせて書ける環境です。 さらに、Python、R、Observableにも対応しています。
+
+## 2. 移行した理由
+
+Quartoに移行した主な理由ははじめから使える機能が多いというところです。`{distill}`では、自己紹介ページで使っている[`{postcards}`](https://github.com/seankross/postcards)との組み合わせたときに、表示が不自然になることがありました。Quartoでは、[公式のドキュメント(ブログの作成)](https://quarto.org/docs/websites/website-blog.html)にもあるように、`{postcards}`をはじめからサポートしています。また、記事にコメント機能を加えるための [utterances](https://utteranc.es/)も`_quarto.yml`という設定ファイルを書き加えるだけで利用できます。これも以前から使おうと考えていたため、非常に都合がよかったです。
+
+![GitHubのissueを使ってコメント機能を付けられるutterances](images/utterances.png)
+
+## 3. まとめ
+
+ブログを`{distill}`からQuartoへ移行した、お知らせでした。Quartoは公式のドキュメントが充実しているため、書き方についてはとりわけ書くことがないのですが、プラグイン[^1]や深い使い方もこれから分かってくると思いますので、慣れてきたらまた覚えたことを記事にまとめたいと思います。
+
+[^1]: このブログでも、すでに[Font Awesomeが使えるようになるプラグイン](https://github.com/quarto-ext/fontawesome)を導入しています。
