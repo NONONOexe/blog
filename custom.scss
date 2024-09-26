@@ -1,8 +1,5 @@
 /*-- scss:defaults --*/
 
-// use litera as the base
-$theme: "litera" !default;
-
 // import google fonts
 @import url('https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap');
@@ -47,4 +44,26 @@ div.quarto-post .thumbnail img {
 
 #title-block-header.quarto-title-block.default .description {
   margin-top: 0.2em;
+}
+
+// Icon links
+
+p:has(a.icon-link) {
+  margin-top: -1.0rem;
+  margin-bottom: 1.5rem;
+}
+
+a.icon-link {
+  margin-top: 0.5rem;
+  border: solid 1.5px rgb(0, 123, 255);
+  border-radius: 0.5rem;
+  padding: 0.3rem 0.8rem 0.3rem 0.8rem;
+  color: white;
+  background: rgb(0, 123, 255);
+  font-weight: 400;
+  font-size: 0.8rem;
+}
+
+a.icon-link:hover {
+  background: rgb(0, 105, 217);
 }

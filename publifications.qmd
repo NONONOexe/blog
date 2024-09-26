@@ -2,15 +2,28 @@
 title: "論文"
 ---
 
+## 2024
+
+**Keisuke ANDO**, Yusuke KUNIYOSHI, Natsuki ONOGI, Takeshi UCHITANE, Naoto MUKAI, Kazunori IWATA, Nobuhiro ITO and Yong JIANG
+“Cluster Detection for Traffic Accidents on Spatiotemporal Networks,” 28th International Conference on Knowledge-Based and Intelligent Information & Engineering Systems (KES 2024), pp. 1--10, Sep, 2024
+
+Ryoya MAEDA, Haruki UEHARA, Joe FUJISAWA, Itsuki MATSUNAGA, Ryosuke SUZUKI, Kouta KATO, Yuki SHIMADA, Shuntarou FUJII, **Keisuke ANDO**, Takeshi UCHITANE, Kazunori IWATA and Nobuhiro ITO, “RoboCupRescue 2024 TDP Agent Simulation AIT-Rescue (Japan),” RoboCup 2024, Team Description Paper, pp. 1--15, Jul, 2024
+
+<a href="https://rescuesim.robocup.org/2024-eindhoven-agent-participating-teams/" class="icon-link">{{< fa solid link >}} リンク</a>
+
+鈴木 宏哉、上原 温揮、藤澤 丈、前田 綾也、松永 一希、**安藤 圭祐**、内種 岳詞、岩田 員典、伊藤 暢浩「RRSにおけるL-DCOPを用いた異種エージェント間協調について」人工知能学会第二種研究会資料、vol. 2023、no. SAI-047、pp. 1--8 2024年5月
+
+**安藤 圭祐**、内種 岳詞、向 直人、岩田 員典、伊藤 暢浩「愛知県における交通事故特徴の空間分析」電子情報通信学会技術研究報告、vol. 123、no. 412、pp. 12--17、2024年2月
+
 ## 2023
 
-**Keisuke ANDO**, Yusuke KUNIYOSHI, Kazuhiko SHIMIZU, Takeshi UCHITANE, Naoto MUKAI, Kazunori IWATA, Nobuhiro ITO and Yong JIANG, “Spatio-temporal Network Analysis for Detecting Traffic Accident Clusters,” IIAI AAI 2023 14th IIAI International Congress on Advanced Applied Informatics, 2023 July
+**Keisuke ANDO**, Yusuke KUNIYOSHI, Kazuhiko SHIMIZU, Takeshi UCHITANE, Naoto MUKAI, Kazunori IWATA, Nobuhiro ITO and Yong JIANG, “Spatio-temporal Network Analysis for Detecting Traffic Accident Clusters,” IIAI AAI 2023 14th IIAI International Congress on Advanced Applied Informatics, Jul, 2023
 
 <a href="https://speakerdeck.com/nononoexe/spatio-temporal-network-analysis-for-detecting-traffic-accident-clusters" class="icon-link">{{< fa brands speaker-deck >}} Speaker Deck</a>
 
-Masaki BAN, Takumi AMANO, **Keisuke ANDO**, Takeshi UCHITANE, Kazunori IWATA and Nobuhiro ITO, “Analysis of the Expected Possession Value in RoboCupSoccer Simulation 2D,” IIAI AAI 2023 14th IIAI International Congress on Advanced Applied Informatics, 2023 July
+Masaki BAN, Takumi AMANO, **Keisuke ANDO**, Takeshi UCHITANE, Kazunori IWATA and Nobuhiro ITO, “Analysis of the Expected Possession Value in RoboCupSoccer Simulation 2D,” IIAI AAI 2023 14th IIAI International Congress on Advanced Applied Informatics, Jul, 2023
 
-Tomohiro MURAKAMI, Nozomi NAKAO, Hikaru MIYAKE, Hayate MURATA, Itsuki AMANO, Taisei KOJIMA, **Keisuke ANDO** and Nobuhiro ITO, “Effects of the Attunement of an Attack Target by Whispering in AIWolf,” IIAI AAI 2023 14th IIAI International Congress on Advanced Applied Informatics, 2023 July
+Tomohiro MURAKAMI, Nozomi NAKAO, Hikaru MIYAKE, Hayate MURATA, Itsuki AMANO, Taisei KOJIMA, **Keisuke ANDO** and Nobuhiro ITO, “Effects of the Attunement of an Attack Target by Whispering in AIWolf,” IIAI AAI 2023 14th IIAI International Congress on Advanced Applied Informatics, Jul, 2023
 
 Itsuki MATSUNAGA, Haruki UEHARA, Ryoya MAEDA, Joe FUJISAWA, Hiroya SUZUKI, **Keisuke ANDO**, Takeshi UCHITANE, Kazunori IWATA and Nobuhiro ITO, “Design of Task Assignments based on Ordering and Time Window Constraints for RoboCupRescue Agents,” IIAI AAI 2023 14th IIAI International Congress on Advanced Applied Informatics, Jul, 2023
 
@@ -51,6 +64,8 @@ Itsuki MATSUNAGA, Haruki UEHARA, Ryoya MAEDA, Joe FUJISAWA, Hiroya SUZUKI, **Kei
 加藤 翔馬、**安藤 圭祐**、伊藤 暢浩、岩田 員典、内種 岳詞、向 直人、蒋 湧「愛知県における事故件数と交通量の関係についての分析」人工知能学会第二種研究会資料、vol. 2020、no. SAI-039、pp. 6--13、2020年11月．DOI: [10.11517/jsaisigtwo.2020.SAI-039_06](https://doi.org/10.11517/jsaisigtwo.2020.SAI-039_06)
 
 ## 2017
+
+Takanori FUKUI, **Keisuke ANDO**, Toshihide MURAKAMI, Nobuhiro ITO and Kazunori IWATA, “Automatic Classification of Remarks in Werewolf BBS,” 2017 5th Intl Conf on Applied Computing and Information Technology/4th Intl Conf on Computational Science/Intelligence and Applied Informatics/2nd Intl Conf on Big Data, Cloud Computing, Data Science (ACIT-CSII-BCD), pp. 210--215, Jul, 2017
 
 福井 敬徳、**安藤 圭祐**、村上 俊英、伊藤 暢浩、岩田 員典「人狼BBSにおける発話の自動分類」研究報告知能システム、vol. 3、pp. 1--7、2017年7月
 
