@@ -1,6 +1,5 @@
 project:
   type: website
-  output-dir: docs
 
 website:
   title: "NONONOexe Something Blog"
@@ -51,3 +50,4 @@ format:
     smooth-scroll: true
     theme: my-litera.scss
     css: styles.css
+
