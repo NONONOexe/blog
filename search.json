@@ -4,35 +4,7 @@
     "href": "slides.html",
     "title": "スライド",
     "section": "",
-    "text": "研究室の勉強会などでの説明に使用したスライド資料をまとめています。"
-  },
-  {
-    "objectID": "slides.html#交差検証法",
-    "href": "slides.html#交差検証法",
-    "title": "スライド",
-    "section": "交差検証法",
-    "text": "交差検証法"
-  },
-  {
-    "objectID": "slides.html#統計的仮説検定",
-    "href": "slides.html#統計的仮説検定",
-    "title": "スライド",
-    "section": "統計的仮説検定",
-    "text": "統計的仮説検定"
-  },
-  {
-    "objectID": "slides.html#知って描いてはじめるr",
-    "href": "slides.html#知って描いてはじめるr",
-    "title": "スライド",
-    "section": "知って・描いて・はじめるR",
-    "text": "知って・描いて・はじめるR"
-  },
-  {
-    "objectID": "slides.html#主成分分析",
-    "href": "slides.html#主成分分析",
-    "title": "スライド",
-    "section": "主成分分析",
-    "text": "主成分分析"
+    "text": "LTイベントや勉強会などでの説明に使用したスライド資料をまとめています。\n\nmapglによる交通事故リスクビジュアライザーの開発（Japan.R 2024 LT）\n\n\n\nFOSS4G TOKAI 2023で知った知識大活用：福知山市消防業務支援ツールのプロトタイプ開発（FOSS4G TOKAI 2024 懇親会 LT）\n\n\n\nRによる簡単GISスクリプティング（FOSS4G TOKAI 2024 LT）\n\n\n\nはじめる ひろげる R（Kanazawa.R #1 LT）\n\n\n\n時系列分析入門（研究室 統計ゼミ2023）\n\n\n\n交差検証法（研究室 統計ゼミ2022）\n\n\n\n統計的仮説検定（研究室 統計ゼミ2021）\n\n\n\n知って・描いて・はじめるR（研究室 統計ゼミ2021）\n\n\n\n主成分分析（研究室 統計ゼミ2020）"
   },
   {
     "objectID": "posts/2023-07-30-migrating-blog-to-quarto/index.html",
