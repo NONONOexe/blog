@@ -2,21 +2,40 @@
 title: "スライド"
 ---
 
-研究室の勉強会などでの説明に使用したスライド資料をまとめています。
+LTイベントや勉強会などでの説明に使用したスライド資料をまとめています。
 
+#### mapglによる交通事故リスクビジュアライザーの開発（Japan.R 2024 LT）
 
-## 交差検証法
+<script async class="docswell-embed" src="https://www.docswell.com/assets/libs/docswell-embed/docswell-embed.min.js" data-src="https://www.docswell.com/slide/56VEL4/embed" data-aspect="0.5625"></script>
+
+#### FOSS4G TOKAI 2023で知った知識大活用：福知山市消防業務支援ツールのプロトタイプ開発（FOSS4G TOKAI 2024 懇親会 LT）
+
+<script async class="docswell-embed" src="https://www.docswell.com/assets/libs/docswell-embed/docswell-embed.min.js" data-src="https://www.docswell.com/slide/ZV1VDP/embed" data-aspect="0.5625"></script>
+
+#### Rによる簡単GISスクリプティング（FOSS4G TOKAI 2024 LT）
+
+<script async class="docswell-embed" src="https://www.docswell.com/assets/libs/docswell-embed/docswell-embed.min.js" data-src="https://www.docswell.com/slide/KXEY3R/embed" data-aspect="0.5625"></script>
+
+#### はじめる ひろげる R（Kanazawa.R #1 LT）
+
+<script async class="docswell-embed" src="https://www.docswell.com/assets/libs/docswell-embed/docswell-embed.min.js" data-src="https://www.docswell.com/slide/598E7M/embed" data-aspect="0.5625"></script>
+
+#### 時系列分析入門（研究室 統計ゼミ2023）
+
+<script async class="docswell-embed" src="https://www.docswell.com/assets/libs/docswell-embed/docswell-embed.min.js" data-src="https://www.docswell.com/slide/KW1LRY/embed" data-aspect="0.5625"></script>
+
+#### 交差検証法（研究室 統計ゼミ2022）
 
 <script async class="docswell-embed" src="https://www.docswell.com/assets/libs/docswell-embed/docswell-embed.min.js" data-src="https://www.docswell.com/slide/ZNR91P/embed" data-aspect="0.5625"></script>
 
-## 統計的仮説検定
+#### 統計的仮説検定（研究室 統計ゼミ2021）
 
 <script async class="docswell-embed" src="https://www.docswell.com/assets/libs/docswell-embed/docswell-embed.min.js" data-src="https://www.docswell.com/slide/KYWVDR/embed" data-aspect="0.5625"></script>
 
-## 知って・描いて・はじめるR
+#### 知って・描いて・はじめるR（研究室 統計ゼミ2021）
 
 <script async class="docswell-embed" src="https://www.docswell.com/assets/libs/docswell-embed/docswell-embed.min.js" data-src="https://www.docswell.com/slide/KENYX7/embed" data-aspect="0.5625"></script>
 
-## 主成分分析
+#### 主成分分析（研究室 統計ゼミ2020）
 
 <script async class="docswell-embed" src="https://www.docswell.com/assets/libs/docswell-embed/docswell-embed.min.js" data-src="https://www.docswell.com/slide/5M16X2/embed" data-aspect="0.5625"></script>
