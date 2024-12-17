@@ -53,6 +53,14 @@ p:has(a.icon-link) {
   margin-bottom: 1.5rem;
 }
 
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
 a.icon-link {
   margin-top: 0.5rem;
   border: solid 1.5px rgb(0, 123, 255);

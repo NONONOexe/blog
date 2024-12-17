@@ -8,25 +8,29 @@ categories: [geo, rpackage]
 image: images/map.jpg
 ---
 
+::: {.callout-note icon=false appearance="simple"}
+この記事は[R言語 Advent Calendar 2024](https://qiita.com/advent-calendar/2024/rlang)の18日目の記事です。
+:::
+
 ## 1. はじめに
 
-先月、30DayMapChallengeをほぼRで完走しました。30DayMapChallengeは11月の間に毎日決められたテーマに沿って地図を作成するソーシャルイベントです。この記事では、この活動を振り返ります。
+先月、30DayMapChallengeをほぼRで完走しました。**30DayMapChallenge**とは、11月の一か月間に毎日決められたテーマに沿って地図を作成するソーシャルイベントです。この記事では、私の挑戦を振り返ります。また、これにあわせて地図作成に利用できるRパッケージやデータを紹介します。
 
-研究で地図づくりをしていますが、研究対象である交通事故以外の地図を作ることはないため、新鮮でした。ここで新しく知ったRパッケージやデータも多かったです。ここでは、30DayMapChallengeの経緯や感想、実際に使ったパッケージや作成した地図を紹介します。
+研究で普段から地図づくりはしていますが、研究対象である交通事故以外のデータを使って地図を作ることはないため、新鮮でした。ここで新しく知ったRパッケージやデータも多かったです。この記事からRや地図作成にチャレンジしてくれるひとが増えたらうれしいです。
 
 ## 2. 私の30DayMapChallenge
 
-[30DayMapChallenge](https://30daymapchallenge.com/)は毎年11月におこなわれている地図を作成するソーシャルイベントです。参加者は毎日あらかじめ決められたテーマにしたがい地図を作成します。作成した地図は`#30DayMapChallenge`というハッシュタグとともにSNSに投稿します。このような1か月間のチャレンジはほかにもあり、毎日決められたテーマの絵を描く[Inktober Challenge](https://inktober.com/)や[30DayChartChallenge](https://github.com/30DayChartChallenge/Edition2024)があります。
+[30DayMapChallenge](https://30daymapchallenge.com/)は毎年11月におこなわれている地図を作成するソーシャルイベントです。参加者は毎日あらかじめ決められたテーマにしたがい地図を作ります。作成した地図は`#30DayMapChallenge`というハッシュタグとともにSNSに投稿します。このような1か月間のチャレンジはほかにもあり、毎日決められたテーマの絵を描く[Inktober Challenge](https://inktober.com/)や[30DayChartChallenge](https://github.com/30DayChartChallenge/Edition2024)が知られています。
 
 ![30DayMapChallenge 2024で示された30のテーマ](images/30daymapchallenge.png)
 
-私が今年30DayMapChallengeに挑戦した理由は、いま思うとはっきりしていません。なんとなくはじめたという感じです。30DayMapChallengeについては、過去にXでみたことがあり、知ってはいました。ただ、クォリティの高い地図が投稿されており、「時間がかかりそう」「むずかしそう」という印象をもっていたため、これまで挑戦はしていませんでした。今年は昨年に続いて、地図系のコミュニティイベントである[FOSS4G TOKAI 2024](https://foss4gtokai.my.canva.site/2024)に参加したのですが、そこで30DayMapChallengeに挑戦したひとの話を聞いた印象が残っていたというのもあると思います。11月1日になって、Xで流れてくる地図をみて、金曜日で時間があったこともあり、ふと気が付いたら、スタートを切っていたという状態でした。1日チャレンジしたら、あとは途中で終わらせたくないので、空いた時間にコツコツ地図をつくりました。
+私が今年30DayMapChallengeに挑戦した理由は、いま思うとはっきりしていません。なんとなくはじめたという感じです。30DayMapChallengeについては、過去にXでみたことがあり、知ってはいました。ただ、クォリティの高い地図が投稿されており、「時間がかかりそう」「むずかしそう」という印象をもっていたため、これまで挑戦はしていませんでした。
 
-実際に挑戦してみた感想としては、結構大変でした。時間がかかります。地図づくりをはじめると、こだわりが出てきてしまい、結構やりこんでしまいます。とはいえ、冒頭にも述べたように新しいツールや表現方法を学べたりして、おもしろかったです。それから、地図を眺める時間が増えるため、少しだけ地理に詳しくなったりもしました。時間は結構必要ですが、挑戦する価値は非常に高いと思います。みなさんもぜひ挑戦してみてほしいと思います。
+今年は昨年に続いて、地図系のコミュニティイベントである[FOSS4G TOKAI 2024](https://foss4gtokai.my.canva.site/2024)に参加したのですが、そこで30DayMapChallengeに挑戦したひとの話を聞いた印象が残っていたというのもあると思います。11月1日になって、Xで流れてくる地図をみて、金曜日で時間があったこともあり、ふと気が付いたら、スタートを切っていたという状態でした。1日チャレンジしたら、あとは途中で終わらせたくないので、空いた時間にコツコツ地図をつくりました。
 
-## 3. Rによる地図づくり
+実際に挑戦してみた感想としては、時間はかかりますが、その分の価値があると思います。地図づくりをはじめると、こだわりが出てきてしまい、やりこみのなかで時間が溶けました。とはいえ、冒頭にも述べたように新しいツールや表現方法を学べたりして、おもしろかったです。それから、地図を眺める時間が増えるため、少しだけ地理に詳しくなったりもしました。時間は結構必要ですが、挑戦する価値は非常に高いので、みなさんもぜひ挑戦してみてほしいと思います。
 
-### 地図づくりの流れ
+## 3. 地図づくりの流れ
 
 地図づくりは以下のような流れで進めました。最終的に作成した地図とコードはGitHubの「[NONONOexe/30DayMapChallenge](https://github.com/NONONOexe/30DayMapChallenge-2024)」で公開しています。
 
@@ -37,156 +41,381 @@ image: images/map.jpg
 5. 地図を投稿
 6. コードを整理してGitHubへコミット
 
-表現方法がテーマになっているものが多いため、まずその表現でみせられるものを考えます。アイデアが浮かばないときはXでほかのひとが投稿している地図や過去の地図をみたり、利用できるデータから逆に考えたりしました。
+30のテーマは表現方法であるものが多いため、まずテーマとなっているもので表現できるものを考えました。アイデアが浮かばないときは、ほかのひとが投稿している地図をみたり、利用できるデータから逆に考えたりしました。
 
-データは30DayMapChallengeのサイトの「[Mapping resouces](https://30daymapchallenge.com/resources/)」から探すことができます。しかし、地理空間データは収集のコストもあるからか、思っているより少ないです。いろいろな国や組織から提供されてはいますが、多くは行政区域（州、県など）と紐づけられていることが多いです。
+地図に利用できるデータは30DayMapChallengeのサイトの「[Mapping resouces](https://30daymapchallenge.com/resources/)」から探すことができます。しかしながら、地理空間データは収集のコストもあるからか、それほど多くはありません。いろいろな国や組織から提供されてはいますが、多くのものは行政区域（州、県など）と紐づけられていることが多いです。
 
-コーディングには、チャットボットも利用しています。私は主に次のツールを使っています：
+コーディングはRStudioでおこなっています。また最近では、チャットボットも利用しています。私は主に次のツールを使っています：
 
 * [@shohei05](https://twitter.com/shoei05)さんが公開しているGPTsの「[Rはいいぞ](https://chatgpt.com/g/g-8SyJH1UaN-rhaiiso)」
 * Googleの「[Google AI Studio](https://aistudio.google.com)」
 
 「Rはいいぞ」はRに特化したGPTsで送信した内容をRの内容として回答してくれます。「Google AI Studio」はGeminiをはじめさまざまなモデルが使えます。トークンに限りがあるのですが、その量が非常に多く、いまのところ私は使い切ったことがありません。チャットボットはそれぞれで回答内容が違うので、それぞれのいいところを活かして実装方法の模索やコードの整理などに利用しています。
 
+## 4. Rによる地図作成
+
+### 地図を作るRスクリプト
+
+Rスクリプトでは、次の流れにしたがい地図を作ります。
+
+1. ライブラリの読み込み
+2. データのダウンロード（手動でダウンロードする場合はなし）
+3. データの読み込み
+4. 可視化のための前処理（抽出、結合、空間処理など）
+5. 可視化（地図の描画）
+
+Rは使ったことがあるけれど、地図を作成したことのないというひともいると思います。地図づくりは基本的にggplot2でグラフを作成するのと同じで、地理空間情報（イベントの発生位置、建物の大きさなど）がそこに加わるだけです。実際のRスクリプトをみると、よくわかるかと思います。
+
+次のRスクリプトはDay 1の実際のコードです。上述した手順に対応していることがわかると思います。この流れは条件によっては不要な手順もありますが、基本的にどの地図作成においても変わりません。
+
+```r
+# ライブラリの読み込み
+library(osmdata)
+library(sf)
+library(tmap)
+
+# データのダウンロードや読み込み
+temples_data <- opq(bbox = "Aichi-ken") |>
+  add_osm_feature(key = "building", value = "temple") |>
+  osmdata_sf()
+shrines_data <- opq(bbox = "Aichi-ken") |>
+  add_osm_feature(key = "building", value = "shrine") |>
+  osmdata_sf()
+
+# 可視化のための前処理
+temples_centroid <- st_centroid(temples_data$osm_polygons$geometry)
+shrines_centroid <- st_centroid(shrines_data$osm_polygons$geometry)
+
+# データの可視化（地図の描画）
+tmap_mode("view")
+tm_shape(temples_point) +
+  tm_dots(col = "#5BAD92", shape = 22, size = 0.05, border.col = "transparent") +
+  tm_shape(shrine_point) +
+  tm_dots(col = "#F26522", shape = 23, size = 0.05, border.col = "transparent")
+```
+
+
+### 使用したデータソース
+
+30の地図を作るときにテーマが異なることもありますが、同じデータから地図を作るのは退屈ですから、以下に示すさまざまなデータを使用しました。
+
+#### データソース
+
+[OpenStreetMap](https://www.openstreetmap.org/)
+: 誰でも自由に利用、編集できるオープンな地図データです。Overpass APIというAPIを介して、クエリを送ることで、データを得られます。Rでは、osmdataというパッケージから利用できます。
+
+[HydroSHEDS](https://www.hydrosheds.org/)
+: 水域生態学研究を支援するプロジェクトです。世界中の河川のデータを提供しています。
+
+[US Census Bureau's data](https://www.census.gov/data.html)
+: アメリカ合衆国国勢調査局です。アメリカにおける国勢調査のデータを提供しています。
+
+[Natural Earth](https://www.naturalearthdata.com/)
+: 世界地図をベクターデータとラスターデータで提供するサイトです。Rでは、rnaturalearthというパッケージを使うことで簡単に利用できます。tmapというパッケージに含まれる世界地図もこのNatural Earthをもとにしています。
+
+[eurostat（EU統計局）](https://ec.europa.eu/eurostat)
+: EU地域の統計データです。eurostatでは、地域統計分類単位（NUTS）という単位で分けられたEUの地域に対してのデータが得られます。NUTSは0から3までのレベルがあり、レベル0だと国単位で、数字が上がるにつれて、地域が細かくなります。NUTS 3では、15万–80万人規模の地域に分けられています。Rでは、eurostatというパッケージから利用することができます。
+
+[GBIF](https://www.gbif.org/)
+: 生物多様性情報を利用できるプラットフォームです。さまざまな生物について観測されたポイントのデータが得られます。
+
+[Humanitarian Data Exchange](https://data.humdata.org/)
+: [OCHA（国連人道問題調整事務所）](https://www.unic.or.jp/info/un_agencies_japan/ocha/)が管理するオープンデータの共有プラットフォームです。地震などによる被災、難民、食料問題などに関するデータが得られます。
+
+#### データ
+
+[林野庁森林率データ](https://www.rinya.maff.go.jp/j/keikaku/genkyou/r4/1.html)
+: 林野庁の森林率データです。林野庁は農林水産省の外局の一つです。
+
+[VIIRS夜間光データ](https://eogdata.mines.edu/products/vnl/)
+: 衛星からVIIRS（Visible Infrared Imaging Radiometer Suite）という装置により取得した、夜間光のデータです。
+
+[TLC Trip Record Data](https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page)
+: TLCが公開するニューヨークのタクシーの乗降位置のデータです。2022年からはParquetの形式で提供されており、扱いやすくなっています。
+
+[Unsplash](https://unsplash.com/ja/)
+: 世界中の写真を使えるフリー画像のサイトです。地理空間データではありませんが、撮影された場所と紐づけて扱うことはできます。
+
+[水深測量データ（NOAA）](https://www.noaa.gov/)
+: NOAA（アメリカ海洋大気庁）が公開する水深測量データです。世界中の海の深さを数値として得られます。
+
+[行政区域データ（国土数値情報）](https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-N03-2024.html)
+: 市区町村の境界を表すデータです。日本の地域で空間集計する場合によく利用します。Rでは、jpndistrictから利用できます。
+
+[国勢調査（統計局）](https://www.e-stat.go.jp/gis/statmap-search?page=1&type=1&toukeiCode=00200521)
+: e-Statから公開されている日本の国勢調査のデータです。Rでは、[simplecensus](https://ymgc19.github.io/memo_simplecensus)から利用できます。
+
+[気象データ（気象庁）](https://www.jma.go.jp/jma/index.html)
+: 気象庁がWebで公開している気象データです。降水量、気温などが含まれます。Rでは、[jmastats](https://uribo.github.io/jmastats/)から利用できます。
+
+[アメリカ合衆国各州のヘックスマップ](https://team.carto.com/u/andrew/tables/andrew.us_states_hexgrid/public/map)
+: CartoDBに登録されているアメリカ合衆国各州のヘックスマップです。
+
+[地球地図データ（国土地理院）](https://www.gsi.go.jp/kankyochiri/gm_global_e.html)
+: 国土地理院が公開している地球全体の標高や土地被覆のデータです。tmapが持つデータの一つである`land`はこれを利用しています。
+
+[交通事故統計情報（警察庁）](https://www.npa.go.jp/publications/statistics/koutsuu/opendata/index_opendata.html)
+: 警察庁の公開している交通事故のデータです。私の開発している[jpaccidents](https://nononoexe.github.io/jpaccidents/)から利用できます。
 
 ### 使用したRパッケージ
 
-使用したRパッケージを紹介します。Rには[Tidyverse](https://www.tidyverse.org/)というデータサイエンスのためのパッケージ群があります。これだけでもかなりさまざまなことができます。今回の地図づくりでは、Tidyverseに加えて、データを提供するパッケージや、地図づくりやWeb GISの機能を提供するパッケージを使用しました。
+使用したRパッケージの一部を紹介します。Rには[Tidyverse](https://www.tidyverse.org/)というデータサイエンスのためのパッケージ群があります。これだけでもかなりさまざまなことができます。今回の地図づくりでは、Tidyverseに加えて、データを提供するパッケージや、地図づくりやWeb GISの機能を提供するパッケージを使用しました。
 
-- dplyr
-- tidyr
-- forcats
-- lubridate
-- stringr
+| 目的 | パッケージ |
+| ------- | ------ |
+| データソースへのアクセス | elevatr／eurostat／jpndistrict／jmastats／jpaccidents／jpndistrict／marmap／osmdata／rgbif／rnaturalearth／simplecensus／tidycensus |
+| データの加工 | arrow／dplyr／forcats／jsonlite／lubridate／purrr／stringr／tidyr |
+| 空間計算 | gstat／pavement／raster／sf／spatstat／stars |
+| 可視化 | geomtextpath／ggplot2／ggspatial／magick／mapgl／patchwork／rayshader／scales／showtext／sysfonts／tmap／units／viridisLie |
 
-<!-- : データをTidyなものへ整理するためのパッケージです。縦持ち・横持ちの相互変換や、欠損値の処理などに利用します。 -->
-
-<!-- : カテゴリカルなデータ（因子型）を操作するための提供するパッケージです。カテゴリのラベルの変更や順番の操作などに利用します。 -->
-
-<!-- : 時間型のデータを操作するためのパッケージです。 -->
-
-<!-- : さまざまな文字列操作関数を提供するパッケージです。 -->
-
-#### データソースへのアクセス
-
-eurostat
-: [`{eurostat}`](https://ropengov.github.io/eurostat/index.html)はRから[ユーロスタット（EU統計局）](https://ec.europa.eu/eurostat)のオープンデータへアクセスするためのパッケージです。ユーロスタットはEU地域の統計データを提供しています。
-
-jpndistrict
-: [`{jpndistrict}`](https://uribo.github.io/jpndistrict/)は[国土数値情報](https://nlftp.mlit.go.jp/ksj/)で提供されている日本の行政区域を利用できるパッケージです。都道府県や市区町村別の塗分け地図を作りたいときなどに便利です。
-
-marmap
-:
-
-rgbif
-:
-
-jmastats
-:
-
-elevatr
-:
-
-simplecensus
-
-#### データの加工
-
-
-sf
-: Rでベクタ形式の地理空間データに関する機能（Simple Feature Access）を扱うためのパッケージです。PostGISなどと同じように`st_`からはじまるジオメトリ操作のためのさまざまな関数を提供します。また、`sf`というジオメトリを表現するデータ形式も提供しています。空間分析では欠かせないパッケージの一つです。
-
-stars
-:
-
-raster
-:
-
-jsonlite
-:
-
-spatstat
-:
-
-gstat
-:
-
-#### 地図の描画
+: {tbl-colwidths="[25,75]"}
 
 ggplot2
 : グラフを作成するためのパッケージです。地理空間データについても後述する`sf`という形式のデータであれば、`geom_sf()`という関数でプロットできます。
 
+jpndistrict
+: [jpndistrict](https://uribo.github.io/jpndistrict/)は[国土数値情報](https://nlftp.mlit.go.jp/ksj/)で提供されている日本の行政区域を利用できるパッケージです。都道府県や市区町村別の塗分け地図を作りたいときなどに便利です。
+
 osmdata
 : Overpass APIによりOpenStreetMapのデータをRでダウンロードして扱うようにできるパッケージです。sfの形式でデータを扱えるため、地図づくりでは非常に便利です。
+
+sf
+: Rでベクタ形式の地理空間データに関する機能（Simple Feature Access）を扱うためのパッケージです。PostGISなどと同じように`st_`からはじまるジオメトリ操作のためのさまざまな関数を提供します。また、`sf`というジオメトリを表現するデータ形式も提供しています。空間分析では欠かせないパッケージの一つです。
 
 tmap
 : 主題図を作成するためのパッケージです。sfやstarsのデータから地図を作成することができます。leafletでインタラクティブな地図を表示する`"view"`モードとggplot2でプロットとして地図を描画する`"plot"`モードがあるのも、とても便利でよく利用しています。
 
-scales
-:
+## 5. 作成した地図
 
-showtext
-:
+実際に作成した30の地図は次の表のとおりです。以降では、それぞれの地図について説明します。
 
-sysfonts
-:
+| 日|テーマ               |タイトル                                                                                                                        |
+|--:|:--------------------|:-------------------------------------------------------------------------------------------------------------------------------|
+|  1|[Points](#day-1.-points)|Shrines and Temples in Aichi（愛知県の神社とお寺）                                                                              |
+|  2|[Lines](#day-2.-lines)|The Nile River around Khartoum（ハルツーム周辺のナイル川）                                                                      |
+|  3|[Polygons](#day-3.-polygons)|Japan's Forest Coverage Rate（日本の森林率）                                                                                    |
+|  4|[Hexagons](#day-4.-hexagons)|Population Density by State（アメリカ州別人口）                                                                                 |
+|  5|[A journey](#day-5.-a-journey)|From Nagoya to Madrid (for attending a conference)（学会参加のために名古屋からマドリードへ）                                    |
+|  6|[Raster](#day-6.-raster)|VIIRS Nighttime Light（VIIRS夜間光データ）                                                                                      |
+|  7|[Vintage style](#day-7.-vintage-style)|Europe Antique Map（ヨーロッパの古地図）                                                                                                    |
+|  8|[Data: HDX](#day-8.-data-hdx)|Turkey Earthquake（トルコ地震のマグニチュード）                                                                                 |
+|  9|[AI only](#day-9.-ai-only)|Hokkaido…?（北海道らしきもの）                                                                                                 |
+| 10|[Pen & paper](#day-10.-pen-&-paper)|Sevilla mi mapa tarístrico（私のセビリア観光マップ）                                                                           |
+| 11|[Arctic](#day-11.-arctic)|Observed Locations of Polar Bears（ホッキョクグマ観測ポイント）                                                                 |
+| 12|[Time and space](#day-12.-time-and-space)|Drop-off Locations of Taxis in New York on Weekend (Yellow taxis)（週末のニューヨークにおけるイエロータクシー利用者の降車位置） |
+| 13|[A new tool](#day-13.-a-new-tool)|Mapping Japanese Landscape Photos from Unsplash Using Re:Earth（Re:EarthによるUnsplashの日本風景マッピング）                    |
+| 14|[A world map](#day-14.-a-world-map)|Earth Created from Elevation Raster Data（標高ラスタデータから作成した地球）                                                    |
+| 15|[My data](#day-15.-my-data)|Prefecture Visited and the Number of Visits（行ったことのある都道府県）                                                         |
+| 16|[Choropleth](#day-16.-choropleth)|Number of People in Europe Corresponding to ISCED 8 in 2022（2022年の欧州のISCEDレベル8の人口）                                 |
+| 17|[Collaborative map](#day-17.-collaborative-map)|Colossal Minecraft Map（広大なマインクラフトの地図）                                                                            |
+| 18|[3D](#day-18.-3d)    |3D Eckert World Map（エケルト地図3D）                                                                                           |
+| 19|[Typography](#day-19.-typography)|Streets Around Abbey Road（アビイ・ロードのあたりの道）                                                                         |
+| 20|[OpenStreetMap](#day-20.-openstreetmap)|3D Visualisation of Tokyo Station Area OSM Data using `{mapgl}`（`{mapgl}`による東京駅周辺の3次元的可視化）                     |
+| 21|[Conflict](#day-21.-conflict)|Locations of Domino's Pizza / Pizza-la on OpenStreetMap（OSM上のドミノ・ピザとピザーラの位置）                                  |
+| 22|[2 colours](#day-22.-2-colours)|Blue and White: The Flag and the White House（星条旗の青とホワイトハウス）                                                      |
+| 23|[Memories](#day-23.-memories)|My Commute Route（通学路）                                                                                                      |
+| 24|[Only circular shapes](#day-24.-only-circular-shapes)|Aichi Population（愛知県の人口）                                                                                                |
+| 25|[Heat](#day-25.-heat)|Max Temperature in October in Japan（日本の10月の最高気温）                                                                     |
+| 26|[Map projections](#day-26.-map-projections)|World Map Projections in Chronological Order（時系列でみる代表的投影法）                                                        |
+| 27|[MicroMapping](#day-27.-micromapping)|Just Room Enough Island（ジャスト・ルーム・イナフ島）                                                                           |
+| 28|[The blue planet](#day-28.-the-blue-planet)|Global Bathymetry（水深測量データから作成した地球）                                                                             |
+| 29|[Data: Overture](#day-29.-data-overture)|Buildings of Port of Hong Kong（香港港のビル群）                                                                                |
+| 30|[The final map](#day-30.-the-final-map)|My Research Focus: A Map of Traffic Accident Risk（交通事故リスクマップ）                                                       |
 
-arrow
-:
+### Day 1. Points
 
-rnaturalearth
-:
+私の住む愛知県の神社とお寺の位置をプロットした地図です。[@chizutodesign](https://x.com/chizutodesign)さんの「[岬vs.崎/埼](https://x.com/chizutodesign/status/1852004303533412808)」にインスパイアされて、2つのものを比較する地図にしようとして、作成したものです。建物の位置はOpenStreetMapに登録された情報をもとにしています。神社は鳥居の朱の色を、お寺は緑青の色を意識しています。ベースはtmapで作成してあるのですが、凡例部分だけAffinity Designerで作成しています。日をまたぎそうであったため、急いで付けました。神社とお寺は思ったより分布に違いがあり、歴史的背景をほのかに感じました。
 
-tidycensus
-:
+![Shrines and Temples in Aichi（愛知県の神社とお寺）](images/01-points.png)
 
-units
-:
+### Day 2. Lines
 
-rayshader
-:
+スーダンの首都であるハルツーム周辺のナイル川を表した地図です。ナイル川には非常に大きな支流として青ナイルと白ナイルがあり、ハルツームはこの2つが合流しているところに位置している街です。地図はggplot2で作成したものになります。「Lines」と聞いて、すぐに川にしようと決めて、作成をはじめたのですが、川のデータは支流を含むと非常に大きいデータで扱うのが難しかったです。地域を限定したのもそうしたためです。
 
-viridisLite
-:
+![The Nile River around Khartoum（ハルツーム周辺のナイル川）](images/02-lines.png)
 
-mapgl
-:
+### Day 3. Polygons
 
-geomtextpath
-:
+各都道府県の森林率を表した地図です。東北地方や日本海側に森林被覆率の高い地域が集まっており、一方で都市部は森林被覆率が低いことがわかります。行政区域の表現にはjpndistrictを使っています。
 
-ggspatial
-:
+![Japan's Forest Coverage Rate（日本の森林率）](images/03-polygons.png)
 
-pavement
-:
+### Day 4. Hexagons
 
-jpaccidents
-:
+アメリカ合衆国の州別人口密度を表した地図です。東海岸の方は首都ワシントンD.C.があることもあり、特に人口が集中していることが読み取れます。ヘックスマップはggplot2だと、`geom_hex()`を使うことで作成できますが、ここでは、公開されていた[アメリカ合衆国のヘックスマップ（CartoDB）](https://team.carto.com/u/andrew/tables/andrew.us_states_hexgrid/public/map)を利用しています。また、人口密度のデータはtidycensusより取得しました。州で塗り分けると、印象がそれぞれの州の大きさによるところがありますが、ヘックスマップだとそうしたバイアスがないことが利点に思います。
 
-magick
-:
+![Population Density by State（アメリカ州別人口）](images/04-hexagons.png)
 
+### Day 5. A journey
 
+名古屋からマドリードへ向かったときの飛行機の航路を描いた地図です。飛行機の最短経路を描くには、地図上の距離と方位が正確な正距方位図法が有名であるため、これを採用しました。平面直角座標系への変換はデータそのものを変換する場合はsfの`st_transform()`で、描画上のみ変換したい場合はggplot2の`coord_sf()`で変換できます。ここでは、`"+proj=laea +lat_0=34.86 +lon_0=136.81 +x_0=4321000 +y_0=3210000 +ellps=GRS80 +units=m +no_defs"`という座標系を設定しています。`lat_0`と`lon_0`の部分が中心位置の緯度経度を示しています。なお、この地図についてですが、実際の航路はこのように直線的には飛んでいません。
 
-## 4. 作成した地図
+![From Nagoya to Madrid (for attending a conference)（学会参加のために名古屋からマドリードへ）](images/05-a-journey.png)
 
-| 日  | テーマ             | タイトル                    | ツール               |
-| --: | ----------------  | -------------------------- | -------------------- |
-|   1 | Points            | Shrine and Temple in Aichi | R, Affinity Designer |
-|   2 | Lines             |
-|   3 | Polygons          |
-|   4 | Hexagons          |
-|   5 | A journey         |
-|   6 | Raster            |
-|   7 | Vintage style     |
-|   8 | Data: HDX         |
-|   9 | AI only           |
-|  10 | Pen & paper       |
-|  11 | 
+### Day 6. Raster
 
-ユーロスタットでは、地域統計分類単位（NUTS）という単位で分けられたEUの地域に対してのデータが得られます。NUTSは0から3までのレベルがあり、レベル0だと国単位で、数字が上がるにつれて、地域が細かくなります。NUTS 3では、15万–80万人規模の地域に分けられています。
+VIIRSという装置により衛星で計測された夜間光のデータを描いた地図です。都市部の街の明かりがとても明るいことがわかります。この地図はWeb上で地図を作成できるGoogle Earth Engine（GEE）で作成しました。GEEはRからもrgeeというパッケージを用いて、利用できるはずなのですが、私は環境の問題からかなぜかうまく使うことができませんでした。
 
-## x. まとめ
+![VIIRS Nighttime Light（VIIRS夜間光データ）](images/06-raster.png)
 
-Rによる地図づくりはおもしろいため、作成したことのないひとはぜひこの記事をみて、試してもらいたいと思います。
-この記事が、Rで地図づくりをするひとの助けや、来年以降の30DayMapChallengeでRを選択するひとが増えたらちょっとうれしいです。
+### Day 7. Vintage style
+
+ヨーロッパを古地図風に描いた地図です。描かれている地形や国は現在のもので、色とフォントを調整したものになります。私はファンタジーRPGとかが好きなため「Vintage」な地図というと中世ヨーロッパというところからこのような地図になりましたが、[れきちず](https://rekichizu.jp/map)のように日本の古地図を作ってもよかったかもしれません。
+
+![Europe Antique Map（ヨーロッパの古地図）](images/07-vintage-style.png)
+
+### Day 8. Data: HDX
+
+トルコ・シリア地震の観測位置とマグニチュードにもとづくバブルマップです。非常に大きな地震が集中して発生していることがわかります。また、T字状に観測位置があることから、そこに断層線があるのが伺えます。
+
+![Turkey Earthquake（トルコ地震のマグニチュード）](images/08-humanitarian-data-exchange.png)
+
+### Day 9. AI only
+
+ChatGPT（DALL-E）に描いてもらった北海道です。観光地らしいものが描かれつつ、それらしい雰囲気はありますが、まったく北海道ではありません。
+
+![Hokkaido…?（北海道らしきもの）](images/09-ai-only.png)
+
+しかし、この北海道らしきものはこれでもプロンプトを調整しています。その前に出力されたものはさらに北海道ではありませんでした。それが、この「HOKKAIDO JAPAN」という日本全国が北海道化するという謎の地図です。「Sappido」という札幌と北海道を足して2で割ったような地名があったり、いたるところが函館だったりしています。このカオスのあとだったので、先ほどの画像を採用しました。
+
+![Hokkaido…??（完全に北海道ではないもの)](images/09-ai-only-miss.png)
+
+### Day 10. Pen & paper
+
+スペインのセビリアで観光したところを描いた手書きの地図です。北から、サンタ・フスタ駅、ヒラルダの塔、カテドラル、マエスランサ闘牛場、スペイン広場、メルカドーナを描いてみました。セビリアは観光地が歩ける距離に集まっていて、観光しやすいので、ぜひ行ってみてほしいところです。
+
+![Sevilla mi mapa tarístrico（私のセビリア観光マップ）](images/10-pen-and-paper.png)
+
+### Day 11. Arctic
+
+ホッキョクグマの観測ポイントをマッピングした北極中心の地図です。ホッキョクグマの観測ポイントはrgbifを用いて取得しています。北極の氷の部分のデータを手に入れる方法がわからなかったため、氷の部分は描画できていません。全体には、海岸沿いに広く分布していることがわかります。特にアラスカ付近には非常に多くの観測データがあります。
+
+![Observed Locations of Polar Bears（ホッキョクグマ観測ポイント）](images/11-arctic.png)
+
+### Day 12. Time and space
+
+週末のニューヨークにおけるイエロータクシー利用者の降車位置を表した地図です。3か月のデータを使って、各月と朝昼夜の9つに分けてプロットしました。マンハッタンのある中心地（地図の西部）は常時降車数が多いようです。クイーンズ（地図の東部）の方は時間や月により変化がみられます。週末のデータを利用しているので、観光客による影響が大きいのかもしれません。
+
+![Drop-off Locations of Taxis in New York on Weekend (Yellow taxis)（週末のニューヨークにおけるイエロータクシー利用者の降車位置）](images/12-time-and-space.png)
+
+このイエロータクシーのデータは件数が多いのですが、Parquetの形式で提供されています。そのため、非常に高速に読み込むことができました。リアルなデータの分析を練習するのにはちょうどよいデータかもしれません。
+
+### Day 13. A new tool
+
+[Unsplash](https://unsplash.com/ja/)にアップロードされている日本風景をRe:Earthにマッピングした地図です。このDay 13では、今まで使用したことのないツールを使って地図づくりをすることがテーマになっています。[Re:Earth](https://reearth.io/ja/)は[Eukarya](https://eukarya.io/)が提供するWebGISプラットフォームです。Web上でプロジェクトを作成し、地理空間データをアップロードするだけで、WebGISのアプリケーションを作成できます。FOSS4G TOKAIでお話だけ聞いて、使ったことがなかったので、使ってみましたが、非常に簡単にアプリケーションを作成できました。ここでは画像URLを位置に紐づける単純な操作しかしていませんが、Re:Earthで作られたほかのアプリケーションをみると、PLATEAUのデータを読み込めたり、人流を表現できたり、高度なこともできるようです。
+
+![Mapping Japanese Landscape Photos from Unsplash Using Re:Earth（Re:EarthによるUnsplashの日本風景マッピング）](images/13-a-new-tool.png)
+
+### Day 14. A world map
+
+標高と水深測量のラスタデータから地球を描いたものです。2種類のラスタデータの分解能を合わせて、合成し、正射図法で描画することで地球らしくしました。これまでラスタデータを使ったことがなかったので、学びの多い地図でした。
+
+![Earth Created from Elevation Raster Data（標高ラスタデータから作成した地球）](images/14-a-world-map.png)
+
+ggplot2でこの図を出力するとブラウン管を通したような見た目になります。この地図はtmapで作成していて、ggplot2でできないかを試したときに偶然気が付きました。なぜなんでしょうか。いまだによくわかっていないため、わかる人がいたらぜひ教えてほしいです。
+
+![ブラウン管を通したような地球？](images/14-a-world-map-miss.png)
+
+### Day 15. My data
+
+行ったことのある都道府県を、その回数で塗り分けたものです。まだまだ行ったことのないところが多いです。どうしても日本の地図を作成することが多くなってしまうため、ここでは、sfの`st_simplify()`を用いて、ポリゴンを単純化し、略地図風にしてみました。
+
+![Prefecture Visited and the Number of Visits（行ったことのある都道府県）](images/15-my-data.png)
+
+### Day 16. Choropleth
+
+2022年のEUにおけるISCEDレベル8の人口にもとづくコロプレスマップです。ISCED（国際標準教育分類）はUNESCOが策定している、教育のレベルを表す区分です。0から8までの9段階で、レベル8は博士号同等のレベルを表します。これは国ごとに塗分けているのですが、イタリアやポーランドのあたりは20万人を超えています。国の総人口や面積にもよるとは思いますが、非常に多くのひとが高い能力を持っていることが伺えます。
+
+![Number of People in Europe Corresponding to ISCED 8 in 2022（2022年の欧州のISCEDレベル8の人口）](images/16-choropleth.png)
+
+### Day 17. Collaborative map
+
+マインクラフトの大量の地図を額縁に並べたものです。Day 17はひとと協力して地図を作成するというテーマでした。地図は友人に呼び掛けて、1枚ずつ探索して埋めてもらって、300枚を超える地図を収集しました。
+
+![Colossal Minecraft Map（広大なマインクラフトの地図）](images/17-collaborative-map.png)
+
+![収集の途中の状態](images/17-collaborative-map-halfway.jpeg)
+
+### Day 18. 3D
+
+標高の高さを3D表現した世界地図です。rayshaderを使用してggplot2で描いた地図を3D化しています。[rayshader](https://www.rayshader.com/)はRでOpenGLやWebGLを使うためのrglというパッケージをベースとして、3Dグラフィックを作成できるパッケージです。水や雲などの表現もできるようです。このエケルト図法で描かれた世界地図はtmapの主題図としてよくみかけるものですが、3Dになると印象がガラリと変わるように感じます。
+
+![3D Eckert World Map（エケルト地図3D）](images/18-3d.png)
+
+### Day 19. Typography
+
+ロンドンのアビイ・ロードの付近の通りを通りの名称で描いたものです。Day 19は「Typography」というテーマで、文字で地図を表現するということでした。通りに沿って文字を並べるところが先に決まって、それから「通り」というところからビートルズのアビイ・ロードの横断歩道が浮かんだので、このようにしました。地図の川や通りではその線形に沿って名称が描かれることがありますが、Rでは、[geomtextpath](https://allancameron.github.io/geomtextpath/)というパッケージを利用するとこれを実現できます。
+
+![Streets Around Abbey Road（アビイ・ロードのあたりの道）](images/19-typography.png)
+
+### Day 20. OpenStreetMap
+
+東京駅周辺のOpenStreetMapのデータをMapLibre GL JSで立体的に可視化したものです。ここではOpenStreetMapのデータのみを利用して、高さも表現しています。しかしながら、高さが登録されていない建物も多いので、それらは適当な高さにしてあります。この地図の作成にはmapglというパッケージを使用しています。[mapgl](https://walker-data.com/mapgl/)はMapLibre GL JSやMapbox GL JSといった高度なWebGISのアプリケーションを作成できるパッケージで、データソースとしてsf形式のデータを渡すことができます。
+
+![3D Visualisation of Tokyo Station Area OSM Data using mapgl（mapglによる東京駅周辺の3次元的可視化）](images/20-openstreetmap.png)
+
+### Day 21. Conflict
+
+ドミノ・ピザとピザーラのある市区町村を描いた地図です。ドミノ・ピサとピザーラは人気ピザ・チェーンのトップ2らしいです。このデータはOpenStreetMapに登録されているものを利用しているので、すべての店舗が描かれているわけではないと思いますが、地図にしてみると、意外とばらけていることがわかりました。特定の地域に偏っているということもないようです。各店の市場戦略が表れているのでしょうか。
+
+![Locations of Domino's Pizza / Pizza-la on OpenStreetMap（OSM上のドミノ・ピザとピザーラの位置）](images/21-conflict.png)
+
+### Day 22. 2 colors
+
+星条旗の青で塗った背景に白でホワイトハウス周辺を描いた地図です。2色を使った地図がテーマであったため、名前に色を含む場所からホワイトハウスにしました。データはOpenStreetMapのものです。対称的できれいな地図になりました。
+
+![Blue and White: The Flag and the White House（星条旗の青とホワイトハウス）](images/22-2-colours.png)
+
+### Day 23. Memories
+
+これまでの通学路（通勤路）を表現した地図です。Google Mapをトレースする形でAffinity Designerで手でラインを引いて作成しました。この地図にあるように、私は偶然にも小学校から社会人まで、少しずつ自分の行動範囲を広げるような形で進路が決まっています。
+
+![My Commute Route（通学路）](images/23-memory.png)
+
+### Day 24. Only circular shapes
+
+愛知県の人口を表現したバブルマップです。[simplecensus](https://ymgc19.github.io/memo_simplecensus)というパッケージを使って国勢調査のデータをもとに描いています。地域の大きさがばらばらであるため、名古屋の方が細かくなっていますが、うっすら愛知県の形状がみえるでしょうか。あと、この地図の文字の部分は自分で描いたものですが、うっかり「Population」の「i」が抜けるというミスもしていることにあとで気づきました。
+
+![Aichi Population（愛知県の人口）](images/24-only-circular-shapes.png)
+
+### Day 25. Heat
+
+日本の10月の最高気温を表したヒートマップです。気温は気象庁のデータをもとにしていますが、すべての地域にデータがあるわけではないため、データのない部分を逆距離加重法（IDW）により、空間補完しています。今年は11月になり、急に冷え込んだので、10月の暑さはもう思い出せません。
+
+![Max Temperature in October in Japan（日本の10月の最高気温）](images/25-heat.png)
+
+### Day 26. Map projections
+
+開発された時系列順に投影法を並べたものです。左上は変換前のWGS84（Webメルカトル）にしています。代表的なものを並べましたが、学校で習うことのないものも多いかと思います。投影法は地球を歪みなく平面上に表現するためにいまでも開発されていて、このなかでは「イコールアース図法（Equal Earth projection）」が最も新しいものになります。sfでは内部でPROJというソフトウェアを介して、座標系を変換しています。変換可能な座標系は[PROJのページ](https://proj.org/en/stable/operations/projections/index.html)から確認できます。この地図にない投影法もここで確認できます。
+
+![World Map Projections in Chronological Order（時系列でみる代表的投影法）](images/26-map-projections.png)
+
+### Day 27. MicroMapping
+
+世界で最も小さな有人島であるジャスト・ルーム・イナフ島を描いた地図です。ニューヨーク州にあるとても小さな島です。あまりにも小さくて、表現できるオブジェクトがこれだけしかありませんでした。実際の写真に合わせて、家の屋根を赤くしています。となりにあるのは小さな植え込みでそのなかに1本だけ木が生えています。小さいので解像度が低いですが、海も一応深さに合わせて色を付けています。
+
+![Just Room Enough Island（ジャスト・ルーム・イナフ島）](images/27-micromapping.png)
+
+### Day 28. The blue planet
+
+水深測量データから作成した地球のGIFアニメです。Day 14で地球を描いたときに、回転させたかったのですが、はじめてラスタデータを触ったこともあり、このときは方法がわからず断念しました。それからこのDay 28で再チャレンジして、成功しました。地軸の傾きやGIFへの変換はImageMagickで実現しています。惜しむらくは自転方向を誤ってしまったことだけでしょうか。これには科学者として反省しています。
+
+![Global Bathymetry（水深測量データから作成した地球）](images/28-the-blue-planet.gif)
+
+### Day 29. Data: Overture
+
+香港港のビル群を立体的に描いた地図です。Overture Maps Foundationはオープンデータの地図データを作成するための財団です。Overtureのデータは2024年4月に公開されたばかりで新しく、MicrosoftやAmazonなどが協力しており、今後が期待されています。Day 29はこのOvertureのデータを使用した地図を作成します。Overtureのデータはduckdbを経由して、利用することができるのですが、Rのduckdbパッケージはまだ地理空間データのための拡張機能に対応していないため、duckdbを使った方法は断念して、ここではGeoJSONを使っています。中身はOpenStreetMapのものが多いのですが、わかりやすいスキーマに設計されているので、今後duckdbを経由して、簡単に使えるようになったらうれしいです。
+
+![Buildings of Port of Hong Kong（香港港のビル群）](images/29-overture.png)
+
+### Day 30. The final map
+
+研究で対象にしている交通事故のリスクを可視化した地図です。私の研究は交通事故の発生リスクの推定や要因の調査などを対象にしています。この地図では道路の線形に合わせたヒートマップを描きました。交通事故は基本的に道路でしか発生しないので、道路ネットワークのなかでヒートマップを作っているのが特徴です。
+
+![My Research Focus: A Map of Traffic Accident Risk（交通事故リスクマップ）](images/30-the-final-map.png)
+
+## 6. まとめ
+
+この記事では、30DayMapChallengeの振り返りをしました。Rでは地図をつくるためのさまざまなパッケージが開発されています。私もこのイベントを通じてさらに地図づくりのレベルが上がったのではないかと思います。
+
+この記事が、今後Rで地図づくりをするひとの助けや、来年以降の30DayMapChallengeでRを選択するひとが増えたらちょっとうれしいです。また、今回のRスクリプト、地図、私の活動など、なんでも質問や気になる点などあれば、ぜひコメントいただけたらと思います。
