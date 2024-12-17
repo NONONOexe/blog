@@ -1,0 +1,1414 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.39">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Keisuke ANDO">
+<meta name="dcterms.date" content="2024-12-18">
+<meta name="description" content="Rでチャレンジした30DayMapChallengeを振り返りました。">
+
+<title>Rによる30DayMapChallenge – NONONOexe Something Blog</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../images/favicon.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-846021392d294884e0e9fb56d5cd16ea.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+
+<meta property="og:title" content="Rによる30DayMapChallenge – NONONOexe Something Blog">
+<meta property="og:description" content="Rでチャレンジした30DayMapChallengeを振り返りました。">
+<meta property="og:image" content="https://nononoexe.github.io/blog/posts/2024-12-18-30daymapchallenge-with-r/images/30daymapchallenge.png">
+<meta property="og:site_name" content="NONONOexe Something Blog">
+<meta property="og:image:height" content="540">
+<meta property="og:image:width" content="960">
+<meta name="twitter:title" content="Rによる30DayMapChallenge – NONONOexe Something Blog">
+<meta name="twitter:description" content="Rでチャレンジした30DayMapChallengeを振り返りました。">
+<meta name="twitter:image" content="https://nononoexe.github.io/blog/images/nononoexe-something-blog.png">
+<meta name="twitter:creator" content="@nononoexe">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image-height" content="1450">
+<meta name="twitter:image-width" content="2000">
+</head>
+
+<body class="floating nav-fixed slimcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">NONONOexe Something Blog</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">ブログ</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../publifications.html"> 
+<span class="menu-text">論文</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../slides.html"> 
+<span class="menu-text">スライド</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">安藤 圭祐</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/NONONOexe"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/NONONOexe"> <i class="bi bi-twitter" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Rによる30DayMapChallenge</h1>
+                  <div>
+        <div class="description">
+          <p>Rでチャレンジした30DayMapChallengeを振り返りました。</p>
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">geo</div>
+                <div class="quarto-category">rpackage</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Keisuke ANDO </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">December 18, 2024</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#はじめに" id="toc-はじめに" class="nav-link active" data-scroll-target="#はじめに">1. はじめに</a></li>
+  <li><a href="#私の30daymapchallenge" id="toc-私の30daymapchallenge" class="nav-link" data-scroll-target="#私の30daymapchallenge">2. 私の30DayMapChallenge</a></li>
+  <li><a href="#地図づくりの流れ" id="toc-地図づくりの流れ" class="nav-link" data-scroll-target="#地図づくりの流れ">3. 地図づくりの流れ</a></li>
+  <li><a href="#rによる地図作成" id="toc-rによる地図作成" class="nav-link" data-scroll-target="#rによる地図作成">4. Rによる地図作成</a>
+  <ul class="collapse">
+  <li><a href="#地図を作るrスクリプト" id="toc-地図を作るrスクリプト" class="nav-link" data-scroll-target="#地図を作るrスクリプト">地図を作るRスクリプト</a></li>
+  <li><a href="#使用したデータソース" id="toc-使用したデータソース" class="nav-link" data-scroll-target="#使用したデータソース">使用したデータソース</a></li>
+  <li><a href="#使用したrパッケージ" id="toc-使用したrパッケージ" class="nav-link" data-scroll-target="#使用したrパッケージ">使用したRパッケージ</a></li>
+  </ul></li>
+  <li><a href="#作成した地図" id="toc-作成した地図" class="nav-link" data-scroll-target="#作成した地図">5. 作成した地図</a></li>
+  <li><a href="#まとめ" id="toc-まとめ" class="nav-link" data-scroll-target="#まとめ">6. まとめ</a></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block page-columns page-full" id="quarto-document-content">
+
+
+
+
+
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>この記事は<a href="https://qiita.com/advent-calendar/2024/rlang">R言語 Advent Calendar 2024</a>の18日目の記事です。</p>
+</div>
+</div>
+</div>
+<section id="はじめに" class="level2">
+<h2 class="anchored" data-anchor-id="はじめに">1. はじめに</h2>
+<p>先月、30DayMapChallengeをほぼRで完走しました。<strong>30DayMapChallenge</strong>とは、11月の一か月間に毎日決められたテーマに沿って地図を作成するソーシャルイベントです。この記事では、私の挑戦を振り返ります。また、これにあわせて地図作成に利用できるRパッケージやデータを紹介します。</p>
+<p>研究で普段から地図づくりはしていますが、研究対象である交通事故以外のデータを使って地図を作ることはないため、新鮮でした。ここで新しく知ったRパッケージやデータも多かったです。</p>
+<p>この記事は私の活動に興味のあるひとに加え、</p>
+<ul>
+<li>Rを普段触っており、興味はあるが地図を作成したことはないひと</li>
+<li>QGISやGeoPandasなど、R以外のツールで地図を作成しているひと</li>
+<li>来年以降の30DayMapChallengeをやってみようかなと思っているひと</li>
+</ul>
+<p>の参考にもなるかと思います。</p>
+</section>
+<section id="私の30daymapchallenge" class="level2">
+<h2 class="anchored" data-anchor-id="私の30daymapchallenge">2. 私の30DayMapChallenge</h2>
+<p><a href="https://30daymapchallenge.com/">30DayMapChallenge</a>は毎年11月におこなわれている地図を作成するソーシャルイベントです。参加者は毎日あらかじめ決められたテーマにしたがい地図を作ります。作成した地図は<code>#30DayMapChallenge</code>というハッシュタグとともにSNSに投稿します。このような1か月間のチャレンジはほかにもあり、毎日決められたテーマの絵を描く<a href="https://inktober.com/">Inktober Challenge</a>や<a href="https://github.com/30DayChartChallenge/Edition2024">30DayChartChallenge</a>が知られています。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/30daymapchallenge.png" class="img-fluid figure-img"></p>
+<figcaption>30DayMapChallenge 2024で示された30のテーマ</figcaption>
+</figure>
+</div>
+<p>私が今年30DayMapChallengeに挑戦した理由は、いま思うとはっきりしていません。なんとなくはじめたという感じです。30DayMapChallengeについては、過去にXでみたことがあり、知ってはいました。ただ、クォリティの高い地図が投稿されており、「時間がかかりそう」「むずかしそう」という印象をもっていたため、これまで挑戦はしていませんでした。</p>
+<p>今年は昨年に続いて、地図系のコミュニティイベントである<a href="https://foss4gtokai.my.canva.site/2024">FOSS4G TOKAI 2024</a>に参加しました。そこで30DayMapChallengeに挑戦したひとの話を聞いた印象が残っていたというのもあると思います。11月1日になって、Xで流れてくる地図をみて、金曜日で時間があったこともあり、ふと気が付いたら、スタートを切っていたという状態でした。1日チャレンジしたら、あとは途中で終わらせたくないので、空いた時間にコツコツ地図をつくりました。</p>
+<p>実際に挑戦してみた感想としては、時間はかかりますが、その分の価値があると思います。地図づくりをはじめると、こだわりが出てきてしまい、やりこみのなかで時間が溶けました。とはいえ、冒頭にも述べたように新しいツールや表現方法を学べたりして、おもしろかったです。それから、地図を眺める時間が増えるため、少しだけ地理に詳しくなったりもしました。時間は結構必要ですが、挑戦する価値は非常に高いので、迷っているひとはぜひ挑戦してみてほしいと思います。</p>
+</section>
+<section id="地図づくりの流れ" class="level2">
+<h2 class="anchored" data-anchor-id="地図づくりの流れ">3. 地図づくりの流れ</h2>
+<p>地図づくりは以下のような流れで進めました。最終的に作成した地図とコードはGitHubの「<a href="https://github.com/NONONOexe/30DayMapChallenge-2024">NONONOexe/30DayMapChallenge</a>」で公開しています。</p>
+<ol type="1">
+<li>テーマに沿う地図をイメージ</li>
+<li>イメージした地図を表現するためのデータを調査</li>
+<li>地図を作成（コーディング）</li>
+<li>作成した地図を調整</li>
+<li>地図を投稿</li>
+<li>コードを整理してGitHubへコミット</li>
+</ol>
+<p>30のテーマは表現方法であるものが多いため、まずテーマとなっているもので表現できるものを考えました。アイデアが浮かばないときは、ほかのひとが投稿している地図をみたり、利用できるデータから逆に考えたりしました。</p>
+<p>地図に利用できるデータは30DayMapChallengeのサイトの「<a href="https://30daymapchallenge.com/resources/">Mapping resouces</a>」から探せます。しかしながら、地理空間データは収集のコストもあるからか、それほど多くはありません。いろいろな国や組織から提供されてはいますが、多くのものは行政区域（州、県など）と紐づけられていることが多いです。</p>
+<p>コーディングはRStudioでおこなっています。また最近では、チャットボットも利用しています。私は主に次のツールを使っています：</p>
+<ul>
+<li><a href="https://twitter.com/shoei05"><span class="citation" data-cites="shohei05">@shohei05</span></a>さんが公開しているGPTsの「<a href="https://chatgpt.com/g/g-8SyJH1UaN-rhaiiso">Rはいいぞ</a>」</li>
+<li>Googleの「<a href="https://aistudio.google.com">Google AI Studio</a>」</li>
+</ul>
+<p>「Rはいいぞ」はRに特化したGPTsで送信した内容をRの内容として回答してくれます。「Google AI Studio」はGeminiをはじめさまざまなモデルが使えます。トークンに限りがあるのですが、その量が非常に多く、いまのところ私は使い切ったことがありません。チャットボットはそれぞれで回答内容が違うので、それぞれのいいところを活かして実装方法の模索やコードの整理などに利用しています。</p>
+</section>
+<section id="rによる地図作成" class="level2">
+<h2 class="anchored" data-anchor-id="rによる地図作成">4. Rによる地図作成</h2>
+<section id="地図を作るrスクリプト" class="level3">
+<h3 class="anchored" data-anchor-id="地図を作るrスクリプト">地図を作るRスクリプト</h3>
+<p>Rスクリプトでは、次の流れにしたがい地図を作ります。</p>
+<ol type="1">
+<li>ライブラリの読み込み</li>
+<li>データのダウンロード（手動でダウンロードする場合はなし）</li>
+<li>データの読み込み</li>
+<li>可視化のための前処理（抽出、結合、空間処理など）</li>
+<li>可視化（地図の描画）</li>
+</ol>
+<p>Rは使ったことがあるけれど、地図を作成したことのないというひともいると思います。地図づくりは基本的にggplot2でグラフを作成するのと同じで、地理空間情報（イベントの発生位置、建物の大きさなど）がそこに加わるだけです。実際のRスクリプトをみると、よくわかるかと思います。</p>
+<p>次のRスクリプトはDay 1の実際のコードです。上述した手順に対応していることがわかると思います。この流れは条件によっては不要な手順もありますが、基本的にどの地図作成においても変わりません。</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ライブラリの読み込み</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(osmdata)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tmap)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># データのダウンロードや読み込み</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>temples_data <span class="ot">&lt;-</span> <span class="fu">opq</span>(<span class="at">bbox =</span> <span class="st">"Aichi-ken"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_osm_feature</span>(<span class="at">key =</span> <span class="st">"building"</span>, <span class="at">value =</span> <span class="st">"temple"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">osmdata_sf</span>()</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>shrines_data <span class="ot">&lt;-</span> <span class="fu">opq</span>(<span class="at">bbox =</span> <span class="st">"Aichi-ken"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_osm_feature</span>(<span class="at">key =</span> <span class="st">"building"</span>, <span class="at">value =</span> <span class="st">"shrine"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">osmdata_sf</span>()</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 可視化のための前処理</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>temples_centroid <span class="ot">&lt;-</span> <span class="fu">st_centroid</span>(temples_data<span class="sc">$</span>osm_polygons<span class="sc">$</span>geometry)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>shrines_centroid <span class="ot">&lt;-</span> <span class="fu">st_centroid</span>(shrines_data<span class="sc">$</span>osm_polygons<span class="sc">$</span>geometry)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co"># データの可視化（地図の描画）</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_mode</span>(<span class="st">"view"</span>)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(temples_point) <span class="sc">+</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_dots</span>(<span class="at">col =</span> <span class="st">"#5BAD92"</span>, <span class="at">shape =</span> <span class="dv">22</span>, <span class="at">size =</span> <span class="fl">0.05</span>, <span class="at">border.col =</span> <span class="st">"transparent"</span>) <span class="sc">+</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_shape</span>(shrine_point) <span class="sc">+</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_dots</span>(<span class="at">col =</span> <span class="st">"#F26522"</span>, <span class="at">shape =</span> <span class="dv">23</span>, <span class="at">size =</span> <span class="fl">0.05</span>, <span class="at">border.col =</span> <span class="st">"transparent"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="使用したデータソース" class="level3">
+<h3 class="anchored" data-anchor-id="使用したデータソース">使用したデータソース</h3>
+<p>30の地図を作るときにテーマが異なることもありますが、同じデータから地図を作るのは退屈ですから、以下に示すさまざまなデータを使用しました。</p>
+<section id="データソース" class="level4">
+<h4 class="anchored" data-anchor-id="データソース">データソース</h4>
+<dl>
+<dt><a href="https://www.openstreetmap.org/">OpenStreetMap</a></dt>
+<dd>
+誰でも自由に利用、編集できるオープンな地図データです。Overpass APIというAPIを介して、クエリを送ることで、データを得られます。Rでは、<a href="https://docs.ropensci.org/osmdata/">osmdata</a>というパッケージから利用できます。
+</dd>
+<dt><a href="https://www.hydrosheds.org/">HydroSHEDS</a></dt>
+<dd>
+水域生態学研究を支援するプロジェクトです。世界中の河川のデータを提供しています。
+</dd>
+<dt><a href="https://www.census.gov/data.html">US Census Bureau’s data</a></dt>
+<dd>
+アメリカ合衆国国勢調査局です。アメリカにおける国勢調査のデータを提供しています。Rでは、<a href="https://walker-data.com/tidycensus/">tidycensus</a>というパッケージで利用することができます。
+</dd>
+<dt><a href="https://www.naturalearthdata.com/">Natural Earth</a></dt>
+<dd>
+世界地図をベクターデータとラスターデータで提供するサイトです。Rでは、<a href="https://docs.ropensci.org/rnaturalearth/articles/rnaturalearth.html">rnaturalearth</a>というパッケージを使うことで簡単に利用できます。tmapというパッケージに含まれる世界地図もこのNatural Earthをもとにしています。
+</dd>
+<dt><a href="https://ec.europa.eu/eurostat">EU統計局</a></dt>
+<dd>
+EU地域の統計データです。EU統計局では、地域統計分類単位（NUTS）という単位で分けられたEUの地域に対してのデータが得られます。NUTSは0から3までのレベルがあり、レベル0だと国単位で、数字が上がるにつれて、地域が細かくなります。NUTS 3では、15万–80万人規模の地域に分けられています。Rでは、<a href="https://ropengov.github.io/eurostat/articles/eurostat_tutorial.html">eurostat</a>というパッケージから利用することができます。
+</dd>
+<dt><a href="https://www.gbif.org/">GBIF</a></dt>
+<dd>
+生物多様性情報を利用できるプラットフォームです。さまざまな生物について観測されたポイントのデータが得られます。事前に登録が必要ですが、Rでは、<a href="https://www.gbif.org/tool/81747/rgbif">rgbif</a>という公式のAPIが利用できます。利用例については、伊東宏樹さんの「<a href="https://ito4303.github.io/KanazawaR001/rgbif.html#/title-slide">Rで生物多様性を取得する</a>」が参考になります。
+</dd>
+<dt><a href="https://data.humdata.org/">Humanitarian Data Exchange（HDX）</a></dt>
+<dd>
+<a href="https://www.unic.or.jp/info/un_agencies_japan/ocha/">OCHA（国連人道問題調整事務所）</a>が管理するオープンデータの共有プラットフォームです。地震などによる被災、難民、食料問題などに関するデータが得られます。
+</dd>
+<dt><a href="https://overturemaps.org/">Overture Maps Foundation</a></dt>
+<dd>
+オープンデータの地図データを作成するための財団です。Overtureのデータは2024年4月に公開されたばかりで新しく、MicrosoftやAmazonなどが協力しており、今後が期待されています。Rから直接データを取得する方法は現在ありませんが、<a href="https://duckdb.org/">duckdb</a>を介してデータを高速に得ることができます。
+</dd>
+</dl>
+</section>
+<section id="データ" class="level4">
+<h4 class="anchored" data-anchor-id="データ">データ</h4>
+<dl>
+<dt><a href="https://www.rinya.maff.go.jp/j/keikaku/genkyou/r4/1.html">林野庁森林率データ</a></dt>
+<dd>
+林野庁の森林率データです。林野庁は農林水産省の外局の一つです。
+</dd>
+<dt><a href="https://eogdata.mines.edu/products/vnl/">VIIRS夜間光データ</a></dt>
+<dd>
+衛星からVIIRS（Visible Infrared Imaging Radiometer Suite）という装置により取得した、夜間光のデータです。
+</dd>
+<dt><a href="https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page">TLC Trip Record Data</a></dt>
+<dd>
+TLCが公開するニューヨークのタクシーの乗降位置のデータです。2022年からはParquetの形式で提供されており、扱いやすくなっています。
+</dd>
+<dt><a href="https://unsplash.com/ja/">Unsplash</a></dt>
+<dd>
+世界中の写真を使えるフリー画像のサイトです。地理空間データではありませんが、撮影された場所と紐づけて扱うことはできます。
+</dd>
+<dt><a href="https://www.noaa.gov/">水深測量データ（NOAA）</a></dt>
+<dd>
+NOAA（アメリカ海洋大気庁）が公開する水深測量データです。世界中の海の深さを数値として得られます。
+</dd>
+<dt><a href="https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-N03-2024.html">行政区域データ（国土数値情報）</a></dt>
+<dd>
+市区町村の境界を表すデータです。日本の地域で空間集計する場合によく利用します。Rでは、<a href="https://x.com/u_ribo">瓜生真也</a>さんが提供している<a href="https://uribo.github.io/jpndistrict/">jpndistrict</a>から利用できます。
+</dd>
+<dt><a href="https://www.e-stat.go.jp/gis/statmap-search?page=1&amp;type=1&amp;toukeiCode=00200521">国勢調査（統計局）</a></dt>
+<dd>
+e-Statから公開されている日本の国勢調査のデータです。Rでは、<a href="https://x.com/iqqqiiiq">山口侑平</a>さんが開発している<a href="https://ymgc19.github.io/memo_simplecensus">simplecensus</a>から利用できます。
+</dd>
+<dt><a href="https://www.jma.go.jp/jma/index.html">気象データ（気象庁）</a></dt>
+<dd>
+気象庁がWebで公開している気象データです。降水量、気温などが含まれます。Rでは、<a href="https://uribo.github.io/jmastats/">jmastats</a>から利用できます。
+</dd>
+<dt><a href="https://team.carto.com/u/andrew/tables/andrew.us_states_hexgrid/public/map">アメリカ合衆国各州のヘックスマップ</a></dt>
+<dd>
+CartoDBに登録されているアメリカ合衆国各州のヘックスマップです。
+</dd>
+<dt><a href="https://www.gsi.go.jp/kankyochiri/gm_global_e.html">地球地図データ（国土地理院）</a></dt>
+<dd>
+国土地理院が公開している地球全体の標高や土地被覆のデータです。tmapが持つデータの一つである<code>land</code>はこれを利用しています。
+</dd>
+<dt><a href="https://github.com/tilezen/joerd/tree/master/docs">Mapzen Terrain Tile</a></dt>
+<dd>
+AWSで配信されている地表の高さを表現するオープンデータです。<a href="https://github.com/USEPA/elevatr">elevatr</a>というパッケージから利用することができます。
+</dd>
+<dt><a href="https://www.npa.go.jp/publications/statistics/koutsuu/opendata/index_opendata.html">交通事故統計情報（警察庁）</a></dt>
+<dd>
+警察庁の公開している交通事故のデータです。私の開発している<a href="https://nononoexe.github.io/jpaccidents/">jpaccidents</a>から利用できます。
+</dd>
+</dl>
+</section>
+</section>
+<section id="使用したrパッケージ" class="level3">
+<h3 class="anchored" data-anchor-id="使用したrパッケージ">使用したRパッケージ</h3>
+<p>使用したRパッケージの一部を紹介します。Rには<a href="https://www.tidyverse.org/">Tidyverse</a>というデータサイエンスのためのパッケージ群があります。これだけでもかなりさまざまなことができます。今回の地図づくりでは、Tidyverseに加えて、データを提供するパッケージや、地図づくりやWeb GISの機能を提供する以下の表に示すパッケージを使用しました。</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 75%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>目的</th>
+<th>パッケージ</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>データソースへのアクセス</td>
+<td>elevatr／eurostat／jpndistrict／jmastats／jpaccidents／jpndistrict／marmap／osmdata／rgbif／rnaturalearth／simplecensus／tidycensus</td>
+</tr>
+<tr class="even">
+<td>データの加工</td>
+<td>arrow／dplyr／forcats／jsonlite／lubridate／purrr／stringr／tidyr</td>
+</tr>
+<tr class="odd">
+<td>空間計算</td>
+<td>gstat／pavement／raster／sf／spatstat／stars</td>
+</tr>
+<tr class="even">
+<td>可視化</td>
+<td>geomtextpath／ggplot2／ggspatial／magick／mapgl／patchwork／rayshader／scales／showtext／sysfonts／tmap／units／viridisLite</td>
+</tr>
+</tbody>
+</table>
+<p>それぞれのパッケージはそれぞれのパッケージのドキュメントをみてもらうのがよいと思いますから、ここでは、使用頻度の高いパッケージやここで新しく利用したパッケージを少しだけ紹介します。</p>
+<dl>
+<dt><a href="https://r-spatial.github.io/sf/">sf</a></dt>
+<dd>
+Rでベクタ形式の地理空間データに関する機能（Simple Feature Access）を扱うためのパッケージです。PostGISなどと同じように<code>st_</code>からはじまるジオメトリ操作のためのさまざまな関数を提供します。また、<code>sf</code>というジオメトリを表現するデータ形式も提供しています。空間分析では欠かせないパッケージの一つです。
+</dd>
+<dt><a href="https://ggplot2.tidyverse.org/index.html">ggplot2</a></dt>
+<dd>
+グラフを作成するためのパッケージです。Tidyverseに含まれており、Rを使ったことのあるひとなら、使ったことがあるのではないかと思います。地理空間データについても後述する<code>sf</code>という形式のデータであれば、<code>geom_sf()</code>という関数でプロットできます。
+</dd>
+<dt><a href="https://allancameron.github.io/geomtextpath/">geomtextpath</a></dt>
+<dd>
+ggplot2の拡張機能として、線形に沿って文字列を描く機能を提供するパッケージです。地図の川や通りなどにその線形に沿って、その名称が描かれているのを再現することができます。
+</dd>
+<dt><a href="https://r-tmap.github.io/tmap/">tmap</a></dt>
+<dd>
+主題図を作成するためのパッケージです。sfやstarsのデータから地図を作成することができます。leafletでインタラクティブな地図を表示する<code>"view"</code>モードとggplot2でプロットとして地図を描画する<code>"plot"</code>モードがあるのも、とても便利でよく利用しています。
+</dd>
+<dt><a href="https://walker-data.com/mapgl/">mapgl</a></dt>
+<dd>
+MapLibre GL JSやMapbox GL JSといった高度なWebGISのアプリケーションを作成できるパッケージです。データソースとしてsf形式のデータを渡すことができます。mapglは2024年にリリースされたばかりのパッケージですが、tidycensusの開発者でもある<a href="https://github.com/walkerke">Kyle Walker</a>さんが開発しており、今後がたのしみなパッケージでもあります。
+</dd>
+<dt><a href="https://www.rayshader.com/">rayshader</a></dt>
+<dd>
+RでOpenGLやWebGLを使うためのrglというパッケージをベースとして、3Dグラフィックを作成できるパッケージです。rayshaderを使うと、アーティスティックな表現ができるようになります。今回は試していませんが、水や雲などの表現もできるようです。
+</dd>
+</dl>
+</section>
+</section>
+<section id="作成した地図" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="作成した地図">5. 作成した地図</h2>
+<p>実際に作成した30の地図は次の表のとおりです。なお、テーマの制約などから、Day 6、9、10、13、17、23はRを使っていません。以降では、それぞれの地図について説明します。</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: right;">日</th>
+<th style="text-align: left;">テーマ</th>
+<th style="text-align: left;">タイトル</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;"><a href="#day-1.-points">Points</a></td>
+<td style="text-align: left;">Shrines and Temples in Aichi（愛知県の神社とお寺）</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;"><a href="#day-2.-lines">Lines</a></td>
+<td style="text-align: left;">The Nile River around Khartoum（ハルツーム周辺のナイル川）</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;"><a href="#day-3.-polygons">Polygons</a></td>
+<td style="text-align: left;">Japan’s Forest Coverage Rate（日本の森林率）</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;"><a href="#day-4.-hexagons">Hexagons</a></td>
+<td style="text-align: left;">Population Density by State（アメリカ州別人口）</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;"><a href="#day-5.-a-journey">A journey</a></td>
+<td style="text-align: left;">From Nagoya to Madrid (for attending a conference)（学会参加のために名古屋からマドリードへ）</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;"><a href="#day-6.-raster">Raster</a></td>
+<td style="text-align: left;">VIIRS Nighttime Light（VIIRS夜間光データ）</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7</td>
+<td style="text-align: left;"><a href="#day-7.-vintage-style">Vintage style</a></td>
+<td style="text-align: left;">Europe Antique Map（ヨーロッパの古地図）</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8</td>
+<td style="text-align: left;"><a href="#day-8.-data-hdx">Data: HDX</a></td>
+<td style="text-align: left;">Turkey Earthquake（トルコ地震のマグニチュード）</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">9</td>
+<td style="text-align: left;"><a href="#day-9.-ai-only">AI only</a></td>
+<td style="text-align: left;">Hokkaido…?（北海道らしきもの）</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">10</td>
+<td style="text-align: left;"><a href="#day-10.-pen-&amp;-paper">Pen &amp; paper</a></td>
+<td style="text-align: left;">Sevilla mi mapa tarístrico（私のセビリア観光マップ）</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">11</td>
+<td style="text-align: left;"><a href="#day-11.-arctic">Arctic</a></td>
+<td style="text-align: left;">Observed Locations of Polar Bears（ホッキョクグマ観測ポイント）</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">12</td>
+<td style="text-align: left;"><a href="#day-12.-time-and-space">Time and space</a></td>
+<td style="text-align: left;">Drop-off Locations of Taxis in New York on Weekend (Yellow taxis)（週末のニューヨークにおけるイエロータクシー利用者の降車位置）</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">13</td>
+<td style="text-align: left;"><a href="#day-13.-a-new-tool">A new tool</a></td>
+<td style="text-align: left;">Mapping Japanese Landscape Photos from Unsplash Using Re:Earth（Re:EarthによるUnsplashの日本風景マッピング）</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">14</td>
+<td style="text-align: left;"><a href="#day-14.-a-world-map">A world map</a></td>
+<td style="text-align: left;">Earth Created from Elevation Raster Data（標高ラスタデータから作成した地球）</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">15</td>
+<td style="text-align: left;"><a href="#day-15.-my-data">My data</a></td>
+<td style="text-align: left;">Prefecture Visited and the Number of Visits（行ったことのある都道府県）</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">16</td>
+<td style="text-align: left;"><a href="#day-16.-choropleth">Choropleth</a></td>
+<td style="text-align: left;">Number of People in Europe Corresponding to ISCED 8 in 2022（2022年の欧州のISCEDレベル8の人口）</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">17</td>
+<td style="text-align: left;"><a href="#day-17.-collaborative-map">Collaborative map</a></td>
+<td style="text-align: left;">Colossal Minecraft Map（広大なマインクラフトの地図）</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">18</td>
+<td style="text-align: left;"><a href="#day-18.-3d">3D</a></td>
+<td style="text-align: left;">3D Eckert World Map（エケルト地図3D）</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">19</td>
+<td style="text-align: left;"><a href="#day-19.-typography">Typography</a></td>
+<td style="text-align: left;">Streets Around Abbey Road（アビイ・ロードのあたりの道）</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">20</td>
+<td style="text-align: left;"><a href="#day-20.-openstreetmap">OpenStreetMap</a></td>
+<td style="text-align: left;">3D Visualisation of Tokyo Station Area OSM Data using mapgl（mapglによる東京駅周辺の3次元的可視化）</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">21</td>
+<td style="text-align: left;"><a href="#day-21.-conflict">Conflict</a></td>
+<td style="text-align: left;">Locations of Domino’s Pizza / Pizza-la on OpenStreetMap（OSM上のドミノ・ピザとピザーラの位置）</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">22</td>
+<td style="text-align: left;"><a href="#day-22.-2-colours">2 colours</a></td>
+<td style="text-align: left;">Blue and White: The Flag and the White House（星条旗の青とホワイトハウス）</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">23</td>
+<td style="text-align: left;"><a href="#day-23.-memories">Memories</a></td>
+<td style="text-align: left;">My Commute Route（通学路）</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">24</td>
+<td style="text-align: left;"><a href="#day-24.-only-circular-shapes">Only circular shapes</a></td>
+<td style="text-align: left;">Aichi Population（愛知県の人口）</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">25</td>
+<td style="text-align: left;"><a href="#day-25.-heat">Heat</a></td>
+<td style="text-align: left;">Max Temperature in October in Japan（日本の10月の最高気温）</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">26</td>
+<td style="text-align: left;"><a href="#day-26.-map-projections">Map projections</a></td>
+<td style="text-align: left;">World Map Projections in Chronological Order（時系列でみる代表的投影法）</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">27</td>
+<td style="text-align: left;"><a href="#day-27.-micromapping">MicroMapping</a></td>
+<td style="text-align: left;">Just Room Enough Island（ジャスト・ルーム・イナフ島）</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">28</td>
+<td style="text-align: left;"><a href="#day-28.-the-blue-planet">The blue planet</a></td>
+<td style="text-align: left;">Global Bathymetry（水深測量データから作成した地球）</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">29</td>
+<td style="text-align: left;"><a href="#day-29.-data-overture">Data: Overture</a></td>
+<td style="text-align: left;">Buildings of Port of Hong Kong（香港港のビル群）</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">30</td>
+<td style="text-align: left;"><a href="#day-30.-the-final-map">The final map</a></td>
+<td style="text-align: left;">My Research Focus: A Map of Traffic Accident Risk（交通事故リスクマップ）</td>
+</tr>
+</tbody>
+</table>
+<section id="day-1.-points" class="level4">
+<h4 class="anchored" data-anchor-id="day-1.-points">Day 1. Points</h4>
+<p>私の住む愛知県の神社とお寺の位置をプロットした地図です。<a href="https://x.com/chizutodesign">地図とかデザインとか</a>さんの「<a href="https://x.com/chizutodesign/status/1852004303533412808">岬vs.崎/埼</a>」にインスパイアされて、2つのものを比較する地図にしようとして、作成したものです。建物の位置はOpenStreetMapに登録された情報をもとにしています。神社は鳥居の朱の色を、お寺は緑青の色を意識しています。ベースはtmapで作成してあるのですが、凡例部分だけAffinity Designerで作成しています。日をまたぎそうであったため、急いで付けました。神社とお寺は思ったより分布に違いがあり、歴史的背景をほのかに感じました。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/01-points.png" class="img-fluid figure-img"></p>
+<figcaption>Shrines and Temples in Aichi（愛知県の神社とお寺）</figcaption>
+</figure>
+</div>
+</section>
+<section id="day-2.-lines" class="level4">
+<h4 class="anchored" data-anchor-id="day-2.-lines">Day 2. Lines</h4>
+<p>スーダンの首都であるハルツーム周辺のナイル川を表した地図です。ナイル川には非常に大きな支流として青ナイルと白ナイルがあり、ハルツームはこの2つが合流しているところに位置している街です。地図はggplot2で作成したものになります。「Lines」と聞いて、すぐに川にしようと決めて、作成をはじめたのですが、川のデータは支流を含むと非常に大きいデータで扱うのが難しかったです。地域を限定したのもそうしたためです。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/02-lines.png" class="img-fluid figure-img"></p>
+<figcaption>The Nile River around Khartoum（ハルツーム周辺のナイル川）</figcaption>
+</figure>
+</div>
+</section>
+<section id="day-3.-polygons" class="level4">
+<h4 class="anchored" data-anchor-id="day-3.-polygons">Day 3. Polygons</h4>
+<p>各都道府県の森林率を表した地図です。東北地方や日本海側に森林被覆率の高い地域が集まっており、一方で都市部は森林率が低いことがわかります。行政区域の表現にはjpndistrictを使っています。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/03-polygons.png" class="img-fluid figure-img"></p>
+<figcaption>Japan’s Forest Coverage Rate（日本の森林率）</figcaption>
+</figure>
+</div>
+</section>
+<section id="day-4.-hexagons" class="level4">
+<h4 class="anchored" data-anchor-id="day-4.-hexagons">Day 4. Hexagons</h4>
+<p>アメリカ合衆国の州別人口密度を表した地図です。東海岸の方は首都ワシントンD.C.があることもあり、特に人口が集中していることが読み取れます。ヘックスマップはggplot2だと、<code>geom_hex()</code>を使うことで作成できますが、ここでは、公開されていた<a href="https://team.carto.com/u/andrew/tables/andrew.us_states_hexgrid/public/map">アメリカ合衆国のヘックスマップ（CartoDB）</a>を利用しています。また、人口密度のデータはtidycensusより取得しました。州の行政区域で塗り分けると、印象がそれぞれの州の面積によるところがありますが、ヘックスマップだとそうしたバイアスがないことが利点に思います。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/04-hexagons.png" class="img-fluid figure-img"></p>
+<figcaption>Population Density by State（アメリカ州別人口）</figcaption>
+</figure>
+</div>
+</section>
+<section id="day-5.-a-journey" class="level4">
+<h4 class="anchored" data-anchor-id="day-5.-a-journey">Day 5. A journey</h4>
+<p>名古屋からマドリードへ向かったときの飛行機の航路を描いた地図です。飛行機の最短経路を描くには、地図上の距離と方位が正確な正距方位図法が有名であるため、これを採用しました。平面直角座標系への変換はデータそのものを変換する場合はsfの<code>st_transform()</code>で、描画上のみ変換したい場合はggplot2の<code>coord_sf()</code>で変換できます。ここでは、<code>"+proj=laea +lat_0=34.86 +lon_0=136.81 +x_0=4321000 +y_0=3210000 +ellps=GRS80 +units=m +no_defs"</code>という座標系を設定しています。<code>lat_0</code>と<code>lon_0</code>の部分が中心位置の緯度経度を示しています。なお、この地図についてですが、実際の航路はこのように直線的には飛んでいません。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/05-a-journey.png" class="img-fluid figure-img"></p>
+<figcaption>From Nagoya to Madrid (for attending a conference)（学会参加のために名古屋からマドリードへ）</figcaption>
+</figure>
+</div>
+</section>
+<section id="day-6.-raster" class="level4">
+<h4 class="anchored" data-anchor-id="day-6.-raster">Day 6. Raster</h4>
+<p>VIIRSという装置により衛星で計測された夜間光のデータを描いた地図です。都市部の街の明かりがとても明るいことがわかります。この地図はWeb上で地図を作成できるGoogle Earth Engine（GEE）で作成しました。GEEはRからもrgeeというパッケージを用いて、利用できるはずなのですが、私は環境の問題からかなぜかうまく使うことができませんでした。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/06-raster.png" class="img-fluid figure-img"></p>
+<figcaption>VIIRS Nighttime Light（VIIRS夜間光データ）</figcaption>
+</figure>
+</div>
+</section>
+<section id="day-7.-vintage-style" class="level4">
+<h4 class="anchored" data-anchor-id="day-7.-vintage-style">Day 7. Vintage style</h4>
+<p>ヨーロッパを古地図風に描いた地図です。描かれている地形や国は現在のもので、色とフォントを調整したものになります。私はファンタジーRPGとかが好きなため「Vintage」な地図というと中世ヨーロッパというところからこのような地図になりました。あとから振り返ると<a href="https://rekichizu.jp/map">れきちず</a>のように日本の古地図を作ってもよかったかもしれません。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/07-vintage-style.png" class="img-fluid figure-img"></p>
+<figcaption>Europe Antique Map（ヨーロッパの古地図）</figcaption>
+</figure>
+</div>
+</section>
+<section id="day-8.-data-hdx" class="level4">
+<h4 class="anchored" data-anchor-id="day-8.-data-hdx">Day 8. Data: HDX</h4>
+<p>トルコ・シリア地震の観測位置とマグニチュードにもとづくバブルマップです。非常に大きな地震が集中して発生していることがわかります。また、T字状に観測位置があることから、そこに断層線があるのが伺えます。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/08-humanitarian-data-exchange.png" class="img-fluid figure-img"></p>
+<figcaption>Turkey Earthquake（トルコ地震のマグニチュード）</figcaption>
+</figure>
+</div>
+</section>
+<section id="day-9.-ai-only" class="level4">
+<h4 class="anchored" data-anchor-id="day-9.-ai-only">Day 9. AI only</h4>
+<p>ChatGPT（DALL-E）に描いてもらった北海道です。観光地らしいものが描かれつつ、それらしい雰囲気はありますが、まったく北海道ではありません。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/09-ai-only.png" class="img-fluid figure-img"></p>
+<figcaption>Hokkaido…?（北海道らしきもの）</figcaption>
+</figure>
+</div>
+<p>実はこの北海道らしきものはこれでもプロンプトを調整しています。その前に出力されたものはさらに北海道ではありませんでした。それが、この「HOKKAIDO JAPAN」という日本全国が北海道化するという謎の地図です。「Sappido」という札幌と北海道を足して2で割ったような地名があったり、いたるところが函館だったりしています。このカオスのあとだったので、先ほどの画像を採用しました。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/09-ai-only-miss.png" class="img-fluid figure-img"></p>
+<figcaption>Hokkaido…??（完全に北海道ではないもの)</figcaption>
+</figure>
+</div>
+</section>
+<section id="day-10.-pen-paper" class="level4">
+<h4 class="anchored" data-anchor-id="day-10.-pen-paper">Day 10. Pen &amp; paper</h4>
+<p>スペインのセビリアで観光したところを描いた手書きの地図です。北から、サンタ・フスタ駅、ヒラルダの塔、カテドラル、マエスランサ闘牛場、スペイン広場、メルカドーナを描いてみました。セビリアは観光地が歩ける距離に集まっていて、観光しやすいので、ぜひ機会があれば訪れてみてください。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/10-pen-and-paper.png" class="img-fluid figure-img"></p>
+<figcaption>Sevilla mi mapa tarístrico（私のセビリア観光マップ）</figcaption>
+</figure>
+</div>
+</section>
+<section id="day-11.-arctic" class="level4">
+<h4 class="anchored" data-anchor-id="day-11.-arctic">Day 11. Arctic</h4>
+<p>ホッキョクグマの観測ポイントをマッピングした北極中心の地図です。ホッキョクグマの観測ポイントはrgbifを用いて取得しています。北極の氷の部分のデータを手に入れる方法がわからなかったため、氷の部分は描画できていません。全体には、海岸沿いに広く分布していることがわかります。特にアラスカ付近には非常に多くの観測データがあります。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/11-arctic.png" class="img-fluid figure-img"></p>
+<figcaption>Observed Locations of Polar Bears（ホッキョクグマ観測ポイント）</figcaption>
+</figure>
+</div>
+</section>
+<section id="day-12.-time-and-space" class="level4">
+<h4 class="anchored" data-anchor-id="day-12.-time-and-space">Day 12. Time and space</h4>
+<p>週末のニューヨークにおけるイエロータクシー利用者の降車位置を表した地図です。3か月のデータを使って、各月と朝昼夜の9つに分けてプロットしました。マンハッタンのある中心地（地図の西部）は常時降車数が多いようです。クイーンズ（地図の東部）の方は時間や月により変化がみられます。週末のデータを利用しているので、観光客による影響が大きいのかもしれません。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/12-time-and-space.png" class="img-fluid figure-img"></p>
+<figcaption>Drop-off Locations of Taxis in New York on Weekend (Yellow taxis)（週末のニューヨークにおけるイエロータクシー利用者の降車位置）</figcaption>
+</figure>
+</div>
+</section>
+<section id="day-13.-a-new-tool" class="level4">
+<h4 class="anchored" data-anchor-id="day-13.-a-new-tool">Day 13. A new tool</h4>
+<p>Unsplashにアップロードされている日本風景をRe:Earthにマッピングした地図です。このDay 13では、今まで使用したことのないツールを使って地図づくりをすることがテーマになっています。<a href="https://reearth.io/ja/">Re:Earth</a>は<a href="https://eukarya.io/">Eukarya</a>が提供するWebGISプラットフォームです。Web上でプロジェクトを作成し、地理空間データをアップロードするだけで、WebGISのアプリケーションを作成できます。FOSS4G TOKAIでお話だけ聞いて、使ったことがなかったので、使ってみましたが、非常に簡単にアプリケーションを作成できました。ここでは画像URLを位置に紐づける単純な操作しかしていませんが、Re:Earthで作られたほかのアプリケーションをみると、<a href="https://www.mlit.go.jp/plateau/">PLATEAU</a>のデータを読み込めたり、人流を表現できたり、高度なこともできるようです。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/13-a-new-tool.png" class="img-fluid figure-img"></p>
+<figcaption>Mapping Japanese Landscape Photos from Unsplash Using Re:Earth（Re:EarthによるUnsplashの日本風景マッピング）</figcaption>
+</figure>
+</div>
+</section>
+<section id="day-14.-a-world-map" class="level4">
+<h4 class="anchored" data-anchor-id="day-14.-a-world-map">Day 14. A world map</h4>
+<p>標高と水深測量のラスタデータから地球を描いたものです。2種類のラスタデータの分解能を合わせて、合成し、正射図法で描画することで地球らしくしました。これまでラスタデータを使ったことがなかったので、学びの多い地図でした。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/14-a-world-map.png" class="img-fluid figure-img"></p>
+<figcaption>Earth Created from Elevation Raster Data（標高ラスタデータから作成した地球）</figcaption>
+</figure>
+</div>
+<p>ggplot2でこの図を出力するとブラウン管を通したような見た目になります。この地図はtmapで作成していて、ggplot2でできないかを試したときに偶然気が付きました。なぜなんでしょうか。いまだによくわかっていないため、わかる人がいたらぜひ教えてほしいです。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/14-a-world-map-miss.png" class="img-fluid figure-img"></p>
+<figcaption>ブラウン管を通したような地球？</figcaption>
+</figure>
+</div>
+</section>
+<section id="day-15.-my-data" class="level4">
+<h4 class="anchored" data-anchor-id="day-15.-my-data">Day 15. My data</h4>
+<p>行ったことのある都道府県を、その回数で塗り分けたものです。まだまだ行ったことのないところが多いです。どうしても日本の地図を作成することが多くなってしまうため、ここでは、sfの<code>st_simplify()</code>を用いて、ポリゴンを単純化し、略地図風にしてみました。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/15-my-data.png" class="img-fluid figure-img"></p>
+<figcaption>Prefecture Visited and the Number of Visits（行ったことのある都道府県）</figcaption>
+</figure>
+</div>
+</section>
+<section id="day-16.-choropleth" class="level4">
+<h4 class="anchored" data-anchor-id="day-16.-choropleth">Day 16. Choropleth</h4>
+<p>2022年のEUにおけるISCEDレベル8の人口にもとづくコロプレスマップです。<a href="https://uis.unesco.org/sites/default/files/documents/isced-2011-en.pdf">ISCED（国際標準教育分類）</a>はUNESCOが策定している、教育のレベルを表す区分です。0から8までの9段階で、レベル8は博士号同等のレベルを表します。これは国ごとに塗分けているのですが、イタリアやポーランドのあたりは20万人を超えています。国の総人口や面積にもよるとは思いますが、非常に多くのひとが高い能力を持っていることが伺えます。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/16-choropleth.png" class="img-fluid figure-img"></p>
+<figcaption>Number of People in Europe Corresponding to ISCED 8 in 2022（2022年の欧州のISCEDレベル8の人口）</figcaption>
+</figure>
+</div>
+</section>
+<section id="day-17.-collaborative-map" class="level4">
+<h4 class="anchored" data-anchor-id="day-17.-collaborative-map">Day 17. Collaborative map</h4>
+<p>マインクラフトの大量の地図を額縁に並べたものです。Day 17はひとと協力して地図を作成するというテーマでした。地図は友人に呼び掛けて、1枚ずつ探索して埋めてもらって、300枚を超える地図を収集しました。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/17-collaborative-map.png" class="img-fluid figure-img"></p>
+<figcaption>Colossal Minecraft Map（広大なマインクラフトの地図）</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/17-collaborative-map-halfway.jpeg" class="img-fluid figure-img"></p>
+<figcaption>収集の途中の状態</figcaption>
+</figure>
+</div>
+</section>
+<section id="day-18.-3d" class="level4">
+<h4 class="anchored" data-anchor-id="day-18.-3d">Day 18. 3D</h4>
+<p>標高の高さを3D表現した世界地図です。rayshaderを使用してggplot2で描いた地図を3D化しています。このエケルト図法で描かれた世界地図はtmapの主題図としてよくみかけるものですが、3Dになると印象がガラリと変わるように感じます。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/18-3d.png" class="img-fluid figure-img"></p>
+<figcaption>3D Eckert World Map（エケルト地図3D）</figcaption>
+</figure>
+</div>
+</section>
+<section id="day-19.-typography" class="level4">
+<h4 class="anchored" data-anchor-id="day-19.-typography">Day 19. Typography</h4>
+<p>ロンドンのアビイ・ロードの付近の通りを通りの名称で描いたものです。Day 19は「Typography」というテーマで、文字で地図を表現するということでした。通りに沿って文字を並べるところが先に決まって、それから「通り」というところからビートルズのアビイ・ロードの横断歩道が浮かんだので、このようにしました。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/19-typography.png" class="img-fluid figure-img"></p>
+<figcaption>Streets Around Abbey Road（アビイ・ロードのあたりの道）</figcaption>
+</figure>
+</div>
+</section>
+<section id="day-20.-openstreetmap" class="level4">
+<h4 class="anchored" data-anchor-id="day-20.-openstreetmap">Day 20. OpenStreetMap</h4>
+<p>東京駅周辺のOpenStreetMapのデータをMapLibre GL JSで立体的に可視化したものです。ここではOpenStreetMapのデータのみを利用して、高さも表現しています。しかしながら、高さが登録されていない建物も多いので、それらは適当な高さにしてあります。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/20-openstreetmap.png" class="img-fluid figure-img"></p>
+<figcaption>3D Visualisation of Tokyo Station Area OSM Data using mapgl（mapglによる東京駅周辺の3次元的可視化）</figcaption>
+</figure>
+</div>
+</section>
+<section id="day-21.-conflict" class="level4">
+<h4 class="anchored" data-anchor-id="day-21.-conflict">Day 21. Conflict</h4>
+<p>ドミノ・ピザとピザーラのある市区町村を描いた地図です。ドミノ・ピサとピザーラは人気ピザ・チェーンのトップ2らしいです。このデータはOpenStreetMapに登録されているものを利用しているので、すべての店舗が描かれているわけではないと思いますが、地図にしてみると、意外とばらけていることがわかりました。特定の地域に偏っているということもないようです。各店の市場戦略が表れているのでしょうか。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/21-conflict.png" class="img-fluid figure-img"></p>
+<figcaption>Locations of Domino’s Pizza / Pizza-la on OpenStreetMap（OSM上のドミノ・ピザとピザーラの位置）</figcaption>
+</figure>
+</div>
+</section>
+<section id="day-22.-2-colors" class="level4">
+<h4 class="anchored" data-anchor-id="day-22.-2-colors">Day 22. 2 colors</h4>
+<p>星条旗の青で塗った背景に白でホワイトハウス周辺を描いた地図です。2色を使った地図がテーマであったため、名前に色を含む場所からホワイトハウスにしました。データはOpenStreetMapのものです。対称的できれいな地図になりました。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/22-2-colours.png" class="img-fluid figure-img"></p>
+<figcaption>Blue and White: The Flag and the White House（星条旗の青とホワイトハウス）</figcaption>
+</figure>
+</div>
+</section>
+<section id="day-23.-memories" class="level4">
+<h4 class="anchored" data-anchor-id="day-23.-memories">Day 23. Memories</h4>
+<p>これまでの通学路（通勤路）を表現した地図です。Google Mapをトレースする形でAffinity Designerで手でラインを引いて作成しました。この地図にあるように、私は偶然にも小学校から社会人まで、少しずつ自分の行動範囲を広げるような形で進路が決まっています。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/23-memory.png" class="img-fluid figure-img"></p>
+<figcaption>My Commute Route（通学路）</figcaption>
+</figure>
+</div>
+</section>
+<section id="day-24.-only-circular-shapes" class="level4">
+<h4 class="anchored" data-anchor-id="day-24.-only-circular-shapes">Day 24. Only circular shapes</h4>
+<p>愛知県の人口を表現したバブルマップです。simplecensusを使って国勢調査のデータをもとに描いています。地域の大きさがばらばらであるため、名古屋の方が細かくなっていますが、うっすら愛知県の形状がみえるでしょうか。あと、この地図の文字の部分は自分で描いたものですが、うっかり「Population」の「i」が抜けるというミスもしていることにあとで気づきました。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/24-only-circular-shapes.png" class="img-fluid figure-img"></p>
+<figcaption>Aichi Population（愛知県の人口）</figcaption>
+</figure>
+</div>
+</section>
+<section id="day-25.-heat" class="level4">
+<h4 class="anchored" data-anchor-id="day-25.-heat">Day 25. Heat</h4>
+<p>日本の10月の最高気温を表したヒートマップです。気温は気象庁のデータをもとにしていますが、すべての地域にデータがあるわけではないため、データのない部分を逆距離加重法（IDW）により、空間補完しています。今年は11月になり、急に冷え込んだので、10月の暑さはもう思い出せません。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/25-heat.png" class="img-fluid figure-img"></p>
+<figcaption>Max Temperature in October in Japan（日本の10月の最高気温）</figcaption>
+</figure>
+</div>
+</section>
+<section id="day-26.-map-projections" class="level4">
+<h4 class="anchored" data-anchor-id="day-26.-map-projections">Day 26. Map projections</h4>
+<p>開発された時系列順に投影法を並べたものです。左上は変換前のWGS84（Webメルカトル）にしています。代表的なものを並べましたが、学校で習うことのないものも多いかと思います。投影法は地球を歪みなく平面上に表現するためにいまでも開発されていて、このなかでは「イコールアース図法（Equal Earth projection）」が最も新しいものになります。sfでは内部でPROJというソフトウェアを介して、座標系を変換しています。変換可能な座標系は<a href="https://proj.org/en/stable/operations/projections/index.html">PROJのページ</a>から確認できます。この地図にない投影法もここで確認できます。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/26-map-projections.png" class="img-fluid figure-img"></p>
+<figcaption>World Map Projections in Chronological Order（時系列でみる代表的投影法）</figcaption>
+</figure>
+</div>
+</section>
+<section id="day-27.-micromapping" class="level4">
+<h4 class="anchored" data-anchor-id="day-27.-micromapping">Day 27. MicroMapping</h4>
+<p>世界で最も小さな有人島であるジャスト・ルーム・イナフ島を描いた地図です。ニューヨーク州にあるとても小さな島です。あまりにも小さくて、表現できるオブジェクトがこれだけしかありませんでした。実際の写真に合わせて、家の屋根を赤くしています。となりにあるのは小さな植え込みでそのなかに1本だけ木が生えています。小さいので解像度が低いですが、海も一応深さに合わせて色を付けています。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/27-micromapping.png" class="img-fluid figure-img"></p>
+<figcaption>Just Room Enough Island（ジャスト・ルーム・イナフ島）</figcaption>
+</figure>
+</div>
+</section>
+<section id="day-28.-the-blue-planet" class="level4">
+<h4 class="anchored" data-anchor-id="day-28.-the-blue-planet">Day 28. The blue planet</h4>
+<p>水深測量データから作成した地球のGIFアニメです。Day 14で地球を描いたときに、回転させたかったのですが、はじめてラスタデータを触ったこともあり、このときは方法がわからず断念しました。それからこのDay 28で再チャレンジして、成功しました。地軸の傾きやGIFへの変換はImageMagickで実現しています。惜しむらくは自転方向を誤ってしまったことだけでしょうか。これには科学者として反省しています。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/28-the-blue-planet.gif" class="img-fluid figure-img"></p>
+<figcaption>Global Bathymetry（水深測量データから作成した地球）</figcaption>
+</figure>
+</div>
+</section>
+<section id="day-29.-data-overture" class="level4 page-columns page-full">
+<h4 class="anchored" data-anchor-id="day-29.-data-overture">Day 29. Data: Overture</h4>
+<p>香港港のビル群を立体的に描いた地図です。Day 29はOvertureのデータを使用した地図を作成します。Overtureのデータはduckdbを経由して、利用することができるのですが、Rのduckdbパッケージはまだ地理空間データのための拡張機能に対応していないため、duckdbを使った方法は断念しました<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>。ここではGeoJSONを使っています。中身はOpenStreetMapのものが多いのですが、わかりやすいスキーマに設計されているので、今後duckdbを経由して、簡単に使えるようになったらうれしいです。</p>
+<div class="no-row-height column-margin column-container"><div id="fn1"><p><sup>1</sup>&nbsp;直接、duckdbを利用する場合は問題ないはずです</p></div></div><div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/29-overture.png" class="img-fluid figure-img"></p>
+<figcaption>Buildings of Port of Hong Kong（香港港のビル群）</figcaption>
+</figure>
+</div>
+</section>
+<section id="day-30.-the-final-map" class="level4">
+<h4 class="anchored" data-anchor-id="day-30.-the-final-map">Day 30. The final map</h4>
+<p>研究で対象にしている交通事故のリスクを可視化した地図です。私の研究では、交通事故の発生リスクの推定や要因の調査などを対象にしていますが、この地図では道路の線形に合わせたヒートマップを描きました。交通事故は基本的に道路でしか発生しないため、通常のヒートマップの場合、路外の発生も評価してしまいます。これに対して、この地図のヒートマップでは道路ネットワークのなかでリスクを算出しています。私はこの地理空間的なネットワークに沿った特殊な空間事象を分析するためのパッケージとして<a href="https://nononoexe.github.io/pavement/">pavement</a>というパッケージを開発しています。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/30-the-final-map.png" class="img-fluid figure-img"></p>
+<figcaption>My Research Focus: A Map of Traffic Accident Risk（交通事故リスクマップ）</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="まとめ" class="level2">
+<h2 class="anchored" data-anchor-id="まとめ">6. まとめ</h2>
+<p>この記事では、私のRによる30DayMapChallengeの振り返りました。また、そこで使用したデータやRパッケージを紹介しました。</p>
+<p>Rでは地図をつくるためのさまざまなパッケージが開発されています。使ったことのないパッケージがあれば、ぜひ使ってみるとよいのではないでしょうか。また、この記事が今後Rで地図づくりをするひとの助けになればと思います。また、今回私の作成したRスクリプト、地図、そのほか私の活動など、コメント、質問、気になる点などいただけたらうれしく思います。</p>
+
+
+</section>
+
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/nononoexe\.github\.io\/blog");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<script src="https://utteranc.es/client.js" repo="NONONOexe/blog" issue-term="pathname" theme="github-light" crossorigin="anonymous" async="">
+</script>
+</div> <!-- /content -->
+
+
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

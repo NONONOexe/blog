@@ -7,95 +7,53 @@
     "text": "LTイベントや勉強会などでの説明に使用したスライド資料をまとめています。\n\nmapglによる交通事故リスクビジュアライザーの開発（Japan.R 2024 LT）\n\n\n\nFOSS4G TOKAI 2023で知った知識大活用：福知山市消防業務支援ツールのプロトタイプ開発（FOSS4G TOKAI 2024 懇親会 LT）\n\n\n\nRによる簡単GISスクリプティング（FOSS4G TOKAI 2024 LT）\n\n\n\nはじめる ひろげる R（Kanazawa.R #1 LT）\n\n\n\n時系列分析入門（研究室 統計ゼミ2023）\n\n\n\n交差検証法（研究室 統計ゼミ2022）\n\n\n\n統計的仮説検定（研究室 統計ゼミ2021）\n\n\n\n知って・描いて・はじめるR（研究室 統計ゼミ2021）\n\n\n\n主成分分析（研究室 統計ゼミ2020）"
   },
   {
-    "objectID": "posts/2023-07-30-migrating-blog-to-quarto/index.html",
-    "href": "posts/2023-07-30-migrating-blog-to-quarto/index.html",
-    "title": "Quartoへの移行",
+    "objectID": "posts/2024-12-18-30daymapchallenge-with-r/index.html",
+    "href": "posts/2024-12-18-30daymapchallenge-with-r/index.html",
+    "title": "Rによる30DayMapChallenge",
     "section": "",
-    "text": "Quartoにブログを移行しました。Quartoはこれまで使っていた{distill}(R Markdown)のように説明のための文章とコードをあわせて書ける環境です。 さらに、Python、R、Observableにも対応しています。"
+    "text": "この記事はR言語 Advent Calendar 2024の18日目の記事です。"
   },
   {
-    "objectID": "posts/2023-07-30-migrating-blog-to-quarto/index.html#はじめに",
-    "href": "posts/2023-07-30-migrating-blog-to-quarto/index.html#はじめに",
-    "title": "Quartoへの移行",
-    "section": "",
-    "text": "Quartoにブログを移行しました。Quartoはこれまで使っていた{distill}(R Markdown)のように説明のための文章とコードをあわせて書ける環境です。 さらに、Python、R、Observableにも対応しています。"
+    "objectID": "posts/2024-12-18-30daymapchallenge-with-r/index.html#はじめに",
+    "href": "posts/2024-12-18-30daymapchallenge-with-r/index.html#はじめに",
+    "title": "Rによる30DayMapChallenge",
+    "section": "1. はじめに",
+    "text": "1. はじめに\n先月、30DayMapChallengeをほぼRで完走しました。30DayMapChallengeとは、11月の一か月間に毎日決められたテーマに沿って地図を作成するソーシャルイベントです。この記事では、私の挑戦を振り返ります。また、これにあわせて地図作成に利用できるRパッケージやデータを紹介します。\n研究で普段から地図づくりはしていますが、研究対象である交通事故以外のデータを使って地図を作ることはないため、新鮮でした。ここで新しく知ったRパッケージやデータも多かったです。\nこの記事は私の活動に興味のあるひとに加え、\n\nRを普段触っており、興味はあるが地図を作成したことはないひと\nQGISやGeoPandasなど、R以外のツールで地図を作成しているひと\n来年以降の30DayMapChallengeをやってみようかなと思っているひと\n\nの参考にもなるかと思います。"
   },
   {
-    "objectID": "posts/2023-07-30-migrating-blog-to-quarto/index.html#移行した理由",
-    "href": "posts/2023-07-30-migrating-blog-to-quarto/index.html#移行した理由",
-    "title": "Quartoへの移行",
-    "section": "2. 移行した理由",
-    "text": "2. 移行した理由\nQuartoに移行した主な理由ははじめから使える機能が多いというところです。{distill}では、自己紹介ページで使っている{postcards}との組み合わせたときに、表示が不自然になることがありました。Quartoでは、公式のドキュメント(ブログの作成)にもあるように、{postcards}をはじめからサポートしています。また、記事にコメント機能を加えるための utterancesも_quarto.ymlという設定ファイルを書き加えるだけで利用できます。これも以前から使おうと考えていたため、非常に都合がよかったです。\n\n\n\nGitHubのissueを使ってコメント機能を付けられるutterances"
+    "objectID": "posts/2024-12-18-30daymapchallenge-with-r/index.html#私の30daymapchallenge",
+    "href": "posts/2024-12-18-30daymapchallenge-with-r/index.html#私の30daymapchallenge",
+    "title": "Rによる30DayMapChallenge",
+    "section": "2. 私の30DayMapChallenge",
+    "text": "2. 私の30DayMapChallenge\n30DayMapChallengeは毎年11月におこなわれている地図を作成するソーシャルイベントです。参加者は毎日あらかじめ決められたテーマにしたがい地図を作ります。作成した地図は#30DayMapChallengeというハッシュタグとともにSNSに投稿します。このような1か月間のチャレンジはほかにもあり、毎日決められたテーマの絵を描くInktober Challengeや30DayChartChallengeが知られています。\n\n\n\n30DayMapChallenge 2024で示された30のテーマ\n\n\n私が今年30DayMapChallengeに挑戦した理由は、いま思うとはっきりしていません。なんとなくはじめたという感じです。30DayMapChallengeについては、過去にXでみたことがあり、知ってはいました。ただ、クォリティの高い地図が投稿されており、「時間がかかりそう」「むずかしそう」という印象をもっていたため、これまで挑戦はしていませんでした。\n今年は昨年に続いて、地図系のコミュニティイベントであるFOSS4G TOKAI 2024に参加しました。そこで30DayMapChallengeに挑戦したひとの話を聞いた印象が残っていたというのもあると思います。11月1日になって、Xで流れてくる地図をみて、金曜日で時間があったこともあり、ふと気が付いたら、スタートを切っていたという状態でした。1日チャレンジしたら、あとは途中で終わらせたくないので、空いた時間にコツコツ地図をつくりました。\n実際に挑戦してみた感想としては、時間はかかりますが、その分の価値があると思います。地図づくりをはじめると、こだわりが出てきてしまい、やりこみのなかで時間が溶けました。とはいえ、冒頭にも述べたように新しいツールや表現方法を学べたりして、おもしろかったです。それから、地図を眺める時間が増えるため、少しだけ地理に詳しくなったりもしました。時間は結構必要ですが、挑戦する価値は非常に高いので、迷っているひとはぜひ挑戦してみてほしいと思います。"
   },
   {
-    "objectID": "posts/2023-07-30-migrating-blog-to-quarto/index.html#まとめ",
-    "href": "posts/2023-07-30-migrating-blog-to-quarto/index.html#まとめ",
-    "title": "Quartoへの移行",
-    "section": "3. まとめ",
-    "text": "3. まとめ\nブログを{distill}からQuartoへ移行した、お知らせでした。Quartoは公式のドキュメントが充実しているため、書き方についてはとりわけ書くことがないのですが、プラグイン1や深い使い方もこれから分かってくると思いますので、慣れてきたらまた覚えたことを記事にまとめたいと思います。\n\n\n1 このブログでも、すでにFont Awesomeが使えるようになるプラグインを導入しています。"
+    "objectID": "posts/2024-12-18-30daymapchallenge-with-r/index.html#地図づくりの流れ",
+    "href": "posts/2024-12-18-30daymapchallenge-with-r/index.html#地図づくりの流れ",
+    "title": "Rによる30DayMapChallenge",
+    "section": "3. 地図づくりの流れ",
+    "text": "3. 地図づくりの流れ\n地図づくりは以下のような流れで進めました。最終的に作成した地図とコードはGitHubの「NONONOexe/30DayMapChallenge」で公開しています。\n\nテーマに沿う地図をイメージ\nイメージした地図を表現するためのデータを調査\n地図を作成（コーディング）\n作成した地図を調整\n地図を投稿\nコードを整理してGitHubへコミット\n\n30のテーマは表現方法であるものが多いため、まずテーマとなっているもので表現できるものを考えました。アイデアが浮かばないときは、ほかのひとが投稿している地図をみたり、利用できるデータから逆に考えたりしました。\n地図に利用できるデータは30DayMapChallengeのサイトの「Mapping resouces」から探せます。しかしながら、地理空間データは収集のコストもあるからか、それほど多くはありません。いろいろな国や組織から提供されてはいますが、多くのものは行政区域（州、県など）と紐づけられていることが多いです。\nコーディングはRStudioでおこなっています。また最近では、チャットボットも利用しています。私は主に次のツールを使っています：\n\n@shohei05さんが公開しているGPTsの「Rはいいぞ」\nGoogleの「Google AI Studio」\n\n「Rはいいぞ」はRに特化したGPTsで送信した内容をRの内容として回答してくれます。「Google AI Studio」はGeminiをはじめさまざまなモデルが使えます。トークンに限りがあるのですが、その量が非常に多く、いまのところ私は使い切ったことがありません。チャットボットはそれぞれで回答内容が違うので、それぞれのいいところを活かして実装方法の模索やコードの整理などに利用しています。"
   },
   {
-    "objectID": "posts/2023-05-23-how-to-create-blog/index.html",
-    "href": "posts/2023-05-23-how-to-create-blog/index.html",
-    "title": "Rでブログを作成する",
-    "section": "",
-    "text": "Note\n\n\n\nこのブログの作成ツールは{distill}から、Quartoへ移行しました。この記事は古いものになります。\n\n\n自分のブログを作成しようと思って、持っている技術で作る方法がないかと模索していたところ、R Packageの{distill}で作れることを知りました。この記事では、このブログを作成するときに学んだ方法やそれに伴って知った情報を紹介します。またこれから新しい技術や方法を知って、ブログを大きく変更することがあると思いますが、そのときには同時にこの記事も更新したいと思います。"
+    "objectID": "posts/2024-12-18-30daymapchallenge-with-r/index.html#rによる地図作成",
+    "href": "posts/2024-12-18-30daymapchallenge-with-r/index.html#rによる地図作成",
+    "title": "Rによる30DayMapChallenge",
+    "section": "4. Rによる地図作成",
+    "text": "4. Rによる地図作成\n\n地図を作るRスクリプト\nRスクリプトでは、次の流れにしたがい地図を作ります。\n\nライブラリの読み込み\nデータのダウンロード（手動でダウンロードする場合はなし）\nデータの読み込み\n可視化のための前処理（抽出、結合、空間処理など）\n可視化（地図の描画）\n\nRは使ったことがあるけれど、地図を作成したことのないというひともいると思います。地図づくりは基本的にggplot2でグラフを作成するのと同じで、地理空間情報（イベントの発生位置、建物の大きさなど）がそこに加わるだけです。実際のRスクリプトをみると、よくわかるかと思います。\n次のRスクリプトはDay 1の実際のコードです。上述した手順に対応していることがわかると思います。この流れは条件によっては不要な手順もありますが、基本的にどの地図作成においても変わりません。\n# ライブラリの読み込み\nlibrary(osmdata)\nlibrary(sf)\nlibrary(tmap)\n\n# データのダウンロードや読み込み\ntemples_data &lt;- opq(bbox = \"Aichi-ken\") |&gt;\n  add_osm_feature(key = \"building\", value = \"temple\") |&gt;\n  osmdata_sf()\nshrines_data &lt;- opq(bbox = \"Aichi-ken\") |&gt;\n  add_osm_feature(key = \"building\", value = \"shrine\") |&gt;\n  osmdata_sf()\n\n# 可視化のための前処理\ntemples_centroid &lt;- st_centroid(temples_data$osm_polygons$geometry)\nshrines_centroid &lt;- st_centroid(shrines_data$osm_polygons$geometry)\n\n# データの可視化（地図の描画）\ntmap_mode(\"view\")\ntm_shape(temples_point) +\n  tm_dots(col = \"#5BAD92\", shape = 22, size = 0.05, border.col = \"transparent\") +\n  tm_shape(shrine_point) +\n  tm_dots(col = \"#F26522\", shape = 23, size = 0.05, border.col = \"transparent\")\n\n\n使用したデータソース\n30の地図を作るときにテーマが異なることもありますが、同じデータから地図を作るのは退屈ですから、以下に示すさまざまなデータを使用しました。\n\nデータソース\n\nOpenStreetMap\n\n誰でも自由に利用、編集できるオープンな地図データです。Overpass APIというAPIを介して、クエリを送ることで、データを得られます。Rでは、osmdataというパッケージから利用できます。\n\nHydroSHEDS\n\n水域生態学研究を支援するプロジェクトです。世界中の河川のデータを提供しています。\n\nUS Census Bureau’s data\n\nアメリカ合衆国国勢調査局です。アメリカにおける国勢調査のデータを提供しています。Rでは、tidycensusというパッケージで利用することができます。\n\nNatural Earth\n\n世界地図をベクターデータとラスターデータで提供するサイトです。Rでは、rnaturalearthというパッケージを使うことで簡単に利用できます。tmapというパッケージに含まれる世界地図もこのNatural Earthをもとにしています。\n\nEU統計局\n\nEU地域の統計データです。EU統計局では、地域統計分類単位（NUTS）という単位で分けられたEUの地域に対してのデータが得られます。NUTSは0から3までのレベルがあり、レベル0だと国単位で、数字が上がるにつれて、地域が細かくなります。NUTS 3では、15万–80万人規模の地域に分けられています。Rでは、eurostatというパッケージから利用することができます。\n\nGBIF\n\n生物多様性情報を利用できるプラットフォームです。さまざまな生物について観測されたポイントのデータが得られます。事前に登録が必要ですが、Rでは、rgbifという公式のAPIが利用できます。利用例については、伊東宏樹さんの「Rで生物多様性を取得する」が参考になります。\n\nHumanitarian Data Exchange（HDX）\n\nOCHA（国連人道問題調整事務所）が管理するオープンデータの共有プラットフォームです。地震などによる被災、難民、食料問題などに関するデータが得られます。\n\nOverture Maps Foundation\n\nオープンデータの地図データを作成するための財団です。Overtureのデータは2024年4月に公開されたばかりで新しく、MicrosoftやAmazonなどが協力しており、今後が期待されています。Rから直接データを取得する方法は現在ありませんが、duckdbを介してデータを高速に得ることができます。\n\n\n\n\nデータ\n\n林野庁森林率データ\n\n林野庁の森林率データです。林野庁は農林水産省の外局の一つです。\n\nVIIRS夜間光データ\n\n衛星からVIIRS（Visible Infrared Imaging Radiometer Suite）という装置により取得した、夜間光のデータです。\n\nTLC Trip Record Data\n\nTLCが公開するニューヨークのタクシーの乗降位置のデータです。2022年からはParquetの形式で提供されており、扱いやすくなっています。\n\nUnsplash\n\n世界中の写真を使えるフリー画像のサイトです。地理空間データではありませんが、撮影された場所と紐づけて扱うことはできます。\n\n水深測量データ（NOAA）\n\nNOAA（アメリカ海洋大気庁）が公開する水深測量データです。世界中の海の深さを数値として得られます。\n\n行政区域データ（国土数値情報）\n\n市区町村の境界を表すデータです。日本の地域で空間集計する場合によく利用します。Rでは、瓜生真也さんが提供しているjpndistrictから利用できます。\n\n国勢調査（統計局）\n\ne-Statから公開されている日本の国勢調査のデータです。Rでは、山口侑平さんが開発しているsimplecensusから利用できます。\n\n気象データ（気象庁）\n\n気象庁がWebで公開している気象データです。降水量、気温などが含まれます。Rでは、jmastatsから利用できます。\n\nアメリカ合衆国各州のヘックスマップ\n\nCartoDBに登録されているアメリカ合衆国各州のヘックスマップです。\n\n地球地図データ（国土地理院）\n\n国土地理院が公開している地球全体の標高や土地被覆のデータです。tmapが持つデータの一つであるlandはこれを利用しています。\n\nMapzen Terrain Tile\n\nAWSで配信されている地表の高さを表現するオープンデータです。elevatrというパッケージから利用することができます。\n\n交通事故統計情報（警察庁）\n\n警察庁の公開している交通事故のデータです。私の開発しているjpaccidentsから利用できます。\n\n\n\n\n\n使用したRパッケージ\n使用したRパッケージの一部を紹介します。RにはTidyverseというデータサイエンスのためのパッケージ群があります。これだけでもかなりさまざまなことができます。今回の地図づくりでは、Tidyverseに加えて、データを提供するパッケージや、地図づくりやWeb GISの機能を提供する以下の表に示すパッケージを使用しました。\n\n\n\n\n\n\n\n目的\nパッケージ\n\n\n\n\nデータソースへのアクセス\nelevatr／eurostat／jpndistrict／jmastats／jpaccidents／jpndistrict／marmap／osmdata／rgbif／rnaturalearth／simplecensus／tidycensus\n\n\nデータの加工\narrow／dplyr／forcats／jsonlite／lubridate／purrr／stringr／tidyr\n\n\n空間計算\ngstat／pavement／raster／sf／spatstat／stars\n\n\n可視化\ngeomtextpath／ggplot2／ggspatial／magick／mapgl／patchwork／rayshader／scales／showtext／sysfonts／tmap／units／viridisLite\n\n\n\nそれぞれのパッケージはそれぞれのパッケージのドキュメントをみてもらうのがよいと思いますから、ここでは、使用頻度の高いパッケージやここで新しく利用したパッケージを少しだけ紹介します。\n\nsf\n\nRでベクタ形式の地理空間データに関する機能（Simple Feature Access）を扱うためのパッケージです。PostGISなどと同じようにst_からはじまるジオメトリ操作のためのさまざまな関数を提供します。また、sfというジオメトリを表現するデータ形式も提供しています。空間分析では欠かせないパッケージの一つです。\n\nggplot2\n\nグラフを作成するためのパッケージです。Tidyverseに含まれており、Rを使ったことのあるひとなら、使ったことがあるのではないかと思います。地理空間データについても後述するsfという形式のデータであれば、geom_sf()という関数でプロットできます。\n\ngeomtextpath\n\nggplot2の拡張機能として、線形に沿って文字列を描く機能を提供するパッケージです。地図の川や通りなどにその線形に沿って、その名称が描かれているのを再現することができます。\n\ntmap\n\n主題図を作成するためのパッケージです。sfやstarsのデータから地図を作成することができます。leafletでインタラクティブな地図を表示する\"view\"モードとggplot2でプロットとして地図を描画する\"plot\"モードがあるのも、とても便利でよく利用しています。\n\nmapgl\n\nMapLibre GL JSやMapbox GL JSといった高度なWebGISのアプリケーションを作成できるパッケージです。データソースとしてsf形式のデータを渡すことができます。mapglは2024年にリリースされたばかりのパッケージですが、tidycensusの開発者でもあるKyle Walkerさんが開発しており、今後がたのしみなパッケージでもあります。\n\nrayshader\n\nRでOpenGLやWebGLを使うためのrglというパッケージをベースとして、3Dグラフィックを作成できるパッケージです。rayshaderを使うと、アーティスティックな表現ができるようになります。今回は試していませんが、水や雲などの表現もできるようです。"
   },
   {
-    "objectID": "posts/2023-05-23-how-to-create-blog/index.html#はじめに",
-    "href": "posts/2023-05-23-how-to-create-blog/index.html#はじめに",
-    "title": "Rでブログを作成する",
-    "section": "",
-    "text": "Note\n\n\n\nこのブログの作成ツールは{distill}から、Quartoへ移行しました。この記事は古いものになります。\n\n\n自分のブログを作成しようと思って、持っている技術で作る方法がないかと模索していたところ、R Packageの{distill}で作れることを知りました。この記事では、このブログを作成するときに学んだ方法やそれに伴って知った情報を紹介します。またこれから新しい技術や方法を知って、ブログを大きく変更することがあると思いますが、そのときには同時にこの記事も更新したいと思います。"
+    "objectID": "posts/2024-12-18-30daymapchallenge-with-r/index.html#作成した地図",
+    "href": "posts/2024-12-18-30daymapchallenge-with-r/index.html#作成した地図",
+    "title": "Rによる30DayMapChallenge",
+    "section": "5. 作成した地図",
+    "text": "5. 作成した地図\n実際に作成した30の地図は次の表のとおりです。なお、テーマの制約などから、Day 6、9、10、13、17、23はRを使っていません。以降では、それぞれの地図について説明します。\n\n\n\n日\nテーマ\nタイトル\n\n\n\n\n1\nPoints\nShrines and Temples in Aichi（愛知県の神社とお寺）\n\n\n2\nLines\nThe Nile River around Khartoum（ハルツーム周辺のナイル川）\n\n\n3\nPolygons\nJapan’s Forest Coverage Rate（日本の森林率）\n\n\n4\nHexagons\nPopulation Density by State（アメリカ州別人口）\n\n\n5\nA journey\nFrom Nagoya to Madrid (for attending a conference)（学会参加のために名古屋からマドリードへ）\n\n\n6\nRaster\nVIIRS Nighttime Light（VIIRS夜間光データ）\n\n\n7\nVintage style\nEurope Antique Map（ヨーロッパの古地図）\n\n\n8\nData: HDX\nTurkey Earthquake（トルコ地震のマグニチュード）\n\n\n9\nAI only\nHokkaido…?（北海道らしきもの）\n\n\n10\nPen & paper\nSevilla mi mapa tarístrico（私のセビリア観光マップ）\n\n\n11\nArctic\nObserved Locations of Polar Bears（ホッキョクグマ観測ポイント）\n\n\n12\nTime and space\nDrop-off Locations of Taxis in New York on Weekend (Yellow taxis)（週末のニューヨークにおけるイエロータクシー利用者の降車位置）\n\n\n13\nA new tool\nMapping Japanese Landscape Photos from Unsplash Using Re:Earth（Re:EarthによるUnsplashの日本風景マッピング）\n\n\n14\nA world map\nEarth Created from Elevation Raster Data（標高ラスタデータから作成した地球）\n\n\n15\nMy data\nPrefecture Visited and the Number of Visits（行ったことのある都道府県）\n\n\n16\nChoropleth\nNumber of People in Europe Corresponding to ISCED 8 in 2022（2022年の欧州のISCEDレベル8の人口）\n\n\n17\nCollaborative map\nColossal Minecraft Map（広大なマインクラフトの地図）\n\n\n18\n3D\n3D Eckert World Map（エケルト地図3D）\n\n\n19\nTypography\nStreets Around Abbey Road（アビイ・ロードのあたりの道）\n\n\n20\nOpenStreetMap\n3D Visualisation of Tokyo Station Area OSM Data using mapgl（mapglによる東京駅周辺の3次元的可視化）\n\n\n21\nConflict\nLocations of Domino’s Pizza / Pizza-la on OpenStreetMap（OSM上のドミノ・ピザとピザーラの位置）\n\n\n22\n2 colours\nBlue and White: The Flag and the White House（星条旗の青とホワイトハウス）\n\n\n23\nMemories\nMy Commute Route（通学路）\n\n\n24\nOnly circular shapes\nAichi Population（愛知県の人口）\n\n\n25\nHeat\nMax Temperature in October in Japan（日本の10月の最高気温）\n\n\n26\nMap projections\nWorld Map Projections in Chronological Order（時系列でみる代表的投影法）\n\n\n27\nMicroMapping\nJust Room Enough Island（ジャスト・ルーム・イナフ島）\n\n\n28\nThe blue planet\nGlobal Bathymetry（水深測量データから作成した地球）\n\n\n29\nData: Overture\nBuildings of Port of Hong Kong（香港港のビル群）\n\n\n30\nThe final map\nMy Research Focus: A Map of Traffic Accident Risk（交通事故リスクマップ）\n\n\n\n\nDay 1. Points\n私の住む愛知県の神社とお寺の位置をプロットした地図です。地図とかデザインとかさんの「岬vs.崎/埼」にインスパイアされて、2つのものを比較する地図にしようとして、作成したものです。建物の位置はOpenStreetMapに登録された情報をもとにしています。神社は鳥居の朱の色を、お寺は緑青の色を意識しています。ベースはtmapで作成してあるのですが、凡例部分だけAffinity Designerで作成しています。日をまたぎそうであったため、急いで付けました。神社とお寺は思ったより分布に違いがあり、歴史的背景をほのかに感じました。\n\n\n\nShrines and Temples in Aichi（愛知県の神社とお寺）\n\n\n\n\nDay 2. Lines\nスーダンの首都であるハルツーム周辺のナイル川を表した地図です。ナイル川には非常に大きな支流として青ナイルと白ナイルがあり、ハルツームはこの2つが合流しているところに位置している街です。地図はggplot2で作成したものになります。「Lines」と聞いて、すぐに川にしようと決めて、作成をはじめたのですが、川のデータは支流を含むと非常に大きいデータで扱うのが難しかったです。地域を限定したのもそうしたためです。\n\n\n\nThe Nile River around Khartoum（ハルツーム周辺のナイル川）\n\n\n\n\nDay 3. Polygons\n各都道府県の森林率を表した地図です。東北地方や日本海側に森林被覆率の高い地域が集まっており、一方で都市部は森林率が低いことがわかります。行政区域の表現にはjpndistrictを使っています。\n\n\n\nJapan’s Forest Coverage Rate（日本の森林率）\n\n\n\n\nDay 4. Hexagons\nアメリカ合衆国の州別人口密度を表した地図です。東海岸の方は首都ワシントンD.C.があることもあり、特に人口が集中していることが読み取れます。ヘックスマップはggplot2だと、geom_hex()を使うことで作成できますが、ここでは、公開されていたアメリカ合衆国のヘックスマップ（CartoDB）を利用しています。また、人口密度のデータはtidycensusより取得しました。州の行政区域で塗り分けると、印象がそれぞれの州の面積によるところがありますが、ヘックスマップだとそうしたバイアスがないことが利点に思います。\n\n\n\nPopulation Density by State（アメリカ州別人口）\n\n\n\n\nDay 5. A journey\n名古屋からマドリードへ向かったときの飛行機の航路を描いた地図です。飛行機の最短経路を描くには、地図上の距離と方位が正確な正距方位図法が有名であるため、これを採用しました。平面直角座標系への変換はデータそのものを変換する場合はsfのst_transform()で、描画上のみ変換したい場合はggplot2のcoord_sf()で変換できます。ここでは、\"+proj=laea +lat_0=34.86 +lon_0=136.81 +x_0=4321000 +y_0=3210000 +ellps=GRS80 +units=m +no_defs\"という座標系を設定しています。lat_0とlon_0の部分が中心位置の緯度経度を示しています。なお、この地図についてですが、実際の航路はこのように直線的には飛んでいません。\n\n\n\nFrom Nagoya to Madrid (for attending a conference)（学会参加のために名古屋からマドリードへ）\n\n\n\n\nDay 6. Raster\nVIIRSという装置により衛星で計測された夜間光のデータを描いた地図です。都市部の街の明かりがとても明るいことがわかります。この地図はWeb上で地図を作成できるGoogle Earth Engine（GEE）で作成しました。GEEはRからもrgeeというパッケージを用いて、利用できるはずなのですが、私は環境の問題からかなぜかうまく使うことができませんでした。\n\n\n\nVIIRS Nighttime Light（VIIRS夜間光データ）\n\n\n\n\nDay 7. Vintage style\nヨーロッパを古地図風に描いた地図です。描かれている地形や国は現在のもので、色とフォントを調整したものになります。私はファンタジーRPGとかが好きなため「Vintage」な地図というと中世ヨーロッパというところからこのような地図になりました。あとから振り返るとれきちずのように日本の古地図を作ってもよかったかもしれません。\n\n\n\nEurope Antique Map（ヨーロッパの古地図）\n\n\n\n\nDay 8. Data: HDX\nトルコ・シリア地震の観測位置とマグニチュードにもとづくバブルマップです。非常に大きな地震が集中して発生していることがわかります。また、T字状に観測位置があることから、そこに断層線があるのが伺えます。\n\n\n\nTurkey Earthquake（トルコ地震のマグニチュード）\n\n\n\n\nDay 9. AI only\nChatGPT（DALL-E）に描いてもらった北海道です。観光地らしいものが描かれつつ、それらしい雰囲気はありますが、まったく北海道ではありません。\n\n\n\nHokkaido…?（北海道らしきもの）\n\n\n実はこの北海道らしきものはこれでもプロンプトを調整しています。その前に出力されたものはさらに北海道ではありませんでした。それが、この「HOKKAIDO JAPAN」という日本全国が北海道化するという謎の地図です。「Sappido」という札幌と北海道を足して2で割ったような地名があったり、いたるところが函館だったりしています。このカオスのあとだったので、先ほどの画像を採用しました。\n\n\n\nHokkaido…??（完全に北海道ではないもの)\n\n\n\n\nDay 10. Pen & paper\nスペインのセビリアで観光したところを描いた手書きの地図です。北から、サンタ・フスタ駅、ヒラルダの塔、カテドラル、マエスランサ闘牛場、スペイン広場、メルカドーナを描いてみました。セビリアは観光地が歩ける距離に集まっていて、観光しやすいので、ぜひ機会があれば訪れてみてください。\n\n\n\nSevilla mi mapa tarístrico（私のセビリア観光マップ）\n\n\n\n\nDay 11. Arctic\nホッキョクグマの観測ポイントをマッピングした北極中心の地図です。ホッキョクグマの観測ポイントはrgbifを用いて取得しています。北極の氷の部分のデータを手に入れる方法がわからなかったため、氷の部分は描画できていません。全体には、海岸沿いに広く分布していることがわかります。特にアラスカ付近には非常に多くの観測データがあります。\n\n\n\nObserved Locations of Polar Bears（ホッキョクグマ観測ポイント）\n\n\n\n\nDay 12. Time and space\n週末のニューヨークにおけるイエロータクシー利用者の降車位置を表した地図です。3か月のデータを使って、各月と朝昼夜の9つに分けてプロットしました。マンハッタンのある中心地（地図の西部）は常時降車数が多いようです。クイーンズ（地図の東部）の方は時間や月により変化がみられます。週末のデータを利用しているので、観光客による影響が大きいのかもしれません。\n\n\n\nDrop-off Locations of Taxis in New York on Weekend (Yellow taxis)（週末のニューヨークにおけるイエロータクシー利用者の降車位置）\n\n\n\n\nDay 13. A new tool\nUnsplashにアップロードされている日本風景をRe:Earthにマッピングした地図です。このDay 13では、今まで使用したことのないツールを使って地図づくりをすることがテーマになっています。Re:EarthはEukaryaが提供するWebGISプラットフォームです。Web上でプロジェクトを作成し、地理空間データをアップロードするだけで、WebGISのアプリケーションを作成できます。FOSS4G TOKAIでお話だけ聞いて、使ったことがなかったので、使ってみましたが、非常に簡単にアプリケーションを作成できました。ここでは画像URLを位置に紐づける単純な操作しかしていませんが、Re:Earthで作られたほかのアプリケーションをみると、PLATEAUのデータを読み込めたり、人流を表現できたり、高度なこともできるようです。\n\n\n\nMapping Japanese Landscape Photos from Unsplash Using Re:Earth（Re:EarthによるUnsplashの日本風景マッピング）\n\n\n\n\nDay 14. A world map\n標高と水深測量のラスタデータから地球を描いたものです。2種類のラスタデータの分解能を合わせて、合成し、正射図法で描画することで地球らしくしました。これまでラスタデータを使ったことがなかったので、学びの多い地図でした。\n\n\n\nEarth Created from Elevation Raster Data（標高ラスタデータから作成した地球）\n\n\nggplot2でこの図を出力するとブラウン管を通したような見た目になります。この地図はtmapで作成していて、ggplot2でできないかを試したときに偶然気が付きました。なぜなんでしょうか。いまだによくわかっていないため、わかる人がいたらぜひ教えてほしいです。\n\n\n\nブラウン管を通したような地球？\n\n\n\n\nDay 15. My data\n行ったことのある都道府県を、その回数で塗り分けたものです。まだまだ行ったことのないところが多いです。どうしても日本の地図を作成することが多くなってしまうため、ここでは、sfのst_simplify()を用いて、ポリゴンを単純化し、略地図風にしてみました。\n\n\n\nPrefecture Visited and the Number of Visits（行ったことのある都道府県）\n\n\n\n\nDay 16. Choropleth\n2022年のEUにおけるISCEDレベル8の人口にもとづくコロプレスマップです。ISCED（国際標準教育分類）はUNESCOが策定している、教育のレベルを表す区分です。0から8までの9段階で、レベル8は博士号同等のレベルを表します。これは国ごとに塗分けているのですが、イタリアやポーランドのあたりは20万人を超えています。国の総人口や面積にもよるとは思いますが、非常に多くのひとが高い能力を持っていることが伺えます。\n\n\n\nNumber of People in Europe Corresponding to ISCED 8 in 2022（2022年の欧州のISCEDレベル8の人口）\n\n\n\n\nDay 17. Collaborative map\nマインクラフトの大量の地図を額縁に並べたものです。Day 17はひとと協力して地図を作成するというテーマでした。地図は友人に呼び掛けて、1枚ずつ探索して埋めてもらって、300枚を超える地図を収集しました。\n\n\n\nColossal Minecraft Map（広大なマインクラフトの地図）\n\n\n\n\n\n収集の途中の状態\n\n\n\n\nDay 18. 3D\n標高の高さを3D表現した世界地図です。rayshaderを使用してggplot2で描いた地図を3D化しています。このエケルト図法で描かれた世界地図はtmapの主題図としてよくみかけるものですが、3Dになると印象がガラリと変わるように感じます。\n\n\n\n3D Eckert World Map（エケルト地図3D）\n\n\n\n\nDay 19. Typography\nロンドンのアビイ・ロードの付近の通りを通りの名称で描いたものです。Day 19は「Typography」というテーマで、文字で地図を表現するということでした。通りに沿って文字を並べるところが先に決まって、それから「通り」というところからビートルズのアビイ・ロードの横断歩道が浮かんだので、このようにしました。\n\n\n\nStreets Around Abbey Road（アビイ・ロードのあたりの道）\n\n\n\n\nDay 20. OpenStreetMap\n東京駅周辺のOpenStreetMapのデータをMapLibre GL JSで立体的に可視化したものです。ここではOpenStreetMapのデータのみを利用して、高さも表現しています。しかしながら、高さが登録されていない建物も多いので、それらは適当な高さにしてあります。\n\n\n\n3D Visualisation of Tokyo Station Area OSM Data using mapgl（mapglによる東京駅周辺の3次元的可視化）\n\n\n\n\nDay 21. Conflict\nドミノ・ピザとピザーラのある市区町村を描いた地図です。ドミノ・ピサとピザーラは人気ピザ・チェーンのトップ2らしいです。このデータはOpenStreetMapに登録されているものを利用しているので、すべての店舗が描かれているわけではないと思いますが、地図にしてみると、意外とばらけていることがわかりました。特定の地域に偏っているということもないようです。各店の市場戦略が表れているのでしょうか。\n\n\n\nLocations of Domino’s Pizza / Pizza-la on OpenStreetMap（OSM上のドミノ・ピザとピザーラの位置）\n\n\n\n\nDay 22. 2 colors\n星条旗の青で塗った背景に白でホワイトハウス周辺を描いた地図です。2色を使った地図がテーマであったため、名前に色を含む場所からホワイトハウスにしました。データはOpenStreetMapのものです。対称的できれいな地図になりました。\n\n\n\nBlue and White: The Flag and the White House（星条旗の青とホワイトハウス）\n\n\n\n\nDay 23. Memories\nこれまでの通学路（通勤路）を表現した地図です。Google Mapをトレースする形でAffinity Designerで手でラインを引いて作成しました。この地図にあるように、私は偶然にも小学校から社会人まで、少しずつ自分の行動範囲を広げるような形で進路が決まっています。\n\n\n\nMy Commute Route（通学路）\n\n\n\n\nDay 24. Only circular shapes\n愛知県の人口を表現したバブルマップです。simplecensusを使って国勢調査のデータをもとに描いています。地域の大きさがばらばらであるため、名古屋の方が細かくなっていますが、うっすら愛知県の形状がみえるでしょうか。あと、この地図の文字の部分は自分で描いたものですが、うっかり「Population」の「i」が抜けるというミスもしていることにあとで気づきました。\n\n\n\nAichi Population（愛知県の人口）\n\n\n\n\nDay 25. Heat\n日本の10月の最高気温を表したヒートマップです。気温は気象庁のデータをもとにしていますが、すべての地域にデータがあるわけではないため、データのない部分を逆距離加重法（IDW）により、空間補完しています。今年は11月になり、急に冷え込んだので、10月の暑さはもう思い出せません。\n\n\n\nMax Temperature in October in Japan（日本の10月の最高気温）\n\n\n\n\nDay 26. Map projections\n開発された時系列順に投影法を並べたものです。左上は変換前のWGS84（Webメルカトル）にしています。代表的なものを並べましたが、学校で習うことのないものも多いかと思います。投影法は地球を歪みなく平面上に表現するためにいまでも開発されていて、このなかでは「イコールアース図法（Equal Earth projection）」が最も新しいものになります。sfでは内部でPROJというソフトウェアを介して、座標系を変換しています。変換可能な座標系はPROJのページから確認できます。この地図にない投影法もここで確認できます。\n\n\n\nWorld Map Projections in Chronological Order（時系列でみる代表的投影法）\n\n\n\n\nDay 27. MicroMapping\n世界で最も小さな有人島であるジャスト・ルーム・イナフ島を描いた地図です。ニューヨーク州にあるとても小さな島です。あまりにも小さくて、表現できるオブジェクトがこれだけしかありませんでした。実際の写真に合わせて、家の屋根を赤くしています。となりにあるのは小さな植え込みでそのなかに1本だけ木が生えています。小さいので解像度が低いですが、海も一応深さに合わせて色を付けています。\n\n\n\nJust Room Enough Island（ジャスト・ルーム・イナフ島）\n\n\n\n\nDay 28. The blue planet\n水深測量データから作成した地球のGIFアニメです。Day 14で地球を描いたときに、回転させたかったのですが、はじめてラスタデータを触ったこともあり、このときは方法がわからず断念しました。それからこのDay 28で再チャレンジして、成功しました。地軸の傾きやGIFへの変換はImageMagickで実現しています。惜しむらくは自転方向を誤ってしまったことだけでしょうか。これには科学者として反省しています。\n\n\n\nGlobal Bathymetry（水深測量データから作成した地球）\n\n\n\n\nDay 29. Data: Overture\n香港港のビル群を立体的に描いた地図です。Day 29はOvertureのデータを使用した地図を作成します。Overtureのデータはduckdbを経由して、利用することができるのですが、Rのduckdbパッケージはまだ地理空間データのための拡張機能に対応していないため、duckdbを使った方法は断念しました1。ここではGeoJSONを使っています。中身はOpenStreetMapのものが多いのですが、わかりやすいスキーマに設計されているので、今後duckdbを経由して、簡単に使えるようになったらうれしいです。\n1 直接、duckdbを利用する場合は問題ないはずです\n\n\nBuildings of Port of Hong Kong（香港港のビル群）\n\n\n\n\nDay 30. The final map\n研究で対象にしている交通事故のリスクを可視化した地図です。私の研究では、交通事故の発生リスクの推定や要因の調査などを対象にしていますが、この地図では道路の線形に合わせたヒートマップを描きました。交通事故は基本的に道路でしか発生しないため、通常のヒートマップの場合、路外の発生も評価してしまいます。これに対して、この地図のヒートマップでは道路ネットワークのなかでリスクを算出しています。私はこの地理空間的なネットワークに沿った特殊な空間事象を分析するためのパッケージとしてpavementというパッケージを開発しています。\n\n\n\nMy Research Focus: A Map of Traffic Accident Risk（交通事故リスクマップ）"
   },
   {
-    "objectID": "posts/2023-05-23-how-to-create-blog/index.html#ブログを立てる",
-    "href": "posts/2023-05-23-how-to-create-blog/index.html#ブログを立てる",
-    "title": "Rでブログを作成する",
-    "section": "2. ブログを立てる",
-    "text": "2. ブログを立てる\n\nテンプレートの作成\n{distill}では非常に簡単にブログが作成できます。distill::create_blog()を実行するだけです。あとは対話的にディレクトリとブログ名を決定して、一連のテンプレートが作成できます。\n本ブログはGitHub Pagesで公開したかったため、以下の引数によりオプションを指定して、作成しました。\n\n# ブログの作成\ndistill::create_blog(\n  dir      = \"blog\",                     # ブログを作成するディレクトリ\n  title    = \"NONONOexe Something Blog\", # ブログのタイトル\n  gh_pages = TRUE                        # GitHub Pagesにより公開するかどうか\n)\n\n実行すると次のようにテンプレートが生成されます。また、最初の記事として、welcome.Rmdが作成されます。これを編集して、最初の記事を書くことができます。\n\n\n\n生成されるテンプレートファイル\n\n\n\n\n記事の作成\n新たに記事を作成するのも非常に簡単です。次のようにdistill::create_post()でベースを作成できます。なお、引数のtitleから日本語のタイトルは付けられないため、注意が必要です。付ける場合はあとから編集で付けます。\n\n# 記事の作成\ndistill::create_post(\n  title       = \"how-to-create-blog\", # 記事のタイトル\n  author      = \"Keisuke ANDO\",       # 記事の著者\n  date_prefix = NULL                  # 日付をファイル名に付けない\n)\n\n記事はRMarkdownで作成されるので、HTMLで確認する場合はRStudioのKnitボタンから、Knitしましょう。\n\n\n\nKnitボタン\n\n\n\n\n\nKnitして作成したWelcomeページ"
-  },
-  {
-    "objectID": "posts/2023-05-23-how-to-create-blog/index.html#ブログをカスタマイズする",
-    "href": "posts/2023-05-23-how-to-create-blog/index.html#ブログをカスタマイズする",
-    "title": "Rでブログを作成する",
-    "section": "3. ブログをカスタマイズする",
-    "text": "3. ブログをカスタマイズする\n\nCSSによるカスタマイズ\n{distill}で作成したページは通常のHTMLでのウェブサイト作成のようにCSSによるカスタマイズが可能です。次のdistill::create_theme()を実行することで、CSSのファイルが作成されます。\n\n# CSSによりテーマをカスタマイズ\ndistill::create_theme()\n## v Created CSS file at theme.css \n## o TODO: Customize it to suit your needs \n## o TODO: Add 'theme: theme.css' to your site or article YAML\n\nメッセージでTODOとして出力されたとおり、CSSのカスタマイズとサイトの構成を管理するYAMLファイルへの追記します。簡単な例としてヘッダのフォントをNoto Sans JP(Google Fonts)に変更する場合はtheme.cssを次のように変更します。\n\n/* Optional: embed custom fonts here with `@import`          */\n/* This must remain at the top of this file.                 */\n@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap');\n\n\n\nhtml {\n  /*-- Main font sizes --*/\n  --title-size:      50px;\n  --body-size:       1.06rem;\n  --code-size:       14px;\n  --aside-size:      12px;\n  --fig-cap-size:    13px;\n  /*-- Main font colors --*/\n  --title-color:     #000000;\n  --header-color:    rgba(0, 0, 0, 0.8);\n  --body-color:      rgba(0, 0, 0, 0.8);\n  --aside-color:     rgba(0, 0, 0, 0.6);\n  --fig-cap-color:   rgba(0, 0, 0, 0.6);\n  /*-- Specify custom fonts ~~~ must be imported above   --*/\n  --heading-font:    'Noto Sans JP', sans-serif; /* edited */\n  --mono-font:       monospace;\n  --body-font:       sans-serif;\n  --navbar-font:     sans-serif;  /* websites + blogs only */\n}\n\nまた、CSSを反映するために_site.ymlにも以下の部分を追記します。\nname: \"blog\"\ntitle: \"NONONOexe Something Blog\"\ndescription: |\n  NONONOexe Something Blog\noutput_dir: \"docs\"\ntheme: theme.css  # theme.cssを使用\nnavbar:\n  right:\n    - text: \"Home\"\n      href: index.html\n    - text: \"About\"\n      href: about.html\noutput: distill::distill_article\nこの状態で、ページをKnitするとフォントが次のように変更されたHTMLが生成されます。\n\n\n\nCSSを編集する前\n\n\n\n\n\nCSSを編集した後"
-  },
-  {
-    "objectID": "posts/2023-05-23-how-to-create-blog/index.html#まとめ",
-    "href": "posts/2023-05-23-how-to-create-blog/index.html#まとめ",
-    "title": "Rでブログを作成する",
-    "section": "4. まとめ",
-    "text": "4. まとめ\n「Rでブログを作成する」というちょっと変わったアプローチでしたが、想像以上に簡単に作成できることがわかりました。{distill}の基本はRMarkdownのため、他の関連パッケージと組み合わせることでまだまだいろいろなことができそうです。The Distilleryというサイトでは、{distill}を使ったさまざまなサイトを紹介しています。これも参考にこのブログもまた改善を加えていけたらと思います。"
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "安藤 圭祐",
-    "section": "",
-    "text": "愛知工業大学、マルチエージェントシステム研究室の博士後期課程3年の安藤圭祐です。交通安全のための空間解析手法について研究しています。また、RoboCup Rescue Simulationや人狼知能などのマルチエージェントシステムに関する研究もしています。\n2020年からRのおもしろさに惹かれ、さまざまな情報を日々収集しています。最近はパッケージ開発にも取り組んでいます。趣味はゲームと飲食店の開拓、休日はよく外食しています。"
-  },
-  {
-    "objectID": "about.html#自己紹介",
-    "href": "about.html#自己紹介",
-    "title": "安藤 圭祐",
-    "section": "",
-    "text": "愛知工業大学、マルチエージェントシステム研究室の博士後期課程3年の安藤圭祐です。交通安全のための空間解析手法について研究しています。また、RoboCup Rescue Simulationや人狼知能などのマルチエージェントシステムに関する研究もしています。\n2020年からRのおもしろさに惹かれ、さまざまな情報を日々収集しています。最近はパッケージ開発にも取り組んでいます。趣味はゲームと飲食店の開拓、休日はよく外食しています。"
-  },
-  {
-    "objectID": "about.html#このサイトについて",
-    "href": "about.html#このサイトについて",
-    "title": "安藤 圭祐",
-    "section": "このサイトについて",
-    "text": "このサイトについて\nこのサイトではRに関する情報、自身に関係する宣伝、その他思ったことなどを書いていく予定です。"
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "ブログ",
-    "section": "",
-    "text": "Quartoへの移行\n\n\n\n\n\n\nblog\n\n\nquarto\n\n\n\nブログをQuartoへ移行しました。 \n\n\n\n\n\nJul 30, 2023\n\n\nKeisuke ANDO\n\n\n\n\n\n\n\n\n\n\n\n\n空間データの操作の基本\n\n\n\n\n\n\ngeo\n\n\n\nRによる基本的な空間データの操作について紹介します。 \n\n\n\n\n\nJun 3, 2023\n\n\nKeisuke ANDO\n\n\n\n\n\n\n\n\n\n\n\n\nRでブログを作成する\n\n\n\n\n\n\nrpackage\n\n\nblog\n\n\n\ndistillパッケージによるブログ作成についてまとめました。 \n\n\n\n\n\nMay 23, 2023\n\n\nKeisuke ANDO\n\n\n\n\n\n\nNo matching items"
+    "objectID": "posts/2024-12-18-30daymapchallenge-with-r/index.html#まとめ",
+    "href": "posts/2024-12-18-30daymapchallenge-with-r/index.html#まとめ",
+    "title": "Rによる30DayMapChallenge",
+    "section": "6. まとめ",
+    "text": "6. まとめ\nこの記事では、私のRによる30DayMapChallengeの振り返りました。また、そこで使用したデータやRパッケージを紹介しました。\nRでは地図をつくるためのさまざまなパッケージが開発されています。使ったことのないパッケージがあれば、ぜひ使ってみるとよいのではないでしょうか。また、この記事が今後Rで地図づくりをするひとの助けになればと思います。また、今回私の作成したRスクリプト、地図、そのほか私の活動など、コメント、質問、気になる点などいただけたらうれしく思います。"
   },
   {
     "objectID": "posts/2023-06-03-manipulating-geospatial-data/index.html",
@@ -138,6 +96,97 @@
     "title": "空間データの操作の基本",
     "section": "5. まとめ",
     "text": "5. まとめ\nここでは、RPackageで提供されている空間データを使って、データの可視化と抽出をおこないました。ここで紹介したもの以外にもRでは多くの空間データや操作が提供されています。なにができるかについては{sf}のドキュメントが詳しいです。また、以前{tmap}を使ったプロットについて書いた以下の記事や、公開された空間分析についての書籍もあります。こちらからはさまざまな事例をみられるので、参考になると思います。\n\nNONONOexe(Keisuke ANDO), Rによる空間分析のススメ―交通事故ヒートマップを作成してみよう―, 2022\nRobin Lovelace, Jakub Nowosad and Jannes Muenchow. Geocomputation with R, 2019 (日本語版)"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "ブログ",
+    "section": "",
+    "text": "Rによる30DayMapChallenge\n\n\n\n\n\n\ngeo\n\n\nrpackage\n\n\n\nRでチャレンジした30DayMapChallengeを振り返りました。 \n\n\n\n\n\nDec 18, 2024\n\n\nKeisuke ANDO\n\n\n\n\n\n\n\n\n\n\n\n\nQuartoへの移行\n\n\n\n\n\n\nblog\n\n\nquarto\n\n\n\nブログをQuartoへ移行しました。 \n\n\n\n\n\nJul 30, 2023\n\n\nKeisuke ANDO\n\n\n\n\n\n\n\n\n\n\n\n\n空間データの操作の基本\n\n\n\n\n\n\ngeo\n\n\n\nRによる基本的な空間データの操作について紹介します。 \n\n\n\n\n\nJun 3, 2023\n\n\nKeisuke ANDO\n\n\n\n\n\n\n\n\n\n\n\n\nRでブログを作成する\n\n\n\n\n\n\nrpackage\n\n\nblog\n\n\n\ndistillパッケージによるブログ作成についてまとめました。 \n\n\n\n\n\nMay 23, 2023\n\n\nKeisuke ANDO\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "安藤 圭祐",
+    "section": "",
+    "text": "愛知工業大学、マルチエージェントシステム研究室の博士後期課程3年の安藤圭祐です。交通安全のための空間解析手法について研究しています。また、RoboCup Rescue Simulationや人狼知能などのマルチエージェントシステムに関する研究もしています。\n2020年からRのおもしろさに惹かれ、さまざまな情報を日々収集しています。最近はパッケージ開発にも取り組んでいます。趣味はゲームと飲食店の開拓、休日はよく外食しています。"
+  },
+  {
+    "objectID": "about.html#自己紹介",
+    "href": "about.html#自己紹介",
+    "title": "安藤 圭祐",
+    "section": "",
+    "text": "愛知工業大学、マルチエージェントシステム研究室の博士後期課程3年の安藤圭祐です。交通安全のための空間解析手法について研究しています。また、RoboCup Rescue Simulationや人狼知能などのマルチエージェントシステムに関する研究もしています。\n2020年からRのおもしろさに惹かれ、さまざまな情報を日々収集しています。最近はパッケージ開発にも取り組んでいます。趣味はゲームと飲食店の開拓、休日はよく外食しています。"
+  },
+  {
+    "objectID": "about.html#このサイトについて",
+    "href": "about.html#このサイトについて",
+    "title": "安藤 圭祐",
+    "section": "このサイトについて",
+    "text": "このサイトについて\nこのサイトではRに関する情報、自身に関係する宣伝、その他思ったことなどを書いていく予定です。"
+  },
+  {
+    "objectID": "posts/2023-05-23-how-to-create-blog/index.html",
+    "href": "posts/2023-05-23-how-to-create-blog/index.html",
+    "title": "Rでブログを作成する",
+    "section": "",
+    "text": "Note\n\n\n\nこのブログの作成ツールは{distill}から、Quartoへ移行しました。この記事は古いものになります。\n\n\n自分のブログを作成しようと思って、持っている技術で作る方法がないかと模索していたところ、R Packageの{distill}で作れることを知りました。この記事では、このブログを作成するときに学んだ方法やそれに伴って知った情報を紹介します。またこれから新しい技術や方法を知って、ブログを大きく変更することがあると思いますが、そのときには同時にこの記事も更新したいと思います。"
+  },
+  {
+    "objectID": "posts/2023-05-23-how-to-create-blog/index.html#はじめに",
+    "href": "posts/2023-05-23-how-to-create-blog/index.html#はじめに",
+    "title": "Rでブログを作成する",
+    "section": "",
+    "text": "Note\n\n\n\nこのブログの作成ツールは{distill}から、Quartoへ移行しました。この記事は古いものになります。\n\n\n自分のブログを作成しようと思って、持っている技術で作る方法がないかと模索していたところ、R Packageの{distill}で作れることを知りました。この記事では、このブログを作成するときに学んだ方法やそれに伴って知った情報を紹介します。またこれから新しい技術や方法を知って、ブログを大きく変更することがあると思いますが、そのときには同時にこの記事も更新したいと思います。"
+  },
+  {
+    "objectID": "posts/2023-05-23-how-to-create-blog/index.html#ブログを立てる",
+    "href": "posts/2023-05-23-how-to-create-blog/index.html#ブログを立てる",
+    "title": "Rでブログを作成する",
+    "section": "2. ブログを立てる",
+    "text": "2. ブログを立てる\n\nテンプレートの作成\n{distill}では非常に簡単にブログが作成できます。distill::create_blog()を実行するだけです。あとは対話的にディレクトリとブログ名を決定して、一連のテンプレートが作成できます。\n本ブログはGitHub Pagesで公開したかったため、以下の引数によりオプションを指定して、作成しました。\n\n# ブログの作成\ndistill::create_blog(\n  dir      = \"blog\",                     # ブログを作成するディレクトリ\n  title    = \"NONONOexe Something Blog\", # ブログのタイトル\n  gh_pages = TRUE                        # GitHub Pagesにより公開するかどうか\n)\n\n実行すると次のようにテンプレートが生成されます。また、最初の記事として、welcome.Rmdが作成されます。これを編集して、最初の記事を書くことができます。\n\n\n\n生成されるテンプレートファイル\n\n\n\n\n記事の作成\n新たに記事を作成するのも非常に簡単です。次のようにdistill::create_post()でベースを作成できます。なお、引数のtitleから日本語のタイトルは付けられないため、注意が必要です。付ける場合はあとから編集で付けます。\n\n# 記事の作成\ndistill::create_post(\n  title       = \"how-to-create-blog\", # 記事のタイトル\n  author      = \"Keisuke ANDO\",       # 記事の著者\n  date_prefix = NULL                  # 日付をファイル名に付けない\n)\n\n記事はRMarkdownで作成されるので、HTMLで確認する場合はRStudioのKnitボタンから、Knitしましょう。\n\n\n\nKnitボタン\n\n\n\n\n\nKnitして作成したWelcomeページ"
+  },
+  {
+    "objectID": "posts/2023-05-23-how-to-create-blog/index.html#ブログをカスタマイズする",
+    "href": "posts/2023-05-23-how-to-create-blog/index.html#ブログをカスタマイズする",
+    "title": "Rでブログを作成する",
+    "section": "3. ブログをカスタマイズする",
+    "text": "3. ブログをカスタマイズする\n\nCSSによるカスタマイズ\n{distill}で作成したページは通常のHTMLでのウェブサイト作成のようにCSSによるカスタマイズが可能です。次のdistill::create_theme()を実行することで、CSSのファイルが作成されます。\n\n# CSSによりテーマをカスタマイズ\ndistill::create_theme()\n## v Created CSS file at theme.css \n## o TODO: Customize it to suit your needs \n## o TODO: Add 'theme: theme.css' to your site or article YAML\n\nメッセージでTODOとして出力されたとおり、CSSのカスタマイズとサイトの構成を管理するYAMLファイルへの追記します。簡単な例としてヘッダのフォントをNoto Sans JP(Google Fonts)に変更する場合はtheme.cssを次のように変更します。\n\n/* Optional: embed custom fonts here with `@import`          */\n/* This must remain at the top of this file.                 */\n@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap');\n\n\n\nhtml {\n  /*-- Main font sizes --*/\n  --title-size:      50px;\n  --body-size:       1.06rem;\n  --code-size:       14px;\n  --aside-size:      12px;\n  --fig-cap-size:    13px;\n  /*-- Main font colors --*/\n  --title-color:     #000000;\n  --header-color:    rgba(0, 0, 0, 0.8);\n  --body-color:      rgba(0, 0, 0, 0.8);\n  --aside-color:     rgba(0, 0, 0, 0.6);\n  --fig-cap-color:   rgba(0, 0, 0, 0.6);\n  /*-- Specify custom fonts ~~~ must be imported above   --*/\n  --heading-font:    'Noto Sans JP', sans-serif; /* edited */\n  --mono-font:       monospace;\n  --body-font:       sans-serif;\n  --navbar-font:     sans-serif;  /* websites + blogs only */\n}\n\nまた、CSSを反映するために_site.ymlにも以下の部分を追記します。\nname: \"blog\"\ntitle: \"NONONOexe Something Blog\"\ndescription: |\n  NONONOexe Something Blog\noutput_dir: \"docs\"\ntheme: theme.css  # theme.cssを使用\nnavbar:\n  right:\n    - text: \"Home\"\n      href: index.html\n    - text: \"About\"\n      href: about.html\noutput: distill::distill_article\nこの状態で、ページをKnitするとフォントが次のように変更されたHTMLが生成されます。\n\n\n\nCSSを編集する前\n\n\n\n\n\nCSSを編集した後"
+  },
+  {
+    "objectID": "posts/2023-05-23-how-to-create-blog/index.html#まとめ",
+    "href": "posts/2023-05-23-how-to-create-blog/index.html#まとめ",
+    "title": "Rでブログを作成する",
+    "section": "4. まとめ",
+    "text": "4. まとめ\n「Rでブログを作成する」というちょっと変わったアプローチでしたが、想像以上に簡単に作成できることがわかりました。{distill}の基本はRMarkdownのため、他の関連パッケージと組み合わせることでまだまだいろいろなことができそうです。The Distilleryというサイトでは、{distill}を使ったさまざまなサイトを紹介しています。これも参考にこのブログもまた改善を加えていけたらと思います。"
+  },
+  {
+    "objectID": "posts/2023-07-30-migrating-blog-to-quarto/index.html",
+    "href": "posts/2023-07-30-migrating-blog-to-quarto/index.html",
+    "title": "Quartoへの移行",
+    "section": "",
+    "text": "Quartoにブログを移行しました。Quartoはこれまで使っていた{distill}(R Markdown)のように説明のための文章とコードをあわせて書ける環境です。 さらに、Python、R、Observableにも対応しています。"
+  },
+  {
+    "objectID": "posts/2023-07-30-migrating-blog-to-quarto/index.html#はじめに",
+    "href": "posts/2023-07-30-migrating-blog-to-quarto/index.html#はじめに",
+    "title": "Quartoへの移行",
+    "section": "",
+    "text": "Quartoにブログを移行しました。Quartoはこれまで使っていた{distill}(R Markdown)のように説明のための文章とコードをあわせて書ける環境です。 さらに、Python、R、Observableにも対応しています。"
+  },
+  {
+    "objectID": "posts/2023-07-30-migrating-blog-to-quarto/index.html#移行した理由",
+    "href": "posts/2023-07-30-migrating-blog-to-quarto/index.html#移行した理由",
+    "title": "Quartoへの移行",
+    "section": "2. 移行した理由",
+    "text": "2. 移行した理由\nQuartoに移行した主な理由ははじめから使える機能が多いというところです。{distill}では、自己紹介ページで使っている{postcards}との組み合わせたときに、表示が不自然になることがありました。Quartoでは、公式のドキュメント(ブログの作成)にもあるように、{postcards}をはじめからサポートしています。また、記事にコメント機能を加えるための utterancesも_quarto.ymlという設定ファイルを書き加えるだけで利用できます。これも以前から使おうと考えていたため、非常に都合がよかったです。\n\n\n\nGitHubのissueを使ってコメント機能を付けられるutterances"
+  },
+  {
+    "objectID": "posts/2023-07-30-migrating-blog-to-quarto/index.html#まとめ",
+    "href": "posts/2023-07-30-migrating-blog-to-quarto/index.html#まとめ",
+    "title": "Quartoへの移行",
+    "section": "3. まとめ",
+    "text": "3. まとめ\nブログを{distill}からQuartoへ移行した、お知らせでした。Quartoは公式のドキュメントが充実しているため、書き方についてはとりわけ書くことがないのですが、プラグイン1や深い使い方もこれから分かってくると思いますので、慣れてきたらまた覚えたことを記事にまとめたいと思います。\n\n\n1 このブログでも、すでにFont Awesomeが使えるようになるプラグインを導入しています。"
   },
   {
     "objectID": "publifications.html",
