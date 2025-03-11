@@ -2,7 +2,11 @@
 title: "スライド"
 ---
 
-LTイベントや勉強会などでの説明に使用したスライド資料をまとめています。
+統計やRに関する内容をLT（Lighting Talk）や勉強会などで発表しています。
+
+#### ネコジャラシのデータセット（Tokyo.R #116）
+
+<script async class="docswell-embed" src="https://www.docswell.com/assets/libs/docswell-embed/docswell-embed.min.js" data-src="https://www.docswell.com/slide/KQREDX/embed" data-aspect="0.5625"></script>
 
 #### mapglによる交通事故リスクビジュアライザーの開発（Japan.R 2024 LT）
 
