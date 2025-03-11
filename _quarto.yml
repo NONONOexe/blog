@@ -18,7 +18,7 @@ website:
       - text: "ブログ"
         file: index.qmd
       - text: "論文"
-        file: publifications.qmd
+        file: publications.qmd
       - text: "スライド"
         file: slides.qmd
       - text: "安藤 圭祐"
