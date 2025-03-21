@@ -17,7 +17,7 @@ website:
     right:
       - text: "ブログ"
         file: index.qmd
-      - text: "論文"
+      - text: "業績"
         file: publications.qmd
       - text: "スライド"
         file: slides.qmd

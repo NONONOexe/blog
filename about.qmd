@@ -1,10 +1,10 @@
 ---
 twitter-card:
-  image: images/keisuke-ando.jpg
+  image: images/keisuke-ando-202503.jpg
   creator: "@NONONOexe"
 open-graph: true
 title: "安藤 圭祐"
-image: images/keisuke-ando.jpg
+image: images/keisuke-ando-202503.jpg
 about:
   template: trestles
   links:
@@ -24,9 +24,17 @@ about:
 
 ## 自己紹介
 
-[愛知工業大学](https://www.ait.ac.jp/)、[マルチエージェントシステム研究室](https://maslab.aitech.ac.jp/)の博士後期課程3年の安藤圭祐です。交通安全のための空間解析手法について研究しています。また、[RoboCup Rescue Simulation](https://rescuesim.robocup.org/)や[人狼知能](http://aiwolf.org/)などのマルチエージェントシステムに関する研究もしています。
+[愛知工業大学](https://www.ait.ac.jp/)、[マルチエージェントシステム研究室](https://maslab.aitech.ac.jp/)の博士後期課程3年の安藤圭祐です。
 
-2020年から[R](https://www.r-project.org/)のおもしろさに惹かれ、さまざまな情報を日々収集しています。最近はパッケージ開発にも取り組んでいます。趣味はゲームと飲食店の開拓、休日はよく外食しています。
+交通安全のための空間解析手法について研究しています。また、[RoboCup Rescue Simulation](https://rescuesim.robocup.org/)や[人狼知能](http://aiwolf.org/)などのマルチエージェントシステムに関する研究もしています。
+
+2017年に大学を卒業したあと、業務システムの開発に3年ほど携わっていました。その後、研究活動を求めて大学院へ進学しています。
+
+2020年からは[R](https://www.r-project.org/)のおもしろさに魅了され、さまざまな情報を日々収集しています。最近はパッケージ開発にも取り組んでいます。
+
+趣味はゲームと飲食店の開拓、休日はよく外食しています。
+
+2025年度内での卒業に向けて研究を進めており、現在就職先も探しています。よいお話などありましたら、ぜひご連絡ください。
 
 ## このサイトについて
 
