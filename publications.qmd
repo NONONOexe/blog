@@ -15,7 +15,6 @@ title: "業績"
 Itsuki MATSUNAGA, Haruki UEHARA, Ryoya MAEDA, Joe FUJISAWA, Hiroya SUZUKI, **Keisuke ANDO**, Takeshi UCHITANE, Kazunori IWATA, Nobuhiro ITO, “Design of Task Assignments based on Ordering and Time Window Constraints for RoboCupRescue Agents,” IIAI AAI 2023 14th IIAI International Congress on Advanced Applied Informatics, IEEE, pp. 406--411, Sep, 2023, ロボカップ研究賞受賞
 
 <a href="https://ieeexplore.ieee.org/document/10371606" class="icon-link">{{< fa solid link >}} リンク</a>
-<a href="https://speakerdeck.com/nononoexe/design-of-geospatial-database-for-analysis-of-road-traffic-accidents-in-aichi-prefecture" class="icon-link">{{< fa brands speaker-deck >}} Speaker Deck</a>
 
 Tomohiro MURAKAMI, Nozomi NAKAO, Hikaru MIYAKE, Hayate MURATA, Itsuki AMANO, Taisei KOJIMA, **Keisuke ANDO**, Nobuhiro ITO, “Effects of the Attunement of an Attack Target by Whispering in AIWolf,” IIAI AAI 2023 14th IIAI International Congress on Advanced Applied Informatics, IEEE, pp. 355--360, Sep, 2023
 
@@ -31,6 +30,8 @@ Masaki BAN, Takumi AMANO, **Keisuke ANDO**, Takeshi UCHITANE, Kazunori IWATA, No
 <a href="https://speakerdeck.com/nononoexe/spatio-temporal-network-analysis-for-detecting-traffic-accident-clusters" class="icon-link">{{< fa brands speaker-deck >}} Speaker Deck</a>
 
 **Keisuke ANDO**, Kazuhiko SHIMIZU, Nobuhiro ITO, Kazunori IWATA, Takeshi UCHITANE, Naoto MUKAI, Yong JIANG, “Design of Geospatial Database for Analysis of Road Traffic Accidents in Aichi Prefecture,” Proc. of Joint 12th International Conference on Soft Computing and Intelligent Systems and 23rd International Symposium on Advanced Intelligent Systems (SCIS&ISIS 2022), F-2-D-4, pp. 1--7, Dec, 2022, DOI: [10.1109/SCISISIS55246.2022.10002001](https://doi.org/10.1109/SCISISIS55246.2022.10002001)
+
+<a href="https://speakerdeck.com/nononoexe/design-of-geospatial-database-for-analysis-of-road-traffic-accidents-in-aichi-prefecture" class="icon-link">{{< fa brands speaker-deck >}} Speaker Deck</a>
 
 **Keisuke ANDO**, Haruaki UEDA, Takeshi UCHITANE, Kazunori IWATA, Nubuhiro ITO , “Applying covariance structure analysis to reveal relationships between agent capability and map characteristics in RoboCup Rescue Simulation,”（原稿なし、発表のみ） 2021 Workshop on Artificial Intelligence and Simulation for Natural Disaster Management, Jul, 2021，ロボカップ研究賞受賞
 
