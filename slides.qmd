@@ -4,6 +4,14 @@ title: "スライド"
 
 統計やRに関する内容をLT（Lighting Talk）や勉強会などで発表しています。
 
+### 〈あんどう流〉論文執筆の心得（研究室 統計ゼミ2025）
+
+<script async class="docswell-embed" src="https://www.docswell.com/assets/libs/docswell-embed/docswell-embed.min.js" data-src="https://www.docswell.com/slide/ZX6DQP/embed" data-aspect="0.5625"></script>
+
+#### 宿さがしのデータ分析（Kanazawa.R #3）
+
+<script async class="docswell-embed" src="https://www.docswell.com/assets/libs/docswell-embed/docswell-embed.min.js" data-src="https://www.docswell.com/slide/Z823Q1/embed" data-aspect="0.5625"></script>
+
 #### ネコジャラシのデータセット（Tokyo.R #116）
 
 <script async class="docswell-embed" src="https://www.docswell.com/assets/libs/docswell-embed/docswell-embed.min.js" data-src="https://www.docswell.com/slide/KQREDX/embed" data-aspect="0.5625"></script>
