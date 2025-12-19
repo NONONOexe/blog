@@ -7,6 +7,181 @@
     "text": "統計やRに関する内容をLT（Lighting Talk）や勉強会などで発表しています。\n\n〈あんどう流〉論文執筆の心得（研究室 統計ゼミ2025）\n\n\n宿さがしのデータ分析（Kanazawa.R #3）\n\n\n\nネコジャラシのデータセット（Tokyo.R #116）\n\n\n\nmapglによる交通事故リスクビジュアライザーの開発（Japan.R 2024 LT）\n\n\n\nFOSS4G TOKAI 2023で知った知識大活用：福知山市消防業務支援ツールのプロトタイプ開発（FOSS4G TOKAI 2024 懇親会 LT）\n\n\n\nRによる簡単GISスクリプティング（FOSS4G TOKAI 2024 LT）\n\n\n\nはじめる ひろげる R（Kanazawa.R #1 LT）\n\n\n\n時系列分析入門（研究室 統計ゼミ2023）\n\n\n\n交差検証法（研究室 統計ゼミ2022）\n\n\n\n統計的仮説検定（研究室 統計ゼミ2021）\n\n\n\n知って・描いて・はじめるR（研究室 統計ゼミ2021）\n\n\n\n主成分分析（研究室 統計ゼミ2020）"
   },
   {
+    "objectID": "posts/2025-12-20-achievement-management/index.html",
+    "href": "posts/2025-12-20-achievement-management/index.html",
+    "title": "業績管理の半自動化",
+    "section": "",
+    "text": "この記事はR言語 Advent Calendar 2025の20日目の記事です。"
+  },
+  {
+    "objectID": "posts/2025-12-20-achievement-management/index.html#はじめに",
+    "href": "posts/2025-12-20-achievement-management/index.html#はじめに",
+    "title": "業績管理の半自動化",
+    "section": "1. はじめに",
+    "text": "1. はじめに\n私はいま博士後期課程に在籍していて、就職活動をしています。 就職（研究職・助教）に関して、よいお話があればご紹介ください。\nそれはさておき、こうした学位申請や就職活動の中、業績の一覧を求められる機会が増えてきました。 今回はこの書類作成を半自動化しようというお話です。\nここでいう、「業績」とは、これまでに発表した論文や受賞した賞などのことです。 このような書類作成やこれに向けた自分の業績を記録、整理することを「業績管理」と呼んでいます。 業績管理が身近にないという方は経歴書自動作成と読み替えてもらうと理解しやすいかもしれません。"
+  },
+  {
+    "objectID": "posts/2025-12-20-achievement-management/index.html#最初のアイデア",
+    "href": "posts/2025-12-20-achievement-management/index.html#最初のアイデア",
+    "title": "業績管理の半自動化",
+    "section": "2. 最初のアイデア",
+    "text": "2. 最初のアイデア\n研究業績管理のためのサービスにはすでにresearchmapがあります。researchmapは研究者が自身のアカウントに経歴、論文、所属等の情報を記録でき、共有できるサービスです。\n\n\n\nresearchmap\n\n\nしかし、ここまで活動してきた中でresearchmapのURLを参考情報として求められる場合はあっても、この情報のみを提出するということはありませんでした。また、例えば各業績に対する寄与度など、researchmapにはない項目が求められることもありました。\nこれに対して、「researchmapとは別に、業績を手元でデータベース化してしまえばよいのではないか？」と考えました。私が最初に考えたアイデアは次のようなものです。\n\n\n\n最初のアイデア\n\n\n業績の情報をresearchmapのように書き込んだファイルを作成して、それをデータベースに読み込ませます。それから、データベースに必要な出力形式をSQLの形で与え、各ファイルにエクスポートするというものです。\n入力のファイルの部分はインターフェースに不都合がなければ、通常のデータベースクライアントソフト（DBeaver等）でもよいだろうと思います。ただ、Git管理できた方が嬉しかったので、ファイルにすることにしました。"
+  },
+  {
+    "objectID": "posts/2025-12-20-achievement-management/index.html#実装と考え直し",
+    "href": "posts/2025-12-20-achievement-management/index.html#実装と考え直し",
+    "title": "業績管理の半自動化",
+    "section": "3. 実装と考え直し",
+    "text": "3. 実装と考え直し\n実装にあたり、まずデータベースマネージャから考えました。シンプルなものですから「コンパクトで可搬性にも優れるSQLiteでよいだろう」と考えていました。 一方、「SQLiteではファイルとのやりとりが心もとないかな？」と思い、ファイルから直接読み込み可能なデータベースマネージャを調べてみました。\nそうしたところ、duckdbが候補に挙がってきました。 duckdbは以前にも触れたことがありましたが、比較的新しいデータベースマネージャで知らないことも多いため、勉強も兼ねて「これで行こう」となりました。 そこで、次のようなシステムを考えました。\n\n\n\nデータベースをduckdbにしたシステム\n\n\nduckdbでは、JSONファイルをインポートできます。 JSONファイルはCSVなどと比較して、階層的に記述でき、拡張性もあります。 一方、JSONはコメントがないことや構造化のための記述を含むため、人間が書く／読むことを思うと、扱いにくいです。 そこで、人間（ユーザー）の入力はYAMLファイルにしました。 YAMLファイルからJSONへはyjコマンドやプログラムによる変換が可能です。\nこのあと、実際にyjコマンドで変換したり、やっぱり外部のコマンドへの依存が気になり、Pythonで変換プログラムを作成したりしていました。しかし、そうこうしているうちに「取り込み用のプログラム書くなら、そもそもYAMLファイル群をデータベースとしてプログラムで形式変換したら、十分では？」となってきました。"
+  },
+  {
+    "objectID": "posts/2025-12-20-achievement-management/index.html#rスクリプトによる業績データ管理",
+    "href": "posts/2025-12-20-achievement-management/index.html#rスクリプトによる業績データ管理",
+    "title": "業績管理の半自動化",
+    "section": "4. Rスクリプトによる業績データ管理",
+    "text": "4. Rスクリプトによる業績データ管理\n紆余曲折ありましたが、最終的に作成したシステムは次のようなものです。\n\n\n\nRスクリプトを使ったシステム\n\n\n作業手順は以下のとおりです．\n\nまず業績ファイルをYAML形式で入力します。\nこのYAMLファイルをRスクリプトで読み込みます。\n目的のファイルにコピー&ペーストすれば済むようなテキストデータとして出力します。\n\nExcelやWordへ直接出力することもできますが、やや複雑になるため、このようにしました。 ここまでに考えていたものと比較して、シンプルになりました。\nYAMLの入力をしやすいように、テンプレートを作成して、そのテンプレートをVSCodeのスニペットに対応させました。 新規業績を登録する際は、入力、タブ、入力、タブ…と移動しながら入力できます。\n\n\n\nVSCodeのスニペットを使った入力\n\n\nこのスニペットを使用して、1ファイル1業績として、次のようなデータを業績ごとに作成しました。 中身としては、タイトル、著者、掲載情報などを記入できるようにしています。 YAMLですから、後から項目を追加したくなった場合にも柔軟に対応できます。\n\n\n2025-09-TrafficSafetyMultiAgentSimulation.yaml\n\nmeta:\n  schema: publication\ntitle: 交通安全を目指す研究におけるマルチエージェントシミュレーションの利用の検討\npublication_type: domestic_conference\npeer_reviewed: no\nauthors:\n- name: 安藤 圭祐\n  type: contributor\n- name: 内種 岳詞\n  type: supervisor\n- name: 向 直人\n  type: supervisor\n- name: 岩田 員典\n  type: supervisor\n- name: 伊藤 暢浩\n  type: supervisor\nvenue: 電気・電子・情報関係学会東海支部連合大会\nvolume: ~\nissue: ~\npages: 1\npublication_date: 2025-09\ndoi: ~\nurl: ~\nacceptance_rate: ~\n\nそれから、これらのデータを次のようなプログラムで読み込んで、形式変換しました。 基本的には、各YAMLの属性を入力として、必要な出力形式を作成する関数を項目ごとに作っておき、すべてのデータを{purrr}と{yaml}で読み込んだら、その関数に通すというものになっています。\n\n\nexport-publication.R\n\n#' CSV形式にで論文情報をエクスポートするためのスクリプト\n\n# 寄与度の算出\ncalc_my_contribution &lt;- function(authors) {\n  my_idx  &lt;- which(purrr::map_chr(authors, \"name\") %in% my_name)\n  my_type &lt;- authors[[my_idx]]$type\n\n  n_contrib &lt;- sum(purrr::map_chr(authors, \"type\") == \"contributor\")\n  n_super   &lt;- sum(purrr::map_chr(authors, \"type\") == \"supervisor\")\n\n  ifelse(my_type == \"contributor\", 80 / n_contrib, 20 / n_super)\n}\n\n# タイトルの形式をタイトル + DOI or URLにフォーマット\nformat_title &lt;- function(title, doi, url) {\n  id &lt;- ifelse(!is.null(doi), doi, ifelse(!is.null(url), url, NA_character_))\n  paste0(title, ifelse(!is.na(id), paste0(\"，\", id), \"\"))\n}\n\n# 掲載情報の形式を巻・号・ページにフォーマット\nformat_publication_info &lt;- function(venue, volume, issue, pages) {\n  volume_str   &lt;- ifelse(!is.null(volume), paste0(\"vol. \", volume), \"\")\n  issue_str    &lt;- ifelse(!is.null(issue), paste0(\"no. \", issue), \"\")\n  pages_prefix &lt;- ifelse(grepl(\"-\", pages), \"pp. \", \"p. \")\n  pages_str    &lt;- paste0(pages_prefix, pages)\n\n  parts &lt;- c(venue, volume_str, issue_str, pages_str)\n  parts &lt;- parts[parts != \"\"]\n\n  paste0(parts, collapse = \"，\")\n}\n\n# 日付の形式をyyyy年M月にフォーマット\nformat_publication_date &lt;- function(date_str) {\n  date &lt;- lubridate::ym(date_str)\n  paste0(lubridate::year(date), \"年\", lubridate::month(date), \"月\")\n}\n\n# 自分の名前（寄与度の算出用）\nmy_name &lt;- c(\"安藤 圭祐\", \"Keisuke ANDO\")\n\n# yaml::read_yamlで全ファイルを読み出し\nfiles &lt;- list.files(\"data\", pattern = \"\\\\.ya?ml$\", full.names = TRUE)\nraw &lt;- purrr::map(files, yaml::read_yaml)\n\n# Tibble形式に変換\npublications &lt;- dplyr::tibble(\n  title            = purrr::map_chr(raw, \"title\"),\n  authors_list     = purrr::map(raw, \"authors\"),\n  doi              = purrr::map(raw, \"doi\"),\n  url              = purrr::map(raw, \"url\"),\n  venue            = purrr::map_chr(raw, \"venue\"),\n  volume           = purrr::map(raw, \"volume\"),\n  issue            = purrr::map(raw, \"issue\"),\n  pages            = purrr::map(raw, \"pages\"),\n  publication_date = purrr::map_chr(raw, \"publication_date\"),\n  publication_type = purrr::map_chr(raw, \"publication_type\"),\n)\n\n# 各属性をフォーマット、寄与度を算出\npublications &lt;- publications |&gt;\n  dplyr::filter(publication_type %in% c(\"domestic_conference\",\n                                        \"poster\",\n                                        \"technical_report\")) |&gt;\n  dplyr::rowwise() |&gt;\n  dplyr::mutate(\n    authors_str          = paste(purrr::map_chr(authors_list, \"name\"), collapse = \"，\"),\n    title_str            = format_title(title, doi, url),\n    my_contribution_str  = paste0(calc_my_contribution(authors_list), \"%\"),\n    publication_info_str = format_publication_info(venue, volume, issue, pages),\n    publication_date_str = format_publication_date(publication_date)\n  ) |&gt;\n  dplyr::ungroup()\n\n# 必要な項目のみを抽出して、CSVに出力\ncsv_data &lt;- publications |&gt;\n  dplyr::transmute(\n    `著者`          = authors_str,\n    `タイトル・DOI` = title_str,\n    `掲載情報`      = publication_info_str,\n    `発行年月`      = publication_date_str,\n    `寄与率`        = my_contribution_str,\n  )\nreadr::write_csv(csv_data, \"output/publications.csv\")"
+  },
+  {
+    "objectID": "posts/2025-12-20-achievement-management/index.html#さらなる発展",
+    "href": "posts/2025-12-20-achievement-management/index.html#さらなる発展",
+    "title": "業績管理の半自動化",
+    "section": "5. さらなる発展",
+    "text": "5. さらなる発展\nこのシステムには、次のような課題があります。\n\nresearchmapのデータを利用する際には、現状手入力しなければならないこと\nデータがバリデーションされないこと（スニペットである程度入力規則は制御している）\nフォーマッタとなるRスクリプトを書くのが慣れていないと大変であること（誰でもできるわけではない）\n\nこれを解決するシステムとして次のようなものを考えました。\n\n\n\n将来的な業績管理のイメージ\n\n\nとはいえ、今回の目的は書類作成です。 システム屋の性に流されて、作り込んでいくのは危険であると判断しました。 コーディングしていると、パッケージ化したくなる気持ちをぐっと抑えました。\n今後、業績を整理しなければならないタイミングは繰り返し出てきます。 そこで気長にブラッシュアップしていこうと思っています。\n今回、このような仕組みを作りましたが、そもそもすでに類似のシステムや各人でオリジナルな仕組みを持っている方もいるかもしれません。 そういった情報がありましたら、参考までにぜひ教えてもらえると嬉しいです。"
+  },
+  {
+    "objectID": "posts/2023-07-30-migrating-blog-to-quarto/index.html",
+    "href": "posts/2023-07-30-migrating-blog-to-quarto/index.html",
+    "title": "Quartoへの移行",
+    "section": "",
+    "text": "Quartoにブログを移行しました。Quartoはこれまで使っていた{distill}(R Markdown)のように説明のための文章とコードをあわせて書ける環境です。 さらに、Python、R、Observableにも対応しています。"
+  },
+  {
+    "objectID": "posts/2023-07-30-migrating-blog-to-quarto/index.html#はじめに",
+    "href": "posts/2023-07-30-migrating-blog-to-quarto/index.html#はじめに",
+    "title": "Quartoへの移行",
+    "section": "",
+    "text": "Quartoにブログを移行しました。Quartoはこれまで使っていた{distill}(R Markdown)のように説明のための文章とコードをあわせて書ける環境です。 さらに、Python、R、Observableにも対応しています。"
+  },
+  {
+    "objectID": "posts/2023-07-30-migrating-blog-to-quarto/index.html#移行した理由",
+    "href": "posts/2023-07-30-migrating-blog-to-quarto/index.html#移行した理由",
+    "title": "Quartoへの移行",
+    "section": "2. 移行した理由",
+    "text": "2. 移行した理由\nQuartoに移行した主な理由ははじめから使える機能が多いというところです。{distill}では、自己紹介ページで使っている{postcards}との組み合わせたときに、表示が不自然になることがありました。Quartoでは、公式のドキュメント(ブログの作成)にもあるように、{postcards}をはじめからサポートしています。また、記事にコメント機能を加えるための utterancesも_quarto.ymlという設定ファイルを書き加えるだけで利用できます。これも以前から使おうと考えていたため、非常に都合がよかったです。\n\n\n\nGitHubのissueを使ってコメント機能を付けられるutterances"
+  },
+  {
+    "objectID": "posts/2023-07-30-migrating-blog-to-quarto/index.html#まとめ",
+    "href": "posts/2023-07-30-migrating-blog-to-quarto/index.html#まとめ",
+    "title": "Quartoへの移行",
+    "section": "3. まとめ",
+    "text": "3. まとめ\nブログを{distill}からQuartoへ移行した、お知らせでした。Quartoは公式のドキュメントが充実しているため、書き方についてはとりわけ書くことがないのですが、プラグイン1や深い使い方もこれから分かってくると思いますので、慣れてきたらまた覚えたことを記事にまとめたいと思います。\n\n\n1 このブログでも、すでにFont Awesomeが使えるようになるプラグインを導入しています。"
+  },
+  {
+    "objectID": "posts/2023-05-23-how-to-create-blog/index.html",
+    "href": "posts/2023-05-23-how-to-create-blog/index.html",
+    "title": "Rでブログを作成する",
+    "section": "",
+    "text": "Note\n\n\n\nこのブログの作成ツールは{distill}から、Quartoへ移行しました。この記事は古いものになります。\n\n\n自分のブログを作成しようと思って、持っている技術で作る方法がないかと模索していたところ、R Packageの{distill}で作れることを知りました。この記事では、このブログを作成するときに学んだ方法やそれに伴って知った情報を紹介します。またこれから新しい技術や方法を知って、ブログを大きく変更することがあると思いますが、そのときには同時にこの記事も更新したいと思います。"
+  },
+  {
+    "objectID": "posts/2023-05-23-how-to-create-blog/index.html#はじめに",
+    "href": "posts/2023-05-23-how-to-create-blog/index.html#はじめに",
+    "title": "Rでブログを作成する",
+    "section": "",
+    "text": "Note\n\n\n\nこのブログの作成ツールは{distill}から、Quartoへ移行しました。この記事は古いものになります。\n\n\n自分のブログを作成しようと思って、持っている技術で作る方法がないかと模索していたところ、R Packageの{distill}で作れることを知りました。この記事では、このブログを作成するときに学んだ方法やそれに伴って知った情報を紹介します。またこれから新しい技術や方法を知って、ブログを大きく変更することがあると思いますが、そのときには同時にこの記事も更新したいと思います。"
+  },
+  {
+    "objectID": "posts/2023-05-23-how-to-create-blog/index.html#ブログを立てる",
+    "href": "posts/2023-05-23-how-to-create-blog/index.html#ブログを立てる",
+    "title": "Rでブログを作成する",
+    "section": "2. ブログを立てる",
+    "text": "2. ブログを立てる\n\nテンプレートの作成\n{distill}では非常に簡単にブログが作成できます。distill::create_blog()を実行するだけです。あとは対話的にディレクトリとブログ名を決定して、一連のテンプレートが作成できます。\n本ブログはGitHub Pagesで公開したかったため、以下の引数によりオプションを指定して、作成しました。\n\n# ブログの作成\ndistill::create_blog(\n  dir      = \"blog\",                     # ブログを作成するディレクトリ\n  title    = \"NONONOexe Something Blog\", # ブログのタイトル\n  gh_pages = TRUE                        # GitHub Pagesにより公開するかどうか\n)\n\n実行すると次のようにテンプレートが生成されます。また、最初の記事として、welcome.Rmdが作成されます。これを編集して、最初の記事を書くことができます。\n\n\n\n生成されるテンプレートファイル\n\n\n\n\n記事の作成\n新たに記事を作成するのも非常に簡単です。次のようにdistill::create_post()でベースを作成できます。なお、引数のtitleから日本語のタイトルは付けられないため、注意が必要です。付ける場合はあとから編集で付けます。\n\n# 記事の作成\ndistill::create_post(\n  title       = \"how-to-create-blog\", # 記事のタイトル\n  author      = \"Keisuke ANDO\",       # 記事の著者\n  date_prefix = NULL                  # 日付をファイル名に付けない\n)\n\n記事はRMarkdownで作成されるので、HTMLで確認する場合はRStudioのKnitボタンから、Knitしましょう。\n\n\n\nKnitボタン\n\n\n\n\n\nKnitして作成したWelcomeページ"
+  },
+  {
+    "objectID": "posts/2023-05-23-how-to-create-blog/index.html#ブログをカスタマイズする",
+    "href": "posts/2023-05-23-how-to-create-blog/index.html#ブログをカスタマイズする",
+    "title": "Rでブログを作成する",
+    "section": "3. ブログをカスタマイズする",
+    "text": "3. ブログをカスタマイズする\n\nCSSによるカスタマイズ\n{distill}で作成したページは通常のHTMLでのウェブサイト作成のようにCSSによるカスタマイズが可能です。次のdistill::create_theme()を実行することで、CSSのファイルが作成されます。\n\n# CSSによりテーマをカスタマイズ\ndistill::create_theme()\n## v Created CSS file at theme.css \n## o TODO: Customize it to suit your needs \n## o TODO: Add 'theme: theme.css' to your site or article YAML\n\nメッセージでTODOとして出力されたとおり、CSSのカスタマイズとサイトの構成を管理するYAMLファイルへの追記します。簡単な例としてヘッダのフォントをNoto Sans JP(Google Fonts)に変更する場合はtheme.cssを次のように変更します。\n\n/* Optional: embed custom fonts here with `@import`          */\n/* This must remain at the top of this file.                 */\n@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap');\n\n\n\nhtml {\n  /*-- Main font sizes --*/\n  --title-size:      50px;\n  --body-size:       1.06rem;\n  --code-size:       14px;\n  --aside-size:      12px;\n  --fig-cap-size:    13px;\n  /*-- Main font colors --*/\n  --title-color:     #000000;\n  --header-color:    rgba(0, 0, 0, 0.8);\n  --body-color:      rgba(0, 0, 0, 0.8);\n  --aside-color:     rgba(0, 0, 0, 0.6);\n  --fig-cap-color:   rgba(0, 0, 0, 0.6);\n  /*-- Specify custom fonts ~~~ must be imported above   --*/\n  --heading-font:    'Noto Sans JP', sans-serif; /* edited */\n  --mono-font:       monospace;\n  --body-font:       sans-serif;\n  --navbar-font:     sans-serif;  /* websites + blogs only */\n}\n\nまた、CSSを反映するために_site.ymlにも以下の部分を追記します。\nname: \"blog\"\ntitle: \"NONONOexe Something Blog\"\ndescription: |\n  NONONOexe Something Blog\noutput_dir: \"docs\"\ntheme: theme.css  # theme.cssを使用\nnavbar:\n  right:\n    - text: \"Home\"\n      href: index.html\n    - text: \"About\"\n      href: about.html\noutput: distill::distill_article\nこの状態で、ページをKnitするとフォントが次のように変更されたHTMLが生成されます。\n\n\n\nCSSを編集する前\n\n\n\n\n\nCSSを編集した後"
+  },
+  {
+    "objectID": "posts/2023-05-23-how-to-create-blog/index.html#まとめ",
+    "href": "posts/2023-05-23-how-to-create-blog/index.html#まとめ",
+    "title": "Rでブログを作成する",
+    "section": "4. まとめ",
+    "text": "4. まとめ\n「Rでブログを作成する」というちょっと変わったアプローチでしたが、想像以上に簡単に作成できることがわかりました。{distill}の基本はRMarkdownのため、他の関連パッケージと組み合わせることでまだまだいろいろなことができそうです。The Distilleryというサイトでは、{distill}を使ったさまざまなサイトを紹介しています。これも参考にこのブログもまた改善を加えていけたらと思います。"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "安藤 圭祐",
+    "section": "",
+    "text": "愛知工業大学、マルチエージェントシステム研究室の博士後期課程3年の安藤圭祐です。\n交通安全のための空間解析手法について研究しています。また、RoboCup Rescue Simulationや人狼知能などのマルチエージェントシステムに関する研究もしています。\n2017年に大学を卒業したあと、業務システムの開発に3年ほど携わっていました。その後、研究活動を求めて大学院へ進学しています。\n2020年からはRのおもしろさに魅了され、さまざまな情報を日々収集しています。最近はパッケージ開発にも取り組んでいます。\n趣味はゲームと飲食店の開拓、休日はよく外食しています。\n2025年度内での卒業に向けて研究を進めており、現在就職先も探しています。よいお話などありましたら、ぜひご連絡ください。"
+  },
+  {
+    "objectID": "about.html#自己紹介",
+    "href": "about.html#自己紹介",
+    "title": "安藤 圭祐",
+    "section": "",
+    "text": "愛知工業大学、マルチエージェントシステム研究室の博士後期課程3年の安藤圭祐です。\n交通安全のための空間解析手法について研究しています。また、RoboCup Rescue Simulationや人狼知能などのマルチエージェントシステムに関する研究もしています。\n2017年に大学を卒業したあと、業務システムの開発に3年ほど携わっていました。その後、研究活動を求めて大学院へ進学しています。\n2020年からはRのおもしろさに魅了され、さまざまな情報を日々収集しています。最近はパッケージ開発にも取り組んでいます。\n趣味はゲームと飲食店の開拓、休日はよく外食しています。\n2025年度内での卒業に向けて研究を進めており、現在就職先も探しています。よいお話などありましたら、ぜひご連絡ください。"
+  },
+  {
+    "objectID": "about.html#このサイトについて",
+    "href": "about.html#このサイトについて",
+    "title": "安藤 圭祐",
+    "section": "このサイトについて",
+    "text": "このサイトについて\nこのサイトではRに関する情報、自身に関係する宣伝、その他思ったことなどを書いていく予定です。"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "ブログ",
+    "section": "",
+    "text": "業績管理の半自動化\n\n\n\n業績管理\n\nデータ整理\n\n\n\n業績管理を少しでもラクにできないものかと考えていました。\n\n\n\n\n\nDec 20, 2025\n\n\nKeisuke ANDO\n\n\n\n\n\n\n\n\n\n\n\n\nRによる30DayMapChallenge\n\n\n\ngeo\n\nrpackage\n\n\n\nRでチャレンジした30DayMapChallengeを振り返りました。\n\n\n\n\n\nDec 18, 2024\n\n\nKeisuke ANDO\n\n\n\n\n\n\n\n\n\n\n\n\nQuartoへの移行\n\n\n\nblog\n\nquarto\n\n\n\nブログをQuartoへ移行しました。\n\n\n\n\n\nJul 30, 2023\n\n\nKeisuke ANDO\n\n\n\n\n\n\n\n\n\n\n\n\n空間データの操作の基本\n\n\n\ngeo\n\n\n\nRによる基本的な空間データの操作について紹介します。\n\n\n\n\n\nJun 3, 2023\n\n\nKeisuke ANDO\n\n\n\n\n\n\n\n\n\n\n\n\nRでブログを作成する\n\n\n\nrpackage\n\nblog\n\n\n\ndistillパッケージによるブログ作成についてまとめました。\n\n\n\n\n\nMay 23, 2023\n\n\nKeisuke ANDO\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "posts/2023-06-03-manipulating-geospatial-data/index.html",
+    "href": "posts/2023-06-03-manipulating-geospatial-data/index.html",
+    "title": "空間データの操作の基本",
+    "section": "",
+    "text": "私は交通事故を対象に空間分析をおこなっています。空間分析では地図を使って、なんらかの地点群、道路、建物などを対象に分析します。空間分析に用いられるこれらのデータを空間データといいます。空間データは点や領域などの空間を表す属性と、数値や文字列などのその空間を説明する属性をあわせもつデータです。\n空間分析をおこなうためのプログラミングはそれほど一般的ではありません。そのため、なにからはじめたらよいかわからないかと思います。この記事では、交通事故地点のデータを使って空間オブジェクトの基本的な操作について説明します。"
+  },
+  {
+    "objectID": "posts/2023-06-03-manipulating-geospatial-data/index.html#はじめに",
+    "href": "posts/2023-06-03-manipulating-geospatial-data/index.html#はじめに",
+    "title": "空間データの操作の基本",
+    "section": "",
+    "text": "私は交通事故を対象に空間分析をおこなっています。空間分析では地図を使って、なんらかの地点群、道路、建物などを対象に分析します。空間分析に用いられるこれらのデータを空間データといいます。空間データは点や領域などの空間を表す属性と、数値や文字列などのその空間を説明する属性をあわせもつデータです。\n空間分析をおこなうためのプログラミングはそれほど一般的ではありません。そのため、なにからはじめたらよいかわからないかと思います。この記事では、交通事故地点のデータを使って空間オブジェクトの基本的な操作について説明します。"
+  },
+  {
+    "objectID": "posts/2023-06-03-manipulating-geospatial-data/index.html#使用するrpackageのインストール",
+    "href": "posts/2023-06-03-manipulating-geospatial-data/index.html#使用するrpackageのインストール",
+    "title": "空間データの操作の基本",
+    "section": "2. 使用するRPackageのインストール",
+    "text": "2. 使用するRPackageのインストール\nRでは空間データを扱うためのRPackageが盛んに開発されています。ここでは基本的な空間データの操作のために、次のRPackageを使用します。\n\n{rtatools}: 警察庁が公開する交通事故のデータをダウンロードし、データフレームとして扱うことができるRPackage\n{jpndistrict}: 国土交通省が提供する都道府県、市区町村といった行政区域の境界データを扱えるRPackage\n{tmap}: 空間データをGoogle Mapのようなインタラクティブな地図上に可視化する機能などを提供するRPackage\n{tidyverse}: 拡張されたデータフレーム、データ操作、可視化などデータ分析のためのさまざまな機能を提供するRPackageのコレクション\n{sf}: 空間データの作成や演算のためのRPackage\n\nこれらのRPackageをインストールする前に、LinuxやMacでは{rtatools}の依存ライブラリをインストールしておく必要があります。例えば、Ubuntuでは、次のようにして事前にライブラリをインストールします。\n\napt-get update\napt-get install -y libpoppler-cpp-dev libudunits2-dev libproj-dev libgdal-dev\n\n依存ライブラリをインストールしたら、Rで以下のコードを実行してRPackageをインストールします。\n\n# CRANからのインストール\ninstall.packages(\"tmap\")\ninstall.packages(\"tidyverse\")\ninstall.packages(\"sf\")\n\n# GitHubからのインストール\ninstall.packages(\"devtools\")\ndevtools::install_github(\"NONONOexe/rtatools\", upgrade = \"always\")\ndevtools::install_github(\"uribo/jpndistrict\", upgrade = \"always\")\n\nRでは標準パッケージリポジトリであるCRANに登録されているものはinstall.packages()でインストールすることができます。また、GitHubで公開されているものは{devtools}というRPackageのinstall_github()によりインストールすることができます。そのため、ここでは{devtools}もインストールしています。"
+  },
+  {
+    "objectID": "posts/2023-06-03-manipulating-geospatial-data/index.html#データの可視化",
+    "href": "posts/2023-06-03-manipulating-geospatial-data/index.html#データの可視化",
+    "title": "空間データの操作の基本",
+    "section": "3. データの可視化",
+    "text": "3. データの可視化\n\n交通事故地点のデータの取得\n交通事故のデータは交通事故そのもののデータと当事者のデータの2つからなります。ここでは交通事故地点を含む交通事故そのもののデータのみ使います。このデータは次のコードを実行して取得できます。\n\nlibrary(rtatools)\n\n# データのダウンロードと読み込み\ndata &lt;-\n  download_traffic_accidents_main() |&gt;\n  read_traffic_accidents_main()\n\n# 交通事故のデータ\naccidents &lt;- data$traffic_accidents\n\n# 一覧形式で表示\naccidents\n\n交通事故のデータ（一部）\n\n\n\n\n\n\n\n\nrecording_year\nprefecture\npolice_office\naccident_id\noccurence_time\nday_of_week\nholiday\nday_night_type\ncity\nroad\ntrack\nkilopost\nregion_type\nzone_regulation\nroad_verge\ncenter_divider\nweather\nroad_surface\nroad_shape\nroad_alignment\ncarriageway_width\ntraffic_signal\nroundabout_diameter\ninjury_pattern\nfatalities\ninjuries\nimpact_type\ncollision_position\ngeometry\n\n\n\n\n2021\n10\n059\n0001\n2020-12-28 20:25:00\n2\n3\n22\n224\n40020\n2\n0000\n3\n70\n4\n1\n2\n1\n12\n9\n04\n7\n00\n2\n0\n1\n21\n01\nc(141.619122777778, 42.8158677777778)\n\n\n2021\n10\n059\n0002\n2020-12-26 14:30:00\n7\n3\n12\n222\n40040\n2\n0000\n3\n70\n4\n1\n5\n4\n14\n9\n04\n7\n00\n2\n0\n2\n21\n01\nc(141.830353888889, 43.2287838888889)\n\n\n2021\n10\n059\n0003\n2020-12-02 16:55:00\n4\n3\n21\n222\n40030\n1\n0000\n3\n70\n4\n1\n2\n4\n14\n9\n04\n7\n00\n2\n0\n4\n21\n01\nc(141.830324444444, 43.2440230555556)\n\n\n2021\n10\n059\n0004\n2020-12-07 07:10:00\n2\n3\n11\n213\n50020\n2\n0000\n3\n70\n4\n1\n3\n3\n14\n9\n04\n7\n00\n2\n0\n1\n21\n01\nc(141.794236666667, 42.669235)\n\n\n2021\n10\n101\n0001\n2020-12-26 18:40:00\n7\n3\n22\n101\n39990\n0\n0000\n1\n70\n2\n5\n1\n3\n14\n9\n04\n7\n00\n2\n0\n1\n01\n01\nc(141.351606111111, 43.0556763888889)\n\n\n2021\n10\n101\n0002\n2020-12-17 02:39:00\n5\n3\n22\n101\n00360\n0\n0006\n1\n70\n2\n1\n2\n3\n01\n9\n19\n1\n00\n2\n0\n1\n01\n30\nc(141.352983055556, 43.0565608333333)\n\n\n\n\n\n\n\n\n\n交通事故地点の地図への描画\n交通事故のデータはgeometryという項目にその地点の緯度、経度を持っています。しかし、数値ではどこで発生した事故であるのかがよくわかりません。\n{tmap}を使うと空間データを地図に描画することができます。いろいろな描画の形式がありますが、ここでは、マーカーを使って描画します。\n\nlibrary(tmap)\n\n\n次のパッケージを付け加えます: 'tmap'\n\n\n以下のオブジェクトは 'package:gt' からマスクされています:\n\n    metro\n\n\n以下のオブジェクトは 'package:datasets' からマスクされています:\n\n    rivers\n\n# データ数が多いため、交通事故地点の先頭100件を抽出\naccidents_head_100 &lt;- head(accidents, 100)\n\n# インタラクティブな地図へ描画するモードへの切り替え\ntmap_mode(\"view\")\n\nℹ tmap mode set to \"view\".\n\n# 地図上に描画\ntm_shape(accidents_head_100) + tm_markers()\n\n\n\n\n\nこのように交通事故地点を地図上に描画することができます。tm_markers()は指定した空間データの位置をマーカーを使って表示します。また、近くに位置するマーカーはまとめて表示します。"
+  },
+  {
+    "objectID": "posts/2023-06-03-manipulating-geospatial-data/index.html#データの抽出",
+    "href": "posts/2023-06-03-manipulating-geospatial-data/index.html#データの抽出",
+    "title": "空間データの操作の基本",
+    "section": "4. データの抽出",
+    "text": "4. データの抽出\n\n属性値にもとづく条件抽出\n空間分析では、通常のデータ分析と同様に期間ごとにデータを分ける、ある特定の種類のデータについて抽出する、などして特定の条件に該当するデータに絞って分析することがあります。\nこのように条件に基づいてデータを抽出する場合、{tidyverse}のもつRPackageのひとつである{dplyr}のfilter()を使うと次のように簡単に抽出できます。\n\nlibrary(tidyverse)\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.1\n✔ ggplot2   3.5.1     ✔ tibble    3.2.1\n✔ lubridate 1.9.4     ✔ tidyr     1.3.1\n✔ purrr     1.0.2     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\naccidents_aichi_morning_rain &lt;-\n  accidents |&gt;\n  # 愛知県の交通事故を抽出（都道府県コード: 54）\n  filter(prefecture == \"54\") |&gt;\n  # 朝6時から朝8時の間の交通事故を抽出\n  filter(between(hour(occurence_time), 6, 8)) |&gt;\n  # 雨天時の事故を抽出（天候コード: 3）\n  filter(weather == \"3\")\n\n# 地図上に描画\ntm_shape(accidents_aichi_morning_rain) + tm_markers()\n\n\n\n\n\nここでは全国のデータから段階的に都道府県、時間、天候の3つの条件で抽出しています。filter()は第1引数がデータで第2引数が条件であるため、データを|&gt;（native pipe）で渡してつなげることができます。\n\n\n領域にもとづく抽出\n空間分析では「ある領域内に含まれるデータ」や「ある点に最も距離の近いデータ」のようにデータがもつ空間に応じた抽出もできます。空間データの処理では{sf}を使います。例えば、瀬戸市の交通事故を抽出する場合は次のようにできます。\n\nlibrary(jpndistrict)\n\nThis package provide map data is based on the Digital Map 25000 (Map\nImage) published by Geospatial Information Authority of Japan (Approval\nNo.603FY2017 information usage &lt;https://www.gsi.go.jp&gt;)\n\nlibrary(sf)\n\nLinking to GEOS 3.12.2, GDAL 3.9.3, PROJ 9.4.1; sf_use_s2() is TRUE\n\n# 瀬戸市の領域を取得\nseto &lt;- jpn_cities(jis_code = \"23\", admin_name = \"瀬戸市\")\n# accidents_aichi_morning_rainのうち、瀬戸市内の交通事故地点のみを抽出\naccidents_seto_morning_rain &lt;-\n  accidents_aichi_morning_rain |&gt; st_filter(seto)\n\n# 瀬戸市の領域のレイヤー\ntm_seto &lt;- tm_shape(seto) + tm_polygons(\n  alpha = 0.2, col = \"yellow\", border.col = \"yellow\")\n\n\n\n\n── tmap v3 code detected ───────────────────────────────────────────────────────\n\n\n[v3-&gt;v4] `tm_polygons()`: use 'fill' for the fill color of polygons/symbols\n(instead of 'col'), and 'col' for the outlines (instead of 'border.col').\n[v3-&gt;v4] `tm_polygons()`: use `fill_alpha` instead of `alpha`.\nThis message is displayed once every 8 hours.\n\n# 交通事故地点のレイヤー\ntm_accidents &lt;- tm_shape(accidents_seto_morning_rain) + tm_markers()\n# 重ね合わせて描画\ntm_seto + tm_accidents\n\n\n\n\n\nこの例では、瀬戸市の領域と抽出した交通事故地点を重ね合わせて描画しています。{tmap}で描画したオブジェクトは+演算子で簡単にレイヤーとして重ね合わせることができます。またそれぞれのレイヤーやベースとなっているタイルマップの操作は左上のコントロールから操作できます。"
+  },
+  {
+    "objectID": "posts/2023-06-03-manipulating-geospatial-data/index.html#まとめ",
+    "href": "posts/2023-06-03-manipulating-geospatial-data/index.html#まとめ",
+    "title": "空間データの操作の基本",
+    "section": "5. まとめ",
+    "text": "5. まとめ\nここでは、RPackageで提供されている空間データを使って、データの可視化と抽出をおこないました。ここで紹介したもの以外にもRでは多くの空間データや操作が提供されています。なにができるかについては{sf}のドキュメントが詳しいです。また、以前{tmap}を使ったプロットについて書いた以下の記事や、公開された空間分析についての書籍もあります。こちらからはさまざまな事例をみられるので、参考になると思います。\n\nNONONOexe(Keisuke ANDO), Rによる空間分析のススメ―交通事故ヒートマップを作成してみよう―, 2022\nRobin Lovelace, Jakub Nowosad and Jannes Muenchow. Geocomputation with R, 2019 (日本語版)"
+  },
+  {
     "objectID": "posts/2024-12-18-30daymapchallenge-with-r/index.html",
     "href": "posts/2024-12-18-30daymapchallenge-with-r/index.html",
     "title": "Rによる30DayMapChallenge",
@@ -54,139 +229,6 @@
     "title": "Rによる30DayMapChallenge",
     "section": "6. まとめ",
     "text": "6. まとめ\nこの記事では、私のRによる30DayMapChallengeの振り返りました。また、そこで使用したデータやRパッケージを紹介しました。\nRでは地図をつくるためのさまざまなパッケージが開発されています。使ったことのないパッケージがあれば、ぜひ使ってみるとよいのではないでしょうか。また、この記事が今後Rで地図づくりをするひとの助けになればと思います。また、今回私の作成したRスクリプト、地図、そのほか私の活動など、コメント、質問、気になる点などいただけたらうれしく思います。"
-  },
-  {
-    "objectID": "posts/2023-06-03-manipulating-geospatial-data/index.html",
-    "href": "posts/2023-06-03-manipulating-geospatial-data/index.html",
-    "title": "空間データの操作の基本",
-    "section": "",
-    "text": "私は交通事故を対象に空間分析をおこなっています。空間分析では地図を使って、なんらかの地点群、道路、建物などを対象に分析します。空間分析に用いられるこれらのデータを空間データといいます。空間データは点や領域などの空間を表す属性と、数値や文字列などのその空間を説明する属性をあわせもつデータです。\n空間分析をおこなうためのプログラミングはそれほど一般的ではありません。そのため、なにからはじめたらよいかわからないかと思います。この記事では、交通事故地点のデータを使って空間オブジェクトの基本的な操作について説明します。"
-  },
-  {
-    "objectID": "posts/2023-06-03-manipulating-geospatial-data/index.html#はじめに",
-    "href": "posts/2023-06-03-manipulating-geospatial-data/index.html#はじめに",
-    "title": "空間データの操作の基本",
-    "section": "",
-    "text": "私は交通事故を対象に空間分析をおこなっています。空間分析では地図を使って、なんらかの地点群、道路、建物などを対象に分析します。空間分析に用いられるこれらのデータを空間データといいます。空間データは点や領域などの空間を表す属性と、数値や文字列などのその空間を説明する属性をあわせもつデータです。\n空間分析をおこなうためのプログラミングはそれほど一般的ではありません。そのため、なにからはじめたらよいかわからないかと思います。この記事では、交通事故地点のデータを使って空間オブジェクトの基本的な操作について説明します。"
-  },
-  {
-    "objectID": "posts/2023-06-03-manipulating-geospatial-data/index.html#使用するrpackageのインストール",
-    "href": "posts/2023-06-03-manipulating-geospatial-data/index.html#使用するrpackageのインストール",
-    "title": "空間データの操作の基本",
-    "section": "2. 使用するRPackageのインストール",
-    "text": "2. 使用するRPackageのインストール\nRでは空間データを扱うためのRPackageが盛んに開発されています。ここでは基本的な空間データの操作のために、次のRPackageを使用します。\n\n{rtatools}: 警察庁が公開する交通事故のデータをダウンロードし、データフレームとして扱うことができるRPackage\n{jpndistrict}: 国土交通省が提供する都道府県、市区町村といった行政区域の境界データを扱えるRPackage\n{tmap}: 空間データをGoogle Mapのようなインタラクティブな地図上に可視化する機能などを提供するRPackage\n{tidyverse}: 拡張されたデータフレーム、データ操作、可視化などデータ分析のためのさまざまな機能を提供するRPackageのコレクション\n{sf}: 空間データの作成や演算のためのRPackage\n\nこれらのRPackageをインストールする前に、LinuxやMacでは{rtatools}の依存ライブラリをインストールしておく必要があります。例えば、Ubuntuでは、次のようにして事前にライブラリをインストールします。\n\napt-get update\napt-get install -y libpoppler-cpp-dev libudunits2-dev libproj-dev libgdal-dev\n\n依存ライブラリをインストールしたら、Rで以下のコードを実行してRPackageをインストールします。\n\n# CRANからのインストール\ninstall.packages(\"tmap\")\ninstall.packages(\"tidyverse\")\ninstall.packages(\"sf\")\n\n# GitHubからのインストール\ninstall.packages(\"devtools\")\ndevtools::install_github(\"NONONOexe/rtatools\", upgrade = \"always\")\ndevtools::install_github(\"uribo/jpndistrict\", upgrade = \"always\")\n\nRでは標準パッケージリポジトリであるCRANに登録されているものはinstall.packages()でインストールすることができます。また、GitHubで公開されているものは{devtools}というRPackageのinstall_github()によりインストールすることができます。そのため、ここでは{devtools}もインストールしています。"
-  },
-  {
-    "objectID": "posts/2023-06-03-manipulating-geospatial-data/index.html#データの可視化",
-    "href": "posts/2023-06-03-manipulating-geospatial-data/index.html#データの可視化",
-    "title": "空間データの操作の基本",
-    "section": "3. データの可視化",
-    "text": "3. データの可視化\n\n交通事故地点のデータの取得\n交通事故のデータは交通事故そのもののデータと当事者のデータの2つからなります。ここでは交通事故地点を含む交通事故そのもののデータのみ使います。このデータは次のコードを実行して取得できます。\n\nlibrary(rtatools)\n\n# データのダウンロードと読み込み\ndata &lt;-\n  download_traffic_accidents_main() |&gt;\n  read_traffic_accidents_main()\n\n# 交通事故のデータ\naccidents &lt;- data$traffic_accidents\n\n# 一覧形式で表示\naccidents\n\n交通事故のデータ（一部）\n\n\n\n\n\n\n\n\nrecording_year\nprefecture\npolice_office\naccident_id\noccurence_time\nday_of_week\nholiday\nday_night_type\ncity\nroad\ntrack\nkilopost\nregion_type\nzone_regulation\nroad_verge\ncenter_divider\nweather\nroad_surface\nroad_shape\nroad_alignment\ncarriageway_width\ntraffic_signal\nroundabout_diameter\ninjury_pattern\nfatalities\ninjuries\nimpact_type\ncollision_position\ngeometry\n\n\n\n\n2021\n10\n059\n0001\n2020-12-28 20:25:00\n2\n3\n22\n224\n40020\n2\n0000\n3\n70\n4\n1\n2\n1\n12\n9\n04\n7\n00\n2\n0\n1\n21\n01\nc(141.619122777778, 42.8158677777778)\n\n\n2021\n10\n059\n0002\n2020-12-26 14:30:00\n7\n3\n12\n222\n40040\n2\n0000\n3\n70\n4\n1\n5\n4\n14\n9\n04\n7\n00\n2\n0\n2\n21\n01\nc(141.830353888889, 43.2287838888889)\n\n\n2021\n10\n059\n0003\n2020-12-02 16:55:00\n4\n3\n21\n222\n40030\n1\n0000\n3\n70\n4\n1\n2\n4\n14\n9\n04\n7\n00\n2\n0\n4\n21\n01\nc(141.830324444444, 43.2440230555556)\n\n\n2021\n10\n059\n0004\n2020-12-07 07:10:00\n2\n3\n11\n213\n50020\n2\n0000\n3\n70\n4\n1\n3\n3\n14\n9\n04\n7\n00\n2\n0\n1\n21\n01\nc(141.794236666667, 42.669235)\n\n\n2021\n10\n101\n0001\n2020-12-26 18:40:00\n7\n3\n22\n101\n39990\n0\n0000\n1\n70\n2\n5\n1\n3\n14\n9\n04\n7\n00\n2\n0\n1\n01\n01\nc(141.351606111111, 43.0556763888889)\n\n\n2021\n10\n101\n0002\n2020-12-17 02:39:00\n5\n3\n22\n101\n00360\n0\n0006\n1\n70\n2\n1\n2\n3\n01\n9\n19\n1\n00\n2\n0\n1\n01\n30\nc(141.352983055556, 43.0565608333333)\n\n\n\n\n\n\n\n\n\n交通事故地点の地図への描画\n交通事故のデータはgeometryという項目にその地点の緯度、経度を持っています。しかし、数値ではどこで発生した事故であるのかがよくわかりません。\n{tmap}を使うと空間データを地図に描画することができます。いろいろな描画の形式がありますが、ここでは、マーカーを使って描画します。\n\nlibrary(tmap)\n\n\n次のパッケージを付け加えます: 'tmap'\n\n\n以下のオブジェクトは 'package:gt' からマスクされています:\n\n    metro\n\n\n以下のオブジェクトは 'package:datasets' からマスクされています:\n\n    rivers\n\n# データ数が多いため、交通事故地点の先頭100件を抽出\naccidents_head_100 &lt;- head(accidents, 100)\n\n# インタラクティブな地図へ描画するモードへの切り替え\ntmap_mode(\"view\")\n\nℹ tmap mode set to \"view\".\n\n# 地図上に描画\ntm_shape(accidents_head_100) + tm_markers()\n\n\n\n\n\nこのように交通事故地点を地図上に描画することができます。tm_markers()は指定した空間データの位置をマーカーを使って表示します。また、近くに位置するマーカーはまとめて表示します。"
-  },
-  {
-    "objectID": "posts/2023-06-03-manipulating-geospatial-data/index.html#データの抽出",
-    "href": "posts/2023-06-03-manipulating-geospatial-data/index.html#データの抽出",
-    "title": "空間データの操作の基本",
-    "section": "4. データの抽出",
-    "text": "4. データの抽出\n\n属性値にもとづく条件抽出\n空間分析では、通常のデータ分析と同様に期間ごとにデータを分ける、ある特定の種類のデータについて抽出する、などして特定の条件に該当するデータに絞って分析することがあります。\nこのように条件に基づいてデータを抽出する場合、{tidyverse}のもつRPackageのひとつである{dplyr}のfilter()を使うと次のように簡単に抽出できます。\n\nlibrary(tidyverse)\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.1\n✔ ggplot2   3.5.1     ✔ tibble    3.2.1\n✔ lubridate 1.9.4     ✔ tidyr     1.3.1\n✔ purrr     1.0.2     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\naccidents_aichi_morning_rain &lt;-\n  accidents |&gt;\n  # 愛知県の交通事故を抽出（都道府県コード: 54）\n  filter(prefecture == \"54\") |&gt;\n  # 朝6時から朝8時の間の交通事故を抽出\n  filter(between(hour(occurence_time), 6, 8)) |&gt;\n  # 雨天時の事故を抽出（天候コード: 3）\n  filter(weather == \"3\")\n\n# 地図上に描画\ntm_shape(accidents_aichi_morning_rain) + tm_markers()\n\n\n\n\n\nここでは全国のデータから段階的に都道府県、時間、天候の3つの条件で抽出しています。filter()は第1引数がデータで第2引数が条件であるため、データを|&gt;（native pipe）で渡してつなげることができます。\n\n\n領域にもとづく抽出\n空間分析では「ある領域内に含まれるデータ」や「ある点に最も距離の近いデータ」のようにデータがもつ空間に応じた抽出もできます。空間データの処理では{sf}を使います。例えば、瀬戸市の交通事故を抽出する場合は次のようにできます。\n\nlibrary(jpndistrict)\n\nThis package provide map data is based on the Digital Map 25000 (Map\nImage) published by Geospatial Information Authority of Japan (Approval\nNo.603FY2017 information usage &lt;https://www.gsi.go.jp&gt;)\n\nlibrary(sf)\n\nLinking to GEOS 3.12.2, GDAL 3.9.3, PROJ 9.4.1; sf_use_s2() is TRUE\n\n# 瀬戸市の領域を取得\nseto &lt;- jpn_cities(jis_code = \"23\", admin_name = \"瀬戸市\")\n# accidents_aichi_morning_rainのうち、瀬戸市内の交通事故地点のみを抽出\naccidents_seto_morning_rain &lt;-\n  accidents_aichi_morning_rain |&gt; st_filter(seto)\n\n# 瀬戸市の領域のレイヤー\ntm_seto &lt;- tm_shape(seto) + tm_polygons(\n  alpha = 0.2, col = \"yellow\", border.col = \"yellow\")\n\n\n\n\n── tmap v3 code detected ───────────────────────────────────────────────────────\n\n\n[v3-&gt;v4] `tm_polygons()`: use 'fill' for the fill color of polygons/symbols\n(instead of 'col'), and 'col' for the outlines (instead of 'border.col').\n[v3-&gt;v4] `tm_polygons()`: use `fill_alpha` instead of `alpha`.\nThis message is displayed once every 8 hours.\n\n# 交通事故地点のレイヤー\ntm_accidents &lt;- tm_shape(accidents_seto_morning_rain) + tm_markers()\n# 重ね合わせて描画\ntm_seto + tm_accidents\n\n\n\n\n\nこの例では、瀬戸市の領域と抽出した交通事故地点を重ね合わせて描画しています。{tmap}で描画したオブジェクトは+演算子で簡単にレイヤーとして重ね合わせることができます。またそれぞれのレイヤーやベースとなっているタイルマップの操作は左上のコントロールから操作できます。"
-  },
-  {
-    "objectID": "posts/2023-06-03-manipulating-geospatial-data/index.html#まとめ",
-    "href": "posts/2023-06-03-manipulating-geospatial-data/index.html#まとめ",
-    "title": "空間データの操作の基本",
-    "section": "5. まとめ",
-    "text": "5. まとめ\nここでは、RPackageで提供されている空間データを使って、データの可視化と抽出をおこないました。ここで紹介したもの以外にもRでは多くの空間データや操作が提供されています。なにができるかについては{sf}のドキュメントが詳しいです。また、以前{tmap}を使ったプロットについて書いた以下の記事や、公開された空間分析についての書籍もあります。こちらからはさまざまな事例をみられるので、参考になると思います。\n\nNONONOexe(Keisuke ANDO), Rによる空間分析のススメ―交通事故ヒートマップを作成してみよう―, 2022\nRobin Lovelace, Jakub Nowosad and Jannes Muenchow. Geocomputation with R, 2019 (日本語版)"
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "ブログ",
-    "section": "",
-    "text": "Rによる30DayMapChallenge\n\n\n\n\n\n\ngeo\n\n\nrpackage\n\n\n\nRでチャレンジした30DayMapChallengeを振り返りました。 \n\n\n\n\n\nDec 18, 2024\n\n\nKeisuke ANDO\n\n\n\n\n\n\n\n\n\n\n\n\nQuartoへの移行\n\n\n\n\n\n\nblog\n\n\nquarto\n\n\n\nブログをQuartoへ移行しました。 \n\n\n\n\n\nJul 30, 2023\n\n\nKeisuke ANDO\n\n\n\n\n\n\n\n\n\n\n\n\n空間データの操作の基本\n\n\n\n\n\n\ngeo\n\n\n\nRによる基本的な空間データの操作について紹介します。 \n\n\n\n\n\nJun 3, 2023\n\n\nKeisuke ANDO\n\n\n\n\n\n\n\n\n\n\n\n\nRでブログを作成する\n\n\n\n\n\n\nrpackage\n\n\nblog\n\n\n\ndistillパッケージによるブログ作成についてまとめました。 \n\n\n\n\n\nMay 23, 2023\n\n\nKeisuke ANDO\n\n\n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "安藤 圭祐",
-    "section": "",
-    "text": "愛知工業大学、マルチエージェントシステム研究室の博士後期課程3年の安藤圭祐です。\n交通安全のための空間解析手法について研究しています。また、RoboCup Rescue Simulationや人狼知能などのマルチエージェントシステムに関する研究もしています。\n2017年に大学を卒業したあと、業務システムの開発に3年ほど携わっていました。その後、研究活動を求めて大学院へ進学しています。\n2020年からはRのおもしろさに魅了され、さまざまな情報を日々収集しています。最近はパッケージ開発にも取り組んでいます。\n趣味はゲームと飲食店の開拓、休日はよく外食しています。\n2025年度内での卒業に向けて研究を進めており、現在就職先も探しています。よいお話などありましたら、ぜひご連絡ください。"
-  },
-  {
-    "objectID": "about.html#自己紹介",
-    "href": "about.html#自己紹介",
-    "title": "安藤 圭祐",
-    "section": "",
-    "text": "愛知工業大学、マルチエージェントシステム研究室の博士後期課程3年の安藤圭祐です。\n交通安全のための空間解析手法について研究しています。また、RoboCup Rescue Simulationや人狼知能などのマルチエージェントシステムに関する研究もしています。\n2017年に大学を卒業したあと、業務システムの開発に3年ほど携わっていました。その後、研究活動を求めて大学院へ進学しています。\n2020年からはRのおもしろさに魅了され、さまざまな情報を日々収集しています。最近はパッケージ開発にも取り組んでいます。\n趣味はゲームと飲食店の開拓、休日はよく外食しています。\n2025年度内での卒業に向けて研究を進めており、現在就職先も探しています。よいお話などありましたら、ぜひご連絡ください。"
-  },
-  {
-    "objectID": "about.html#このサイトについて",
-    "href": "about.html#このサイトについて",
-    "title": "安藤 圭祐",
-    "section": "このサイトについて",
-    "text": "このサイトについて\nこのサイトではRに関する情報、自身に関係する宣伝、その他思ったことなどを書いていく予定です。"
-  },
-  {
-    "objectID": "posts/2023-05-23-how-to-create-blog/index.html",
-    "href": "posts/2023-05-23-how-to-create-blog/index.html",
-    "title": "Rでブログを作成する",
-    "section": "",
-    "text": "Note\n\n\n\nこのブログの作成ツールは{distill}から、Quartoへ移行しました。この記事は古いものになります。\n\n\n自分のブログを作成しようと思って、持っている技術で作る方法がないかと模索していたところ、R Packageの{distill}で作れることを知りました。この記事では、このブログを作成するときに学んだ方法やそれに伴って知った情報を紹介します。またこれから新しい技術や方法を知って、ブログを大きく変更することがあると思いますが、そのときには同時にこの記事も更新したいと思います。"
-  },
-  {
-    "objectID": "posts/2023-05-23-how-to-create-blog/index.html#はじめに",
-    "href": "posts/2023-05-23-how-to-create-blog/index.html#はじめに",
-    "title": "Rでブログを作成する",
-    "section": "",
-    "text": "Note\n\n\n\nこのブログの作成ツールは{distill}から、Quartoへ移行しました。この記事は古いものになります。\n\n\n自分のブログを作成しようと思って、持っている技術で作る方法がないかと模索していたところ、R Packageの{distill}で作れることを知りました。この記事では、このブログを作成するときに学んだ方法やそれに伴って知った情報を紹介します。またこれから新しい技術や方法を知って、ブログを大きく変更することがあると思いますが、そのときには同時にこの記事も更新したいと思います。"
-  },
-  {
-    "objectID": "posts/2023-05-23-how-to-create-blog/index.html#ブログを立てる",
-    "href": "posts/2023-05-23-how-to-create-blog/index.html#ブログを立てる",
-    "title": "Rでブログを作成する",
-    "section": "2. ブログを立てる",
-    "text": "2. ブログを立てる\n\nテンプレートの作成\n{distill}では非常に簡単にブログが作成できます。distill::create_blog()を実行するだけです。あとは対話的にディレクトリとブログ名を決定して、一連のテンプレートが作成できます。\n本ブログはGitHub Pagesで公開したかったため、以下の引数によりオプションを指定して、作成しました。\n\n# ブログの作成\ndistill::create_blog(\n  dir      = \"blog\",                     # ブログを作成するディレクトリ\n  title    = \"NONONOexe Something Blog\", # ブログのタイトル\n  gh_pages = TRUE                        # GitHub Pagesにより公開するかどうか\n)\n\n実行すると次のようにテンプレートが生成されます。また、最初の記事として、welcome.Rmdが作成されます。これを編集して、最初の記事を書くことができます。\n\n\n\n生成されるテンプレートファイル\n\n\n\n\n記事の作成\n新たに記事を作成するのも非常に簡単です。次のようにdistill::create_post()でベースを作成できます。なお、引数のtitleから日本語のタイトルは付けられないため、注意が必要です。付ける場合はあとから編集で付けます。\n\n# 記事の作成\ndistill::create_post(\n  title       = \"how-to-create-blog\", # 記事のタイトル\n  author      = \"Keisuke ANDO\",       # 記事の著者\n  date_prefix = NULL                  # 日付をファイル名に付けない\n)\n\n記事はRMarkdownで作成されるので、HTMLで確認する場合はRStudioのKnitボタンから、Knitしましょう。\n\n\n\nKnitボタン\n\n\n\n\n\nKnitして作成したWelcomeページ"
-  },
-  {
-    "objectID": "posts/2023-05-23-how-to-create-blog/index.html#ブログをカスタマイズする",
-    "href": "posts/2023-05-23-how-to-create-blog/index.html#ブログをカスタマイズする",
-    "title": "Rでブログを作成する",
-    "section": "3. ブログをカスタマイズする",
-    "text": "3. ブログをカスタマイズする\n\nCSSによるカスタマイズ\n{distill}で作成したページは通常のHTMLでのウェブサイト作成のようにCSSによるカスタマイズが可能です。次のdistill::create_theme()を実行することで、CSSのファイルが作成されます。\n\n# CSSによりテーマをカスタマイズ\ndistill::create_theme()\n## v Created CSS file at theme.css \n## o TODO: Customize it to suit your needs \n## o TODO: Add 'theme: theme.css' to your site or article YAML\n\nメッセージでTODOとして出力されたとおり、CSSのカスタマイズとサイトの構成を管理するYAMLファイルへの追記します。簡単な例としてヘッダのフォントをNoto Sans JP(Google Fonts)に変更する場合はtheme.cssを次のように変更します。\n\n/* Optional: embed custom fonts here with `@import`          */\n/* This must remain at the top of this file.                 */\n@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap');\n\n\n\nhtml {\n  /*-- Main font sizes --*/\n  --title-size:      50px;\n  --body-size:       1.06rem;\n  --code-size:       14px;\n  --aside-size:      12px;\n  --fig-cap-size:    13px;\n  /*-- Main font colors --*/\n  --title-color:     #000000;\n  --header-color:    rgba(0, 0, 0, 0.8);\n  --body-color:      rgba(0, 0, 0, 0.8);\n  --aside-color:     rgba(0, 0, 0, 0.6);\n  --fig-cap-color:   rgba(0, 0, 0, 0.6);\n  /*-- Specify custom fonts ~~~ must be imported above   --*/\n  --heading-font:    'Noto Sans JP', sans-serif; /* edited */\n  --mono-font:       monospace;\n  --body-font:       sans-serif;\n  --navbar-font:     sans-serif;  /* websites + blogs only */\n}\n\nまた、CSSを反映するために_site.ymlにも以下の部分を追記します。\nname: \"blog\"\ntitle: \"NONONOexe Something Blog\"\ndescription: |\n  NONONOexe Something Blog\noutput_dir: \"docs\"\ntheme: theme.css  # theme.cssを使用\nnavbar:\n  right:\n    - text: \"Home\"\n      href: index.html\n    - text: \"About\"\n      href: about.html\noutput: distill::distill_article\nこの状態で、ページをKnitするとフォントが次のように変更されたHTMLが生成されます。\n\n\n\nCSSを編集する前\n\n\n\n\n\nCSSを編集した後"
-  },
-  {
-    "objectID": "posts/2023-05-23-how-to-create-blog/index.html#まとめ",
-    "href": "posts/2023-05-23-how-to-create-blog/index.html#まとめ",
-    "title": "Rでブログを作成する",
-    "section": "4. まとめ",
-    "text": "4. まとめ\n「Rでブログを作成する」というちょっと変わったアプローチでしたが、想像以上に簡単に作成できることがわかりました。{distill}の基本はRMarkdownのため、他の関連パッケージと組み合わせることでまだまだいろいろなことができそうです。The Distilleryというサイトでは、{distill}を使ったさまざまなサイトを紹介しています。これも参考にこのブログもまた改善を加えていけたらと思います。"
-  },
-  {
-    "objectID": "posts/2023-07-30-migrating-blog-to-quarto/index.html",
-    "href": "posts/2023-07-30-migrating-blog-to-quarto/index.html",
-    "title": "Quartoへの移行",
-    "section": "",
-    "text": "Quartoにブログを移行しました。Quartoはこれまで使っていた{distill}(R Markdown)のように説明のための文章とコードをあわせて書ける環境です。 さらに、Python、R、Observableにも対応しています。"
-  },
-  {
-    "objectID": "posts/2023-07-30-migrating-blog-to-quarto/index.html#はじめに",
-    "href": "posts/2023-07-30-migrating-blog-to-quarto/index.html#はじめに",
-    "title": "Quartoへの移行",
-    "section": "",
-    "text": "Quartoにブログを移行しました。Quartoはこれまで使っていた{distill}(R Markdown)のように説明のための文章とコードをあわせて書ける環境です。 さらに、Python、R、Observableにも対応しています。"
-  },
-  {
-    "objectID": "posts/2023-07-30-migrating-blog-to-quarto/index.html#移行した理由",
-    "href": "posts/2023-07-30-migrating-blog-to-quarto/index.html#移行した理由",
-    "title": "Quartoへの移行",
-    "section": "2. 移行した理由",
-    "text": "2. 移行した理由\nQuartoに移行した主な理由ははじめから使える機能が多いというところです。{distill}では、自己紹介ページで使っている{postcards}との組み合わせたときに、表示が不自然になることがありました。Quartoでは、公式のドキュメント(ブログの作成)にもあるように、{postcards}をはじめからサポートしています。また、記事にコメント機能を加えるための utterancesも_quarto.ymlという設定ファイルを書き加えるだけで利用できます。これも以前から使おうと考えていたため、非常に都合がよかったです。\n\n\n\nGitHubのissueを使ってコメント機能を付けられるutterances"
-  },
-  {
-    "objectID": "posts/2023-07-30-migrating-blog-to-quarto/index.html#まとめ",
-    "href": "posts/2023-07-30-migrating-blog-to-quarto/index.html#まとめ",
-    "title": "Quartoへの移行",
-    "section": "3. まとめ",
-    "text": "3. まとめ\nブログを{distill}からQuartoへ移行した、お知らせでした。Quartoは公式のドキュメントが充実しているため、書き方についてはとりわけ書くことがないのですが、プラグイン1や深い使い方もこれから分かってくると思いますので、慣れてきたらまた覚えたことを記事にまとめたいと思います。\n\n\n1 このブログでも、すでにFont Awesomeが使えるようになるプラグインを導入しています。"
   },
   {
     "objectID": "publications.html",
