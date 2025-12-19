@@ -4,14 +4,14 @@
 .RData
 
 # User local data for Quarto
-.quarto
+/.quarto/
+/_site/
+**/*.quarto_ipynb
 
-# Source data for creating icons
+# Source data for creating figures
 *.afdesign
+*.af
 
 # Internal data such as chached data and temporary file
 **/_internal
 **/local
-
-/.quarto/
-/_site/
